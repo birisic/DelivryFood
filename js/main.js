@@ -10,6 +10,7 @@ if (!localStorage.getItem("navigation.json")) {
 //LOAD PAGE
 $(document).ready(function(){
     console.log(window.location.pathname);
+    console.log("loggg");
     if (window.location.pathname == "/index.html" || window.location.pathname == "/") {
         //OWL CAROUSEL FOOD CATEGORIES
         foodCategoriesOwlCarouselPrint();
