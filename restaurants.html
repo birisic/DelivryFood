@@ -77,11 +77,45 @@
         <section class="py-lg-4 py-md-3 py-sm-3 py-3">
             <div class="container-fluid py-lg-5 py-md-5 py-sm-4 py-3">
                <div class="row">
-                  <div class="col-12 mb-3">
-                     <h2 class="text-lg-start text-center text-dark text-capitalize jst-wthree-text mb-lg-5 mb-md-4 mb-sm-4 mb-4 ms-lg-5 ps-lg-5">All restaurants</h2>
+                  <div class="col-12">
+                     <h2 class="text-lg-start text-center text-dark text-capitalize jst-wthree-text mb-lg-3 mb-md-4 mb-sm-4 mb-4 ms-lg-5 ps-lg-5">All restaurants</h2>
                   </div>
                </div>
-               <div class="row d-flex justify-content-around align-items-center" id="mb-restaurants">
+               <div class="row mb-lg-4 mb-3">
+                  <div class="col-12 d-flex justify-content-end align-items-center">
+                     <div id="mb-restaurants-filter-sort">
+                        <h5 class="me-lg-5 pe-lg-5 me-2 pe-2">Filter/Sort by <button type="button" class="btn p-0" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa-solid fa-filter btn btn-warning text-white"></i></button></h5>
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                           <div class="modal-dialog">
+                           <div class="modal-content">
+                              <div class="modal-header">
+                                 <h4 class="modal-title fw-bold" id="exampleModalLabel">Filter</h4>
+                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                              <div class="modal-body">
+                                 <h5>Categories</h5>
+                                 <hr/>
+                                 <div class="px-3 d-flex justify-content-center align-items-center flex-wrap" id="mb-filter-categories">
+                                    <form action="" method="GET" id="mb-filter-form">
+                                       
+                                    </form>
+                                 </div>
+                              </div>
+                              <div class="modal-header">
+                                 <h4 class="modal-title" id="exampleModalLabel">Sort</h4>
+                              </div>
+                              <div class="modal-footer">
+                                 <button type="button" class="btn border" data-bs-dismiss="modal">Close</button>
+                                 <button type="button" class="btn btn-warning text-white">Apply changes</button>
+                              </div>
+                           </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="row pt-lg-3 d-flex justify-content-around align-items-center" id="mb-restaurants">
                   <div class="col-md-4 col-12 mb-3 d-flex justify-content-center align-items-center">
                      <a href="index.html" class="mb-restaurant-a">
                         <div class="card border-0 rounded">

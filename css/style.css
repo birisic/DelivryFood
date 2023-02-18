@@ -100,7 +100,7 @@ color: #fff;
 .navbar {
   position: fixed !important;
   top: 0 !important;
-  z-index: 10000;
+  z-index: 1000;
   opacity: 0.9;
   width: 100%;
   transition: 0.4s;
@@ -1891,6 +1891,17 @@ font-size: 20px;
 }
 #mb-search {
   width: 35%;
+}
+.mb-filter-category-label {
+  padding: 5px 10px;
+  background-color: rgb(240, 240, 192);
+  cursor: pointer;
+}
+.mb-width-0 {
+  width: 0 !important;
+}
+.mb-filter-active {
+  background-color: red !important;
 }
 
 

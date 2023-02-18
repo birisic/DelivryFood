@@ -6,6 +6,9 @@ if (!localStorage.getItem("navigation.json")) {
     ajaxCallback("navigation.json", saveToLocalStorage)
 }
 
+//SAVE CATEGORIES TO AN ARRAY GLOBALLY
+let foodCategories = JSON.parse(localStorage.getItem("categories-food.json"));
+
 
 //LOAD PAGE
 $(document).ready(function(){
@@ -37,7 +40,16 @@ $(document).ready(function(){
         $(".show_hide").text(txt);
         $('.mb-text-hide').slideToggle(200);
     });
+
+
+    //CREATE CATEGORY FILTERS
+    createCategoryFilters();
+    $(".mb-filter-category-label").click(function() {
+        console.log(this.textContent + " clicked");
+    })
+    showClickedFilters();
 })
+
 
 function ajaxCallback(file,callback) {
     $.ajax({
@@ -53,6 +65,7 @@ function ajaxCallback(file,callback) {
         }
     });
 }
+
 
 function createNavbar() {
     let navbarUl = document.getElementById("mb-navbar-ul");
@@ -84,7 +97,6 @@ function saveToLocalStorage(key, value) {
 function foodCategoriesOwlCarouselPrint() {
     let owlCarouselDiv = document.querySelector("#owl-example");
     let print = "";
-    let foodCategories = JSON.parse(localStorage.getItem("categories-food.json"));
     //DEEP CLONE FOOD CATEGORIES
     let cloneFoodCategories = JSON.parse(JSON.stringify(foodCategories));
     //Da li treba kopirati podatke kada radimo ovako sa njima? svakako ne menja nista u JSON-u tj u originalnim podacima
@@ -100,4 +112,20 @@ function foodCategoriesOwlCarouselPrint() {
                 </div>`
     });
     owlCarouselDiv.innerHTML = print;
+}
+
+
+function createCategoryFilters() {
+    let categoriesFilterForm = document.getElementById("mb-filter-form");
+    let print = "";
+    for (let category of foodCategories) {
+        print += `<input type="checkbox" name="filterCheck" id="${category.id}" class="mb-width-0"/>
+        <label for="${category.id}" class="mb-filter-category-label text-warning rounded-pill m-2">${category.name}</label>`
+    }
+    categoriesFilterForm.innerHTML += print;
+}
+
+
+function showClickedFilters() {
+
 }
