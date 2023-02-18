@@ -9,8 +9,7 @@ if (!localStorage.getItem("navigation.json")) {
 
 //LOAD PAGE
 $(document).ready(function(){
-    console.log(window.location.pathname);
-    if (window.location.pathname == "/delivry/index.html" || window.location.pathname == "/delivry/") {
+    if (window.location.pathname == "/delivry/index.html" || window.location.pathname == "/delivry/") {//include repository name
         //OWL CAROUSEL FOOD CATEGORIES
         foodCategoriesOwlCarouselPrint();
         $("#owl-example").owlCarousel();
@@ -43,7 +42,7 @@ $(document).ready(function(){
 
 function ajaxCallback(file,callback) {
     $.ajax({
-        url: `https://kanibalkorps.github.io/delivry/data/${file}`,//https://kanibalkorps.github.io/data/categories-food.json
+        url: `../data/${file}`,//https://kanibalkorps.github.io/data/categories-food.json
         method: "get",
         dataType: "json",
         success: function(result){
