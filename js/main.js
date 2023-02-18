@@ -41,7 +41,7 @@ $(document).ready(function(){
 
 function ajaxCallback(file,callback) {
     $.ajax({
-        url: `../data/${file}`,
+        url: `https://kanibalkorps.github.io/delivry/data/${file}`,//https://kanibalkorps.github.io/data/categories-food.json
         method: "get",
         dataType: "json",
         success: function(result){
