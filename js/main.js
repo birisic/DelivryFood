@@ -9,10 +9,12 @@ if (!localStorage.getItem("navigation.json")) {
 
 //LOAD PAGE
 $(document).ready(function(){
+    console.log(window.location.pathname);
     if (window.location.pathname == "/index.html" || window.location.pathname == "/") {
         //OWL CAROUSEL FOOD CATEGORIES
         foodCategoriesOwlCarouselPrint();
         $("#owl-example").owlCarousel();
+        console.log(localStorage.getItem("categories-food.json"));
     }
     
 
