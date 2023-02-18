@@ -260,8 +260,8 @@ text-align: center;
 }
 /*-- //inner-banner --*/ 
 /*-- banner --*/ 
-.one-img{  background: url(../images/bg-img-food-1-dark-2_50.png)no-repeat center;}
-.two-img{  background: url(../images/food-background.jpg)no-repeat center;}
+.one-img{  background: url(../images/food-background1-dark_50.png)no-repeat center;}
+.two-img{  background: url(../images/food-background2-dark.jpg)no-repeat center;}
 .three-img{  background: url(../images/b3.jpg)no-repeat center;} 
 .slider-img{  background-size: cover;
 min-height: 800px;}  
