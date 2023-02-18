@@ -22,31 +22,16 @@ $(document).ready(function(){
     //CREATE NAVBAR
     createNavbar();
 
-
     //NAVBAR SHRINK AND INCREASE OPACITY ON SCROLL
-    $(document).on("scroll",function(){
-        if ($(document).scrollTop() > 350) {
-            $(".navbar").addClass("shrink");
-            $(".navbar").addClass("opacity-full");
-        }
-        else $(".navbar").removeClass("shrink"), $(".navbar").removeClass("opacity-full");
-    })
+    navbarShrinkOnScroll();
 
 
     //READ MORE/LESS ABOUT SECTION
-    $(".mb-text-hide").hide();
-    $(".show_hide").on("click", function () {
-        let txt = $(".mb-text-hide").is(':visible') ? 'Read more' : 'Read less';
-        $(".show_hide").text(txt);
-        $('.mb-text-hide').slideToggle(200);
-    });
+    readMoreOrLess();
 
 
     //CREATE CATEGORY FILTERS
     createCategoryFilters();
-    $(".mb-filter-category-label").click(function() {
-        console.log(this.textContent + " clicked");
-    })
     showClickedFilters();
 })
 
@@ -89,6 +74,27 @@ function createNavbar() {
 }
 
 
+function navbarShrinkOnScroll() {
+    $(document).on("scroll",function(){
+        if ($(document).scrollTop() > 350) {
+            $(".navbar").addClass("shrink");
+            $(".navbar").addClass("opacity-full");
+        }
+        else $(".navbar").removeClass("shrink"), $(".navbar").removeClass("opacity-full");
+    })
+}
+
+
+function readMoreOrLess() {
+    $(".mb-text-hide").hide();
+    $(".show_hide").on("click", function () {
+        let txt = $(".mb-text-hide").is(':visible') ? 'Read more' : 'Read less';
+        $(".show_hide").text(txt);
+        $('.mb-text-hide').slideToggle(200);
+    });
+}
+
+
 function saveToLocalStorage(key, value) {
     localStorage.setItem(key, JSON.stringify(value));
 }
@@ -119,7 +125,7 @@ function createCategoryFilters() {
     let categoriesFilterForm = document.getElementById("mb-filter-form");
     let print = "";
     for (let category of foodCategories) {
-        print += `<input type="checkbox" name="filterCheck" id="${category.id}" class="mb-width-0"/>
+        print += `<input type="checkbox" name="filterCheck" id="${category.id}" class="mb-width-0" value="${category.name}"/>
         <label for="${category.id}" class="mb-filter-category-label text-warning rounded-pill m-2">${category.name}</label>`
     }
     categoriesFilterForm.innerHTML += print;
@@ -127,5 +133,9 @@ function createCategoryFilters() {
 
 
 function showClickedFilters() {
-
+    $(".mb-filter-category-label").click(function() {
+        let labelForAttr = this.getAttribute("for");
+        // console.log($(`input#${labelForAttr}`).val());
+        $(`label[for='${labelForAttr}']`).toggleClass("mb-filter-active");
+    })
 }
