@@ -13,7 +13,6 @@ $(document).ready(function(){
         //OWL CAROUSEL FOOD CATEGORIES
         foodCategoriesOwlCarouselPrint();
         $("#owl-example").owlCarousel();
-        console.log(localStorage.getItem("categories-food.json"));
     }
     
 
