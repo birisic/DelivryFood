@@ -1876,22 +1876,23 @@ font-size: 20px;
   bottom: 30px;
   left: 0;
   opacity: 0.8;
-  font-size: 1.7vw;
+  font-size: 1.3vw;
 }
-.mb-discount {
+.mb-restaurant-delivery {
   position: absolute;
   top: 0px;
   right: 20px;
   padding: 5px 8px;
-  font-size: 1.3vw;
+  font-size: 1.1vw;
   background-color: var(--yellow);
 }
 .mb-restaurant-spans span, .mb-restaurant-spans span i{
-  font-size: 1.3vw;
+  font-size: 1.1vw;
 }
 #mb-search {
   width: 35%;
 }
+
 
 @media screen and (max-width: 769px) {
   #mb-search {
@@ -1906,7 +1907,7 @@ font-size: 20px;
   .mb-restaurant-tag {
     font-size: 3vh;
   }
-  .mb-discount {
+  .mb-restaurant-delivery {
     font-size: 2.3vh;
   }
   .mb-restaurant-spans span, .mb-restaurant-spans span i{
