@@ -1,3 +1,8 @@
+//BASE CONSTANTS
+const BASE_IMG = "images/";
+const BASE_DATA = "data/";
+
+
 //GET JSON DATA AND STORE IT IN LOCALSTORAGE BEFORE FULL PAGE LOADS
 if (!localStorage.getItem("categories-food.json")) {
     ajaxCallback("categories-food.json", saveToLocalStorage)
@@ -38,7 +43,7 @@ $(document).ready(function(){
 
 function ajaxCallback(file,callback) {
     $.ajax({
-        url: `../data/${file}`,//https://kanibalkorps.github.io/data/categories-food.json
+        url: BASE_DATA + file,//https://kanibalkorps.github.io/data/categories-food.json
         method: "get",
         dataType: "json",
         success: function(result){
@@ -127,7 +132,7 @@ function foodCategoriesOwlCarouselPrint() {
     cloneFoodCategories.forEach(category => {
         print += `<div class="card" style="width: 18rem;">
                     <a href="" class="">
-                    <img src="images/food-category${category.id}.jpg" class="card-img-top img-fluid" alt="food"/>
+                    <img src="${BASE_IMG}food-category${category.id}.jpg" class="card-img-top img-fluid" alt="food"/>
                     <div class="card-body">
                         <h6 class="card-subtitle mb-2 text-muted text-center">${category.name}</h6>
                     </div>
@@ -152,7 +157,6 @@ function createCategoryFilters() {
 function showClickedFilters() {
     $(".mb-filter-category-label").click(function() {
         let labelForAttr = this.getAttribute("for");
-        // console.log($(`input#${labelForAttr}`).val());
         $(`label[for='${labelForAttr}']`).toggleClass("mb-filter-active");
     })
 }
