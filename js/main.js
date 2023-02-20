@@ -42,11 +42,28 @@ function ajaxCallback(file,callback) {
         method: "get",
         dataType: "json",
         success: function(result){
-            console.log(file, "saved");
+            console.log(file, " saved");
             callback(file, result);
         },
-        error: function(xhr, status, message){
-        console.log(xhr, status, message);
+        error: function(xhr, status, exception){
+            console.log(xhr, status, message);
+            var message = "";
+            if (status === 0) {
+                message = "Not connected.\n Verify your network.";
+            }else if (status == 404) {
+                message = "Requested page not found. [404]";
+            }else if (status == 500) {
+                message = "Internal Server Error. [500]"
+            }else if (exception === "parsererror") {
+                message = "Requested JSON parse failed.";
+            }else if (exception === "timeout") {
+                message = "Timeout error.";
+            }else if (exception === "abort") {
+                message = "Ajax request aborted.";
+            }else {
+                message = "Uncaught error.\n" + xhr.responseText;
+            }
+            alert(message);
         }
     });
 }
