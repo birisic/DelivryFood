@@ -10,6 +10,7 @@ if (!localStorage.getItem("categories-food.json")) {
 if (!localStorage.getItem("navigation.json")) {
     ajaxCallback("navigation.json", saveToLocalStorage)
 }
+//GET RESTAURANTS.JSON !!
 
 //SAVE CATEGORIES TO AN ARRAY GLOBALLY
 let foodCategories = JSON.parse(localStorage.getItem("categories-food.json"));
