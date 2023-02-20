@@ -1,0 +1,154 @@
+[
+    {
+        "id": 1,
+        "name": "Richard Gyros",
+        "tag": "Gyros",
+        "recommendations": 75,
+        "deliveryTime": 35,
+        "workingHours": "8h - 23h",
+        "workingHoursWeekend": "12h - 23h",
+        "websiteURL": null,
+        "email": "restaurant@email.com",
+        "location": "https://goo.gl/maps/XSQCvdM3tciyr4JS9",
+        "address": [
+            {
+                "country": "Serbia",
+                "street": "Tosin Bunar 174b",
+                "phoneNumber": "0622618371",
+                "city": {
+                    "cityID": 1,
+                    "name": "Belgrade",
+                    "postalCode": "11000"
+                }
+            },
+            {
+                "country": "Serbia",
+                "street": "Јурија Гагарина 141 B",
+                "phoneNumber": "0638234872",
+                "city": {
+                    "cityID": 1,
+                    "name": "Belgrade",
+                    "postalCode": "11000"
+                }
+            }
+        ],
+        "delivery": [
+            {
+                "type": "free",
+                "price": 0,
+                "dateAdded": "2023-02-19",
+                "status": 1
+            },
+            {
+                "type": "paid",
+                "price": 100,
+                "dateAdded": "2023-02-20",
+                "status": 0
+            }
+        ],
+        "minimalOrderPrice": [
+            {
+                "price": 500,
+                "dateAdded": "2023-02-20",
+                "status": 1
+            }
+        ],
+        "categoriesID": [11,4,2],
+        "foodID": []
+
+    },
+    {
+        "id": 2,
+        "name": "KFC",
+        "tag": "American",
+        "recommendations": 102,
+        "deliveryTime": 20,
+        "workingHours": "8h - 23h",
+        "workingHoursWeekend": "12h - 23h",
+        "websiteURL": "https://www.kfc.rs/",
+        "email": "restaurant@email.com",
+        "location": "https://goo.gl/maps/XSQCvdM3tciyr4JS9",
+        "address": [
+            {
+                "country": "Serbia",
+                "street": "Tosin Bunar 174b",
+                "phoneNumber": "0622618371",
+                "city": {
+                    "cityID": 1,
+                    "name": "Belgrade",
+                    "postalCode": "11000"
+                }
+            }
+        ],
+        "delivery": [
+            {
+                "type": "free",
+                "price": 0,
+                "dateAdded": "2023-02-19",
+                "status": 0
+            },
+            {
+                "type": "paid",
+                "price": 100,
+                "dateAdded": "2023-02-20",
+                "status": 1
+            }
+        ],
+        "minimalOrderPrice": [
+            {
+                "price": 500,
+                "dateAdded": "2023-02-20",
+                "status": 1
+            }
+        ],
+        "categoriesID": [1,2,3,4,6,7],
+        "foodID": []
+    },
+    {
+        "id": 3,
+        "name": "Crni Đorđe",
+        "tag": "Breakfast",
+        "recommendations": 54,
+        "deliveryTime": 30,
+        "workingHours": "8h - 23h",
+        "workingHoursWeekend": "12h - 23h",
+        "websiteURL": null,
+        "email": "restaurant@email.com",
+        "location": "https://goo.gl/maps/XSQCvdM3tciyr4JS9",
+        "address": [
+            {
+                "country": "Serbia",
+                "street": "Tosin Bunar 174b",
+                "phoneNumber": "0622618371",
+                "city": {
+                    "cityID": 1,
+                    "name": "Belgrade",
+                    "postalCode": "11000"
+                }
+            }
+        ],
+        "delivery": [
+            {
+                "type": "free",
+                "price": 0,
+                "dateAdded": "2023-02-19",
+                "status": 1
+            },
+            {
+                "type": "paid",
+                "price": 100,
+                "dateAdded": "2023-02-20",
+                "status": 0
+            }
+        ],
+        "minimalOrderPrice": [
+            {
+                "price": 500,
+                "dateAdded": "2023-02-20",
+                "status": 1
+            }
+        ],
+        "categoriesID": [1,2,4,5,6,11],
+        "foodID": []
+    }
+]
