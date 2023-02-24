@@ -1868,26 +1868,35 @@ font-size: 20px;
   height: 100%;
   background: linear-gradient(rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.008) 8.1%, rgba(0, 0, 0, 0.024) 15.5%, rgba(0, 0, 0, 0.05) 22.5%, rgba(0, 0, 0, 0.086) 29%, rgba(0, 0, 0, 0.125) 35.3%, rgba(0, 0, 0, 0.173) 41.2%, rgba(0, 0, 0, 0.22) 47.1%, rgba(0, 0, 0, 0.27) 52.9%, rgba(0, 0, 0, 0.318) 58.8%, rgba(0, 0, 0, 0.365) 64.7%, rgba(0, 0, 0, 0.404) 71%, rgba(0, 0, 0, 0.44) 77.5%, rgba(0, 0, 0, 0.467) 84.5%, rgba(0, 0, 0, 0.482) 91.9%, rgba(0, 0, 0, 0.49) 100%);
 }
+.mb-restaurant-bottom {
+  position: absolute;
+  bottom: 0;
+}
+.mb-restaurant-title{
+}
 .mb-restaurant-text {
-  font-size: 1.7vw !important;/*2vh*/
+  font-size: 1.7vw !important;
 }
 .mb-restaurant-tag {
-  position: absolute;
+  /* position: absolute;
   bottom: 30px;
-  left: 0;
+  left: 0; */
   opacity: 0.8;
-  font-size: 1.3vw;
+  font-size: 1.3vw !important;
 }
 .mb-restaurant-delivery {
   position: absolute;
   top: 0px;
   right: 20px;
   padding: 5px 8px;
-  font-size: 1.1vw;
+  font-size: 1.1vw !important;
   background-color: var(--yellow);
 }
+/* .mb-restaurant-spans {
+
+} */
 .mb-restaurant-spans span, .mb-restaurant-spans span i{
-  font-size: 1.1vw;
+  font-size: 1.1vw !important;
 }
 #mb-search {
   width: 35%;
@@ -1913,21 +1922,22 @@ font-size: 20px;
   #mb-search {
     width: 70%;
   }
-}
-
-@media screen and (max-width: 426px) {
   .mb-restaurant-text {
     font-size: 3vh !important;
   }
   .mb-restaurant-tag {
-    font-size: 3vh;
+    font-size: 3vh !important;
   }
   .mb-restaurant-delivery {
-    font-size: 2.3vh;
+    font-size: 2.1vh !important;
   }
   .mb-restaurant-spans span, .mb-restaurant-spans span i{
-    font-size: 2.3vh;
+    font-size: 2.1vh !important;
   }
+}
+
+@media screen and (max-width: 426px) {
+  
   #mb-search {
     width: 90%;
   }
