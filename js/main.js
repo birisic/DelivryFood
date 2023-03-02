@@ -20,10 +20,11 @@ let restaurants = JSON.parse(localStorage.getItem("restaurants.json"));
 
 //LOAD PAGE
 $(document).ready(function(){
+    console.log(window.location.pathname);
     console.log(restaurants);
     //CREATE NAVBAR
     createNavbar();
-
+    
     //NAVBAR SHRINK AND INCREASE OPACITY ON SCROLL
     navbarShrinkOnScroll();
     
