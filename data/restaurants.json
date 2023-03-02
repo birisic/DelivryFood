@@ -179,14 +179,14 @@
                 "dateAdded": "2023-02-20"
             }
         ],
-        "categoriesID": [1,2,4,5,6,11],
+        "categoriesID": [3,5,6,7],
         "foodID": []
     },
     {
-        "id": 3,
-        "name": "Crni Đorđe",
-        "tag": "Breakfast",
-        "recommendations": 54,
+        "id": 5,
+        "name": "Moja salata bar Dorćol",
+        "tag": "Salad",
+        "recommendations": 66,
         "deliveryTime": 30,
         "workingHours": "8h - 23h",
         "workingHoursWeekend": "12h - 23h",
@@ -207,34 +207,26 @@
         ],
         "delivery": [
             {
-                "type": "free",
-                "price": 0,
-                "dateAdded": "2023-02-19",
-                "status": 1
-            },
-            {
                 "type": "paid",
                 "price": 100,
-                "dateAdded": "2023-02-20",
-                "status": 0
+                "dateAdded": "2023-02-20"
             }
         ],
         "minimalOrderPrice": [
             {
                 "price": 500,
-                "dateAdded": "2023-02-20",
-                "status": 1
+                "dateAdded": "2023-02-20"
             }
         ],
-        "categoriesID": [1,2,4,5,6,11],
+        "categoriesID": [5,6,7],
         "foodID": []
     },
     {
-        "id": 3,
-        "name": "Crni Đorđe",
-        "tag": "Breakfast",
-        "recommendations": 54,
-        "deliveryTime": 30,
+        "id": 6,
+        "name": "Black White",
+        "tag": "Chinese",
+        "recommendations": 71,
+        "deliveryTime": 60,
         "workingHours": "8h - 23h",
         "workingHoursWeekend": "12h - 23h",
         "websiteURL": null,
@@ -254,26 +246,18 @@
         ],
         "delivery": [
             {
-                "type": "free",
-                "price": 0,
-                "dateAdded": "2023-02-19",
-                "status": 1
-            },
-            {
                 "type": "paid",
                 "price": 100,
-                "dateAdded": "2023-02-20",
-                "status": 0
+                "dateAdded": "2023-02-20"
             }
         ],
         "minimalOrderPrice": [
             {
                 "price": 500,
-                "dateAdded": "2023-02-20",
-                "status": 1
+                "dateAdded": "2023-02-20"
             }
         ],
-        "categoriesID": [1,2,4,5,6,11],
+        "categoriesID": [3,6,7,8],
         "foodID": []
     }
 ]
