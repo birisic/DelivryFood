@@ -1872,8 +1872,8 @@ font-size: 20px;
   position: absolute;
   bottom: 0;
 }
-.mb-restaurant-title{
-}
+/* .mb-restaurant-title{
+} */
 .mb-restaurant-text {
   font-size: 1.7vw !important;
   text-transform: capitalize;
