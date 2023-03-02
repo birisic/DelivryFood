@@ -14,7 +14,7 @@ if (!localStorage.getItem("restaurants.json")) {
     ajaxCallback("restaurants.json", saveToLocalStorage);
 }
 
-//SAVE CATEGORIES TO AN ARRAY GLOBALLY
+//SAVE DATA TO ARRAYS GLOBALLY
 let foodCategories = JSON.parse(localStorage.getItem("categories-food.json"));
 let restaurants = JSON.parse(localStorage.getItem("restaurants.json"));
 
@@ -43,17 +43,14 @@ $(document).ready(function(){
     if (window.location.pathname == "/delivry/restaurants.html") {
         //PRINT DEFAULT OR FILTERED RESTAURANTS
         printRestaurants();
+
+
+        //CREATE CATEGORY FILTERS
+        createCategoryFilters();
+        showClickedFilters();
     }
 
     
-
-
-    
-
-
-    //CREATE CATEGORY FILTERS
-    createCategoryFilters();
-    showClickedFilters();
 })
 
 
@@ -108,7 +105,7 @@ function printDeliveryPrice(arr) {
 
 function ajaxCallback(file,callback) {
     $.ajax({
-        url: BASE_DATA + file,//https://kanibalkorps.github.io/data/categories-food.json
+        url: BASE_DATA + file,
         method: "get",
         dataType: "json",
         success: function(result){
