@@ -36,21 +36,18 @@
             {
                 "type": "free",
                 "price": 0,
-                "dateAdded": "2023-02-19",
-                "status": 1
+                "dateAdded": "2023-02-19"
             },
             {
                 "type": "paid",
                 "price": 100,
-                "dateAdded": "2023-02-20",
-                "status": 0
+                "dateAdded": "2023-02-20"
             }
         ],
         "minimalOrderPrice": [
             {
                 "price": 500,
-                "dateAdded": "2023-02-20",
-                "status": 1
+                "dateAdded": "2023-02-20"
             }
         ],
         "categoriesID": [11,4,2],
@@ -84,14 +81,12 @@
             {
                 "type": "free",
                 "price": 0,
-                "dateAdded": "2023-02-19",
-                "status": 0
+                "dateAdded": "2023-02-19"
             },
             {
                 "type": "paid",
                 "price": 100,
-                "dateAdded": "2023-02-20",
-                "status": 1
+                "dateAdded": "2023-02-20"
             }
         ],
         "minimalOrderPrice": [
@@ -102,6 +97,136 @@
             }
         ],
         "categoriesID": [1,2,3,4,6,7],
+        "foodID": []
+    },
+    {
+        "id": 3,
+        "name": "Crni Đorđe",
+        "tag": "Breakfast",
+        "recommendations": 54,
+        "deliveryTime": 30,
+        "workingHours": "8h - 23h",
+        "workingHoursWeekend": "12h - 23h",
+        "websiteURL": null,
+        "email": "restaurant@email.com",
+        "location": "https://goo.gl/maps/XSQCvdM3tciyr4JS9",
+        "address": [
+            {
+                "country": "Serbia",
+                "street": "Tosin Bunar 174b",
+                "phoneNumber": "0622618371",
+                "city": {
+                    "cityID": 1,
+                    "name": "Belgrade",
+                    "postalCode": "11000"
+                }
+            }
+        ],
+        "delivery": [
+            {
+                "type": "free",
+                "price": 0,
+                "dateAdded": "2023-02-19"
+            },
+            {
+                "type": "paid",
+                "price": 100,
+                "dateAdded": "2023-02-20"
+            }
+        ],
+        "minimalOrderPrice": [
+            {
+                "price": 500,
+                "dateAdded": "2023-02-20"
+            }
+        ],
+        "categoriesID": [1,2,4,5,6,11],
+        "foodID": []
+    },
+    {
+        "id": 4,
+        "name": "All Italian",
+        "tag": "Pasta",
+        "recommendations": 23,
+        "deliveryTime": 15,
+        "workingHours": "8h - 23h",
+        "workingHoursWeekend": "12h - 23h",
+        "websiteURL": null,
+        "email": "restaurant@email.com",
+        "location": "https://goo.gl/maps/XSQCvdM3tciyr4JS9",
+        "address": [
+            {
+                "country": "Serbia",
+                "street": "Tosin Bunar 174b",
+                "phoneNumber": "0622618371",
+                "city": {
+                    "cityID": 1,
+                    "name": "Belgrade",
+                    "postalCode": "11000"
+                }
+            }
+        ],
+        "delivery": [
+            {
+                "type": "paid",
+                "price": 220,
+                "dateAdded": "2023-02-19"
+            }
+        ],
+        "minimalOrderPrice": [
+            {
+                "price": 500,
+                "dateAdded": "2023-02-20"
+            }
+        ],
+        "categoriesID": [1,2,4,5,6,11],
+        "foodID": []
+    },
+    {
+        "id": 3,
+        "name": "Crni Đorđe",
+        "tag": "Breakfast",
+        "recommendations": 54,
+        "deliveryTime": 30,
+        "workingHours": "8h - 23h",
+        "workingHoursWeekend": "12h - 23h",
+        "websiteURL": null,
+        "email": "restaurant@email.com",
+        "location": "https://goo.gl/maps/XSQCvdM3tciyr4JS9",
+        "address": [
+            {
+                "country": "Serbia",
+                "street": "Tosin Bunar 174b",
+                "phoneNumber": "0622618371",
+                "city": {
+                    "cityID": 1,
+                    "name": "Belgrade",
+                    "postalCode": "11000"
+                }
+            }
+        ],
+        "delivery": [
+            {
+                "type": "free",
+                "price": 0,
+                "dateAdded": "2023-02-19",
+                "status": 1
+            },
+            {
+                "type": "paid",
+                "price": 100,
+                "dateAdded": "2023-02-20",
+                "status": 0
+            }
+        ],
+        "minimalOrderPrice": [
+            {
+                "price": 500,
+                "dateAdded": "2023-02-20",
+                "status": 1
+            }
+        ],
+        "categoriesID": [1,2,4,5,6,11],
         "foodID": []
     },
     {
