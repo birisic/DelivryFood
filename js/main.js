@@ -10,7 +10,7 @@ if (!localStorage.getItem("categories-food.json")) {
 if (!localStorage.getItem("navigation.json")) {
     ajaxCallback("navigation.json", saveToLocalStorage);
 }
-if (!localStorage.getItem("navigation.json")) {
+if (!localStorage.getItem("restaurants.json")) {
     ajaxCallback("restaurants.json", saveToLocalStorage);
 }
 
@@ -20,11 +20,11 @@ let restaurants = JSON.parse(localStorage.getItem("restaurants.json"));
 
 //LOAD PAGE
 $(document).ready(function(){
-    console.log(window.location.pathname);
+    //console.log(window.location.pathname);
     console.log(restaurants);
     //CREATE NAVBAR
     createNavbar();
-    
+
     //NAVBAR SHRINK AND INCREASE OPACITY ON SCROLL
     navbarShrinkOnScroll();
     
