@@ -110,7 +110,7 @@ function ajaxCallback(file,callback) {
         dataType: "json",
         success: function(result){
             console.log(file, " saved");
-            callback(file, result);
+            setTimeout(callback(file, result), 0);
         },
         error: function(xhr, status, exception){
             console.log(xhr, status, message);
