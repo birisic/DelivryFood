@@ -24,9 +24,10 @@ let newRestaurants = [];
 //ARRAYS FOR LATER
 let initialCategories = [1,2,3,4,5,6,7,8,9,10,11,12];
 let initialDelivery = 0;
-let initialSort = ;
+let initialSort = "0";
 let selectedFiltersCategories = [];
 let selectedFilterDelivery = 0;
+let selectedSort = "0";
 
 
 //LOAD PAGE
@@ -84,12 +85,13 @@ $(document).ready(function(){
 })
 
 
-function printRestaurants(categoriesIDs, deliveryInputValue, sortInput) {//, delivery, sort
+function printRestaurants(categoriesIDs, deliveryInputValue, sortInput) {
     let restaurantsRow = document.getElementById("mb-restaurants");
     let print = "";
 
     newRestaurants = filterCategories(categoriesIDs);
     newRestaurants = filterDelivery(deliveryInputValue);
+    //SEARCH FILTER UBACI
     newRestaurants = sortBy(sortInput);
 
     newRestaurants.forEach(restaurant => {
@@ -121,10 +123,33 @@ function printRestaurants(categoriesIDs, deliveryInputValue, sortInput) {//, del
 }
 
 
+function sortBy(sortInput) {
+    let arrSorted = [];
+
+    switch(sortInput){
+       
+        case "0":                   arrSorted = newRestaurants.sort(function(a,b){
+                                        return b.recommendations - a.recommendations;
+                                    });
+                                    return arrSorted;
+        case "1":   
+                                    arrSorted = newRestaurants.sort(function(a,b){
+                                        return a.delivery.price - b.delivery.price;
+                                    });
+                                    return arrSorted;
+        case "2":                   arrSorted = newRestaurants.sort(function(a,b){
+                                        return a.deliveryTime - b.deliveryTime;
+                                    });
+                                    return arrSorted;
+        default:                    arrSorted = newRestaurants;
+                                    return arrSorted;
+    }
+}
+
+
 function filterDelivery(deliveryInputValue) {
     let parsedDelivery = parseInt(deliveryInputValue);
     if (parsedDelivery) {
-        //console.log(deliveryInputValue);
         return newRestaurants.filter(x => x.delivery.type=="paid");
     }
     else {
@@ -135,8 +160,6 @@ function filterDelivery(deliveryInputValue) {
 
 
 function filterCategories(arrCategoriesIDs) {
-    //let filteredRestaurants = [];
-
     if (arrCategoriesIDs.length) {
         return restaurants.filter(x => x.categoriesID.some(id => arrCategoriesIDs.includes(id)));
     }
@@ -144,22 +167,6 @@ function filterCategories(arrCategoriesIDs) {
         return restaurants.filter(x => x.categoriesID.some(id => initialCategories.includes(id)));
     }
 }
-
-
-// function printDeliveryPrice(arr) {
-//     let print = "";
-//     for (let i = 0; i < arr.length; i++) {
-//         if (arr[i].type == "free") {
-//             print = "FREE";
-//             break;
-//         }
-//         else {
-//             print += arr[i].price + "RSD";
-//             break;
-//         }
-//     }
-//     return print;
-// }
 
 
 function ajaxCallback(file,callback) {
@@ -264,12 +271,6 @@ function foodCategoriesOwlCarouselPrint() {
 }
 
 
-// function createSortRadios() {
-//     let sortForm;
-//     let print = "";
-// }
-
-
 function createCategoryFilters() {
     let categoriesFilterForm = document.getElementById("mb-filter-form");
     let print = "";
@@ -292,7 +293,6 @@ function showClickedFilters() {
             let currentCategory = selectedFiltersCategories.indexOf(parseInt(this.previousElementSibling.id));
             selectedFiltersCategories.splice(currentCategory,1);
         }
-        console.log(selectedFiltersCategories);
         $(`label[for='${labelForAttr}']`).toggleClass("mb-filter-active");
     });
 }
@@ -301,7 +301,6 @@ function showClickedFilters() {
 function showClickedRadioFilter() {
     $(document).on("click", 'input.mb-filter-radio', function () {
         if ($(this).is(":checked")) {
-            //console.log($(this).val());
             selectedFilterDelivery = $(this).val();
           $('label.mb-filter-delivery-active').removeClass('mb-filter-delivery-active');
           $(this).next("label.mb-filter-delivery-label").addClass("mb-filter-delivery-active");
@@ -313,7 +312,7 @@ function showClickedRadioFilter() {
 function showClickedRadioSort() {
     $(document).on("click", 'input.mb-sort-radio', function () {
         if ($(this).is(":checked")) {
-            //console.log($(this).val());
+            selectedSort = $(this).val();
           $('label.mb-sort-active').removeClass('mb-sort-active');
           $(this).next("label.mb-sort-label").addClass("mb-sort-active");
         }
