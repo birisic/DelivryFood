@@ -107,9 +107,9 @@
                                  <hr/>
                                  <div class="px-3" id="mb-filter-categories">
                                     <form action="" method="GET" id="" class="d-flex justify-content-start align-items-center flex-wrap">
-                                       <input class="mb-filter-radio mb-width-0" type="radio" name="filterRadio" id="rbFilter1" value="free"/>
+                                       <input class="mb-filter-radio mb-width-0" type="radio" name="filterRadio" id="rbFilter1" value="0"/>
                                        <label for="rbFilter1" class="mb-filter-delivery-label text-warning rounded-pill m-2">Free</label>
-                                       <input class="mb-filter-radio mb-width-0" type="radio" name="filterRadio" id="rbFilter2" value="100"/>
+                                       <input class="mb-filter-radio mb-width-0" type="radio" name="filterRadio" id="rbFilter2" value="1"/>
                                        <label for="rbFilter2" class="mb-filter-delivery-label text-warning rounded-pill m-2">Paid</label>
                                     </form>
                                  </div>
@@ -119,17 +119,20 @@
                                  <hr/>
                               </div>
                               <div class="modal-body">
-                                 <h5>Categories</h5>
-                                 <hr/>
-                                 <div class="px-3" id="mb-filter-categories">
+                                 <div class="px-3">
                                     <form action="" method="GET" id="" class="d-flex justify-content-center align-items-center flex-wrap">
-                                       
+                                       <input type="radio" name="sortRadio" id="rbSort1" class="mb-sort-radio mb-width-0" value="Najpopularniji"/>
+                                       <label for="rbSort1" class="mb-sort-label text-warning rounded-pill m-2">Najpopularniji</label>
+                                       <input type="radio" name="sortRadio" id="rbSort2" class="mb-sort-radio mb-width-0" value="Cena dostave opadajuća"/>
+                                       <label for="rbSort2" class="mb-sort-label text-warning rounded-pill m-2">Cena dostave opadajuća</label>
+                                       <input type="radio" name="sortRadio" id="rbSort3" class="mb-sort-radio mb-width-0" value="Najbrža dostava"/>
+                                       <label for="rbSort3" class="mb-sort-label text-warning rounded-pill m-2">Najbrža dostava</label>
                                     </form>
                                  </div>
                               </div>
                               <div class="modal-footer">
                                  <button type="button" class="btn border" data-bs-dismiss="modal">Close</button>
-                                 <button type="button" class="btn btn-warning text-white">Apply changes</button>
+                                 <button type="button" class="btn btn-warning text-white" id="btnApply">Apply changes</button>
                               </div>
                            </div>
                            </div>

@@ -14,14 +14,21 @@ if (!localStorage.getItem("restaurants.json")) {
     ajaxCallback("restaurants.json", saveToLocalStorage);
 }
 
+
 //SAVE DATA TO ARRAYS GLOBALLY
 let foodCategories = JSON.parse(localStorage.getItem("categories-food.json"));
 let restaurants = JSON.parse(localStorage.getItem("restaurants.json"));
 
+
+//ARRAYS FOR LATER
+let initialCategories = [1,2,3,4,5,6,7,8,9,10,11,12];
+let initialDelivery = 0;
+let selectedFiltersCategories = [];
+
+
 //LOAD PAGE
 $(document).ready(function(){
     //console.log(window.location.pathname);
-    console.log(restaurants);
     //CREATE NAVBAR
     createNavbar();
 
@@ -41,33 +48,46 @@ $(document).ready(function(){
     
     //RESTAURANTS PAGE
     //if (window.location.pathname == "/delivry/restaurants.html") {
-        //PRINT DEFAULT OR FILTERED RESTAURANTS
-        printRestaurants();
-
 
         //CREATE CATEGORY FILTERS
         createCategoryFilters();
         showClickedFilters();
 
         //RADIO FILTERS
-        $(document).on("click", 'input.mb-filter-radio', function () {
-            if ($(this).is(":checked")) {
-              $('label.mb-filter-active').removeClass('mb-filter-active');
-              $(this).next("label.mb-filter-delivery-label").addClass("mb-filter-active");
-            }
-          });
-        //showClickedRadioFilter()
+        showClickedRadioFilter()
+
+        //RADIO SORT
+        showClickedRadioSort();
+
+        //PRINT DEFAULT OR FILTERED RESTAURANTS
+        printRestaurants(initialCategories, initialDelivery);
+
+
+        //LISTEN FOR SELECTED CATEGORIES
+        //$(document).on("click", "") 
+
+
+
+        //LISTEN FOR CONFIRM FILTERS/SORTS BUTTON
+        $(document).on("click","button#btnApply", function(){
+            printRestaurants(selectedFiltersCategories);//, selectedFilterDelivery, selectedSort
+        })
+
+
+        
     //}
 
     
 })
 
 
-function printRestaurants() {
+function printRestaurants(categoriesIDs) {//, delivery, sort
     let restaurantsRow = document.getElementById("mb-restaurants");
     let print = "";
 
-    restaurants.forEach(restaurant => {
+    let newRestaurants = filterCategories(categoriesIDs);
+
+    newRestaurants.forEach(restaurant => {
         print += `<div class="col-lg-4 col-md-6 col-12 mb-5 d-flex justify-content-center align-items-center">
         <a href="index.html" class="mb-restaurant-a">
            <div class="card border-0 rounded">
@@ -93,6 +113,18 @@ function printRestaurants() {
 
     restaurantsRow.innerHTML = print;
 
+}
+
+
+function filterCategories(arrCategoriesIDs) {
+    //let filteredRestaurants = [];
+
+    if (arrCategoriesIDs.length) {
+        return restaurants.filter(x => x.categoriesID.some(id => arrCategoriesIDs.includes(id)));
+    }
+    else {
+        return restaurants.filter(x => x.categoriesID.some(id => initialCategories.includes(id)));
+    }
 }
 
 
@@ -214,10 +246,10 @@ function foodCategoriesOwlCarouselPrint() {
 }
 
 
-function createSortRadios() {
-    let sortForm;
-    let print = "";
-}
+// function createSortRadios() {
+//     let sortForm;
+//     let print = "";
+// }
 
 
 function createCategoryFilters() {
@@ -234,40 +266,37 @@ function createCategoryFilters() {
 function showClickedFilters() {
     $(".mb-filter-category-label").click(function() {
         let labelForAttr = this.getAttribute("for");
+        //ADD/REMOVE FROM SELECTED CATEGORIES
+        if (!selectedFiltersCategories.includes(parseInt(this.previousElementSibling.id))) {
+            selectedFiltersCategories.push(parseInt(this.previousElementSibling.id));
+        }
+        else {
+            let currentCategory = selectedFiltersCategories.indexOf(parseInt(this.previousElementSibling.id));
+            selectedFiltersCategories.splice(currentCategory,1);
+        }
+        console.log(selectedFiltersCategories);
         $(`label[for='${labelForAttr}']`).toggleClass("mb-filter-active");
     });
 }
 
 
 function showClickedRadioFilter() {
-    //$(".mb-filter-delivery-label").click(function(){
-
-        $(document).on("click", 'filterRadio', function () {
-            if ($(this).is(":checked")) {
-              $('label.mb-filter-active').removeClass('mb-filter-active');
-              $(this).next("label.mb-filter-delivery-label").addClass("mb-filter-active");
-            }
-          });
-        //console.log(this.previousElementSibling.value);
-        //this.hasClass("mb-filter-active")?this:this.addClass("mb-filter-active")
-            // if (this.previousElementSibling.checked) {
-            //     console.log(this.previousElementSibling.value);
-            // }
-        // let radioBtns = document.getElementsByName("filterRadio");
-        // for (let btn of radioBtns) {
-        //     if (btn.checked) {
-        //         console.log(btn.value, btn.nextElementSibling);
-        //         //btn.nextElementSibling.addClass("mb-filter-active");
-        //         // let labelForAttr = btn.nextElementSibling.getAttribute("for");
-        //         // $(`label[for='${labelForAttr}']`).addClass("mb-filter-active");
-        //     }
-        //     else {
-        //         //btn.nextElementSibling.removeClass("mb-filter-active");
-        //     }
-        // }
-    //});
+    $(document).on("click", 'input.mb-filter-radio', function () {
+        if ($(this).is(":checked")) {
+            //console.log($(this).val());
+          $('label.mb-filter-delivery-active').removeClass('mb-filter-delivery-active');
+          $(this).next("label.mb-filter-delivery-label").addClass("mb-filter-delivery-active");
+        }
+      });
+}
 
 
-
-    
+function showClickedRadioSort() {
+    $(document).on("click", 'input.mb-sort-radio', function () {
+        if ($(this).is(":checked")) {
+            //console.log($(this).val());
+          $('label.mb-sort-active').removeClass('mb-sort-active');
+          $(this).next("label.mb-sort-label").addClass("mb-sort-active");
+        }
+      });
 }

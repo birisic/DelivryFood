@@ -1916,10 +1916,27 @@ font-size: 20px;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
 }
+.mb-sort-label {
+  padding: 5px 10px;
+  background-color: rgb(240, 240, 192);
+  color: #ffc107;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
 .mb-width-0 {
   width: 0 !important;
 }
+.mb-filter-delivery-active {
+  color: #fff !important;
+  background-color: #ffc107 !important;
+  font-weight: bold !important;
+}
 .mb-filter-active {
+  color: #fff !important;
+  background-color: #ffc107 !important;
+  font-weight: bold !important;
+}
+.mb-sort-active {
   color: #fff !important;
   background-color: #ffc107 !important;
   font-weight: bold !important;
