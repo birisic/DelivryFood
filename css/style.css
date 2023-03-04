@@ -1909,6 +1909,13 @@ font-size: 20px;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
 }
+.mb-filter-delivery-label {
+  padding: 5px 10px;
+  background-color: rgb(240, 240, 192);
+  color: #ffc107;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
 .mb-width-0 {
   width: 0 !important;
 }

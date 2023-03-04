@@ -40,7 +40,7 @@ $(document).ready(function(){
     }
     
     //RESTAURANTS PAGE
-    if (window.location.pathname == "/delivry/restaurants.html") {
+    //if (window.location.pathname == "/delivry/restaurants.html") {
         //PRINT DEFAULT OR FILTERED RESTAURANTS
         printRestaurants();
 
@@ -48,7 +48,16 @@ $(document).ready(function(){
         //CREATE CATEGORY FILTERS
         createCategoryFilters();
         showClickedFilters();
-    }
+
+        //RADIO FILTERS
+        $(document).on("click", 'input.mb-filter-radio', function () {
+            if ($(this).is(":checked")) {
+              $('label.mb-filter-active').removeClass('mb-filter-active');
+              $(this).next("label.mb-filter-delivery-label").addClass("mb-filter-active");
+            }
+          });
+        //showClickedRadioFilter()
+    //}
 
     
 })
@@ -205,6 +214,12 @@ function foodCategoriesOwlCarouselPrint() {
 }
 
 
+function createSortRadios() {
+    let sortForm;
+    let print = "";
+}
+
+
 function createCategoryFilters() {
     let categoriesFilterForm = document.getElementById("mb-filter-form");
     let print = "";
@@ -220,5 +235,39 @@ function showClickedFilters() {
     $(".mb-filter-category-label").click(function() {
         let labelForAttr = this.getAttribute("for");
         $(`label[for='${labelForAttr}']`).toggleClass("mb-filter-active");
-    })
+    });
+}
+
+
+function showClickedRadioFilter() {
+    //$(".mb-filter-delivery-label").click(function(){
+
+        $(document).on("click", 'filterRadio', function () {
+            if ($(this).is(":checked")) {
+              $('label.mb-filter-active').removeClass('mb-filter-active');
+              $(this).next("label.mb-filter-delivery-label").addClass("mb-filter-active");
+            }
+          });
+        //console.log(this.previousElementSibling.value);
+        //this.hasClass("mb-filter-active")?this:this.addClass("mb-filter-active")
+            // if (this.previousElementSibling.checked) {
+            //     console.log(this.previousElementSibling.value);
+            // }
+        // let radioBtns = document.getElementsByName("filterRadio");
+        // for (let btn of radioBtns) {
+        //     if (btn.checked) {
+        //         console.log(btn.value, btn.nextElementSibling);
+        //         //btn.nextElementSibling.addClass("mb-filter-active");
+        //         // let labelForAttr = btn.nextElementSibling.getAttribute("for");
+        //         // $(`label[for='${labelForAttr}']`).addClass("mb-filter-active");
+        //     }
+        //     else {
+        //         //btn.nextElementSibling.removeClass("mb-filter-active");
+        //     }
+        // }
+    //});
+
+
+
+    
 }

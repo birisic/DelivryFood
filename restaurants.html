@@ -75,7 +75,7 @@
         </div>
         <!-- RESTAURANTS -->
         <section class="py-lg-4 py-md-3 py-sm-3 py-3">
-            <div class="container-fluid py-lg-5 py-md-5 py-sm-4 py-3">
+            <div class="container-fluid py-lg-1 py-md-1 py-sm-1">
                <div class="row">
                   <div class="col-12">
                      <h2 class="text-lg-start text-center text-dark text-capitalize jst-wthree-text mb-lg-3 mb-md-4 mb-sm-4 mb-4 ms-lg-5 ps-lg-5">All restaurants</h2>
@@ -102,8 +102,30 @@
                                     </form>
                                  </div>
                               </div>
+                              <div class="modal-body">
+                                 <h5>Delivery</h5>
+                                 <hr/>
+                                 <div class="px-3" id="mb-filter-categories">
+                                    <form action="" method="GET" id="" class="d-flex justify-content-start align-items-center flex-wrap">
+                                       <input class="mb-filter-radio mb-width-0" type="radio" name="filterRadio" id="rbFilter1" value="free"/>
+                                       <label for="rbFilter1" class="mb-filter-delivery-label text-warning rounded-pill m-2">Free</label>
+                                       <input class="mb-filter-radio mb-width-0" type="radio" name="filterRadio" id="rbFilter2" value="100"/>
+                                       <label for="rbFilter2" class="mb-filter-delivery-label text-warning rounded-pill m-2">Paid</label>
+                                    </form>
+                                 </div>
+                              </div>
                               <div class="modal-header">
-                                 <h4 class="modal-title" id="exampleModalLabel">Sort</h4>
+                                 <h4 class="modal-title fw-bold" id="exampleModalLabel">Sort</h4>
+                                 <hr/>
+                              </div>
+                              <div class="modal-body">
+                                 <h5>Categories</h5>
+                                 <hr/>
+                                 <div class="px-3" id="mb-filter-categories">
+                                    <form action="" method="GET" id="" class="d-flex justify-content-center align-items-center flex-wrap">
+                                       
+                                    </form>
+                                 </div>
                               </div>
                               <div class="modal-footer">
                                  <button type="button" class="btn border" data-bs-dismiss="modal">Close</button>

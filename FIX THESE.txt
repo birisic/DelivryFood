@@ -7,6 +7,11 @@
 - on resolution 320px images are not full width of container
 
 
+- border-radius on search and icon
+- space above restaurants h2
+- font for title and logo
+- add some logo
+
 //REQUIREMENTS
 
 Ocenjivanje sajtova - Web programiranje 2
