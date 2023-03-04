@@ -32,24 +32,15 @@
                 }
             }
         ],
-        "delivery": [
-            {
-                "type": "free",
-                "price": 0,
-                "dateAdded": "2023-02-19"
-            },
-            {
-                "type": "paid",
-                "price": 100,
-                "dateAdded": "2023-02-20"
-            }
-        ],
-        "minimalOrderPrice": [
-            {
-                "price": 500,
-                "dateAdded": "2023-02-20"
-            }
-        ],
+        "delivery": {
+            "type": "free",
+            "price": 0,
+            "dateAdded": "2023-02-19"
+        },
+        "minimalOrderPrice": {
+            "price": 500,
+            "dateAdded": "2023-02-20"
+        },
         "image": {
             "src": "1.jpg",
             "alt": "restaurant"
@@ -81,25 +72,15 @@
                 }
             }
         ],
-        "delivery": [
-            {
-                "type": "free",
-                "price": 0,
-                "dateAdded": "2023-02-19"
-            },
-            {
-                "type": "paid",
-                "price": 100,
-                "dateAdded": "2023-02-20"
-            }
-        ],
-        "minimalOrderPrice": [
-            {
-                "price": 500,
-                "dateAdded": "2023-02-20",
-                "status": 1
-            }
-        ],
+        "delivery": {
+            "type": "free",
+            "price": 0,
+            "dateAdded": "2023-02-19"
+        },
+        "minimalOrderPrice": {
+            "price": 500,
+            "dateAdded": "2023-02-20"
+        },
         "image": {
             "src": "2.jpg",
             "alt": "restaurant"
@@ -130,24 +111,15 @@
                 }
             }
         ],
-        "delivery": [
-            {
-                "type": "free",
-                "price": 0,
-                "dateAdded": "2023-02-19"
-            },
-            {
-                "type": "paid",
-                "price": 100,
-                "dateAdded": "2023-02-20"
-            }
-        ],
-        "minimalOrderPrice": [
-            {
-                "price": 500,
-                "dateAdded": "2023-02-20"
-            }
-        ],
+        "delivery": {
+            "type": "free",
+            "price": 0,
+            "dateAdded": "2023-02-19"
+        },
+        "minimalOrderPrice": {
+            "price": 500,
+            "dateAdded": "2023-02-20"
+        },
         "image": {
             "src": "3.jpg",
             "alt": "restaurant"
@@ -178,19 +150,15 @@
                 }
             }
         ],
-        "delivery": [
-            {
-                "type": "paid",
-                "price": 220,
-                "dateAdded": "2023-02-19"
-            }
-        ],
-        "minimalOrderPrice": [
-            {
-                "price": 500,
-                "dateAdded": "2023-02-20"
-            }
-        ],
+        "delivery": {
+            "type": "paid",
+            "price": 220,
+            "dateAdded": "2023-02-19"
+        },
+        "minimalOrderPrice": {
+            "price": 500,
+            "dateAdded": "2023-02-20"
+        },
         "image": {
             "src": "4.jpg",
             "alt": "restaurant"
@@ -221,19 +189,15 @@
                 }
             }
         ],
-        "delivery": [
-            {
-                "type": "paid",
-                "price": 100,
-                "dateAdded": "2023-02-20"
-            }
-        ],
-        "minimalOrderPrice": [
-            {
-                "price": 500,
-                "dateAdded": "2023-02-20"
-            }
-        ],
+        "delivery": {
+            "type": "paid",
+            "price": 100,
+            "dateAdded": "2023-02-19"
+        },
+        "minimalOrderPrice": {
+            "price": 500,
+            "dateAdded": "2023-02-20"
+        },
         "image": {
             "src": "5.jpg",
             "alt": "restaurant"
@@ -264,24 +228,20 @@
                 }
             }
         ],
-        "delivery": [
-            {
-                "type": "paid",
-                "price": 100,
-                "dateAdded": "2023-02-20"
-            }
-        ],
-        "minimalOrderPrice": [
-            {
-                "price": 500,
-                "dateAdded": "2023-02-20"
-            }
-        ],
+        "delivery": {
+            "type": "paid",
+            "price": 100,
+            "dateAdded": "2023-02-19"
+        },
+        "minimalOrderPrice": {
+            "price": 500,
+            "dateAdded": "2023-02-20"
+        },
         "image": {
             "src": "6.jpg",
             "alt": "restaurant"
         },
-        "categoriesID": [3,6,7,8],
+        "categoriesID": [3,6,7,8,10],
         "foodID": []
     },
     {
@@ -307,24 +267,15 @@
                 }
             }
         ],
-        "delivery": [
-            {
-                "type": "free",
-                "price": 0,
-                "dateAdded": "2023-02-19"
-            },
-            {
-                "type": "paid",
-                "price": 100,
-                "dateAdded": "2023-02-20"
-            }
-        ],
-        "minimalOrderPrice": [
-            {
-                "price": 500,
-                "dateAdded": "2023-02-20"
-            }
-        ],
+        "delivery": {
+            "type": "free",
+            "price": 0,
+            "dateAdded": "2023-02-19"
+        },
+        "minimalOrderPrice": {
+            "price": 500,
+            "dateAdded": "2023-02-20"
+        },
         "image": {
             "src": "7.jpg",
             "alt": "restaurant"
@@ -355,24 +306,15 @@
                 }
             }
         ],
-        "delivery": [
-            {
-                "type": "free",
-                "price": 0,
-                "dateAdded": "2023-02-19"
-            },
-            {
-                "type": "paid",
-                "price": 100,
-                "dateAdded": "2023-02-20"
-            }
-        ],
-        "minimalOrderPrice": [
-            {
-                "price": 500,
-                "dateAdded": "2023-02-20"
-            }
-        ],
+        "delivery": {
+            "type": "free",
+            "price": 0,
+            "dateAdded": "2023-02-19"
+        },
+        "minimalOrderPrice": {
+            "price": 500,
+            "dateAdded": "2023-02-20"
+        },
         "image": {
             "src": "8.jpg",
             "alt": "restaurant"
@@ -403,24 +345,15 @@
                 }
             }
         ],
-        "delivery": [
-            {
-                "type": "free",
-                "price": 0,
-                "dateAdded": "2023-02-19"
-            },
-            {
-                "type": "paid",
-                "price": 100,
-                "dateAdded": "2023-02-20"
-            }
-        ],
-        "minimalOrderPrice": [
-            {
-                "price": 500,
-                "dateAdded": "2023-02-20"
-            }
-        ],
+        "delivery": {
+            "type": "free",
+            "price": 0,
+            "dateAdded": "2023-02-19"
+        },
+        "minimalOrderPrice": {
+            "price": 500,
+            "dateAdded": "2023-02-20"
+        },
         "image": {
             "src": "9.jpg",
             "alt": "restaurant"
@@ -451,24 +384,15 @@
                 }
             }
         ],
-        "delivery": [
-            {
-                "type": "free",
-                "price": 0,
-                "dateAdded": "2023-02-19"
-            },
-            {
-                "type": "paid",
-                "price": 100,
-                "dateAdded": "2023-02-20"
-            }
-        ],
-        "minimalOrderPrice": [
-            {
-                "price": 500,
-                "dateAdded": "2023-02-20"
-            }
-        ],
+        "delivery": {
+            "type": "free",
+            "price": 0,
+            "dateAdded": "2023-02-19"
+        },
+        "minimalOrderPrice": {
+            "price": 500,
+            "dateAdded": "2023-02-20"
+        },
         "image": {
             "src": "10.jpg",
             "alt": "restaurant"
@@ -499,24 +423,15 @@
                 }
             }
         ],
-        "delivery": [
-            {
-                "type": "free",
-                "price": 0,
-                "dateAdded": "2023-02-19"
-            },
-            {
-                "type": "paid",
-                "price": 100,
-                "dateAdded": "2023-02-20"
-            }
-        ],
-        "minimalOrderPrice": [
-            {
-                "price": 500,
-                "dateAdded": "2023-02-20"
-            }
-        ],
+        "delivery": {
+            "type": "free",
+            "price": 0,
+            "dateAdded": "2023-02-19"
+        },
+        "minimalOrderPrice": {
+            "price": 500,
+            "dateAdded": "2023-02-20"
+        },
         "image": {
             "src": "11.jpg",
             "alt": "restaurant"
@@ -547,24 +462,15 @@
                 }
             }
         ],
-        "delivery": [
-            {
-                "type": "free",
-                "price": 0,
-                "dateAdded": "2023-02-19"
-            },
-            {
-                "type": "paid",
-                "price": 100,
-                "dateAdded": "2023-02-20"
-            }
-        ],
-        "minimalOrderPrice": [
-            {
-                "price": 500,
-                "dateAdded": "2023-02-20"
-            }
-        ],
+        "delivery": {
+            "type": "free",
+            "price": 0,
+            "dateAdded": "2023-02-19"
+        },
+        "minimalOrderPrice": {
+            "price": 500,
+            "dateAdded": "2023-02-20"
+        },
         "image": {
             "src": "12.jpg",
             "alt": "restaurant"

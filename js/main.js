@@ -18,12 +18,15 @@ if (!localStorage.getItem("restaurants.json")) {
 //SAVE DATA TO ARRAYS GLOBALLY
 let foodCategories = JSON.parse(localStorage.getItem("categories-food.json"));
 let restaurants = JSON.parse(localStorage.getItem("restaurants.json"));
+let newRestaurants = [];
 
 
 //ARRAYS FOR LATER
 let initialCategories = [1,2,3,4,5,6,7,8,9,10,11,12];
 let initialDelivery = 0;
+let initialSort = ;
 let selectedFiltersCategories = [];
+let selectedFilterDelivery = 0;
 
 
 //LOAD PAGE
@@ -53,14 +56,14 @@ $(document).ready(function(){
         createCategoryFilters();
         showClickedFilters();
 
-        //RADIO FILTERS
+        //RADIO FILTERS DELIVERY
         showClickedRadioFilter()
 
         //RADIO SORT
         showClickedRadioSort();
 
         //PRINT DEFAULT OR FILTERED RESTAURANTS
-        printRestaurants(initialCategories, initialDelivery);
+        printRestaurants(initialCategories, initialDelivery, initialSort);
 
 
         //LISTEN FOR SELECTED CATEGORIES
@@ -70,7 +73,7 @@ $(document).ready(function(){
 
         //LISTEN FOR CONFIRM FILTERS/SORTS BUTTON
         $(document).on("click","button#btnApply", function(){
-            printRestaurants(selectedFiltersCategories);//, selectedFilterDelivery, selectedSort
+            printRestaurants(selectedFiltersCategories, selectedFilterDelivery, selectedSort);//, selectedFilterDelivery, selectedSort
         })
 
 
@@ -81,11 +84,13 @@ $(document).ready(function(){
 })
 
 
-function printRestaurants(categoriesIDs) {//, delivery, sort
+function printRestaurants(categoriesIDs, deliveryInputValue, sortInput) {//, delivery, sort
     let restaurantsRow = document.getElementById("mb-restaurants");
     let print = "";
 
-    let newRestaurants = filterCategories(categoriesIDs);
+    newRestaurants = filterCategories(categoriesIDs);
+    newRestaurants = filterDelivery(deliveryInputValue);
+    newRestaurants = sortBy(sortInput);
 
     newRestaurants.forEach(restaurant => {
         print += `<div class="col-lg-4 col-md-6 col-12 mb-5 d-flex justify-content-center align-items-center">
@@ -100,7 +105,7 @@ function printRestaurants(categoriesIDs) {//, delivery, sort
                           <p class="mb-restaurant-text card-text text-white pb-3 ps-1 pb-xl-3 fw-bold">${restaurant.name}</p>
                        </div>
                        <div class="mb-restaurant-spans col-md-5 col-6 d-flex justify-content-end align-items-center py-3 px-1">
-                          <span class="bg-warning p-1 rounded"><i class="fa-solid fa-bicycle"></i>${printDeliveryPrice(restaurant.delivery)}</span>
+                          <span class="bg-warning p-1 rounded"><i class="fa-solid fa-bicycle"></i>${restaurant.delivery.price==0?restaurant.delivery.type.toUpperCase():restaurant.delivery.price+"RSD"}</span>
                           <span class="text-capitalize"><i class="fa-solid fa-star"></i>(${restaurant.recommendations})</span>
                        </div>
                     </div>
@@ -112,6 +117,19 @@ function printRestaurants(categoriesIDs) {//, delivery, sort
     });
 
     restaurantsRow.innerHTML = print;
+
+}
+
+
+function filterDelivery(deliveryInputValue) {
+    let parsedDelivery = parseInt(deliveryInputValue);
+    if (parsedDelivery) {
+        //console.log(deliveryInputValue);
+        return newRestaurants.filter(x => x.delivery.type=="paid");
+    }
+    else {
+        return newRestaurants.filter(x => x.delivery.type=="free");
+    }
 
 }
 
@@ -128,20 +146,20 @@ function filterCategories(arrCategoriesIDs) {
 }
 
 
-function printDeliveryPrice(arr) {
-    let print = "";
-    for (let i = 0; i < arr.length; i++) {
-        if (arr[i].type == "free") {
-            print = "FREE";
-            break;
-        }
-        else {
-            print += arr[i].price + "RSD";
-            break;
-        }
-    }
-    return print;
-}
+// function printDeliveryPrice(arr) {
+//     let print = "";
+//     for (let i = 0; i < arr.length; i++) {
+//         if (arr[i].type == "free") {
+//             print = "FREE";
+//             break;
+//         }
+//         else {
+//             print += arr[i].price + "RSD";
+//             break;
+//         }
+//     }
+//     return print;
+// }
 
 
 function ajaxCallback(file,callback) {
@@ -284,6 +302,7 @@ function showClickedRadioFilter() {
     $(document).on("click", 'input.mb-filter-radio', function () {
         if ($(this).is(":checked")) {
             //console.log($(this).val());
+            selectedFilterDelivery = $(this).val();
           $('label.mb-filter-delivery-active').removeClass('mb-filter-delivery-active');
           $(this).next("label.mb-filter-delivery-label").addClass("mb-filter-delivery-active");
         }
