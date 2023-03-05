@@ -45,8 +45,8 @@ $(document).ready(function(){
     navbarShrinkOnScroll();
     
     //INDEX PAGE
-    //if (window.location.pathname == "/delivry/index.html" || window.location.pathname == "/delivry/") {//include repository name
-    if (window.location.pathname == "/index.html" || window.location.pathname == "/") {
+    if (window.location.pathname == "/delivry/index.html" || window.location.pathname == "/delivry/") {//include repository name
+    //if (window.location.pathname == "/index.html" || window.location.pathname == "/") {
         //OWL CAROUSEL FOOD CATEGORIES
         foodCategoriesOwlCarouselPrint();
         $("#owl-example").owlCarousel();
@@ -57,8 +57,8 @@ $(document).ready(function(){
     }
     
     //RESTAURANTS PAGE
-    //if (window.location.pathname == "/delivry/restaurants.html") {
-    if (window.location.pathname == "/restaurants.html") {
+    if (window.location.pathname == "/delivry/restaurants.html") {
+    //if (window.location.pathname == "/restaurants.html") {
         //GET CATEGORY ID THROUGH URL AND PRINT RESTAURANTS
         queryStringCategory = window.location.search;
         queryStringCategoryParams = new URLSearchParams(queryStringCategory);
