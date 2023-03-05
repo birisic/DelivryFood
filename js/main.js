@@ -24,9 +24,11 @@ let newRestaurants = [];
 //ARRAYS FOR LATER
 let initialCategories = [1,2,3,4,5,6,7,8,9,10,11,12];
 let initialDelivery = 0;
+let initialSearch = "";
 let initialSort = "0";
 let selectedFiltersCategories = [];
 let selectedFilterDelivery = 0;
+let selectedSearchInput = "";
 let selectedSort = "0";
 
 
@@ -60,21 +62,25 @@ $(document).ready(function(){
         //RADIO FILTERS DELIVERY
         showClickedRadioFilter()
 
+
         //RADIO SORT
         showClickedRadioSort();
 
         //PRINT DEFAULT OR FILTERED RESTAURANTS
-        printRestaurants(initialCategories, initialDelivery, initialSort);
+        printRestaurants(initialCategories, initialDelivery, initialSort, initialSearch);
 
 
-        //LISTEN FOR SELECTED CATEGORIES
-        //$(document).on("click", "") 
+        //LISTEN FOR SEARCH
+        getSearchInput();
+        // $(document).on("onkeyup", "input#input-search", function(){
+        //     printRestaurants(selectedFiltersCategories, selectedFilterDelivery, selectedSort, selectedSearchInput);
+        // }) 
 
 
 
         //LISTEN FOR CONFIRM FILTERS/SORTS BUTTON
         $(document).on("click","button#btnApply", function(){
-            printRestaurants(selectedFiltersCategories, selectedFilterDelivery, selectedSort);//, selectedFilterDelivery, selectedSort
+            printRestaurants(selectedFiltersCategories, selectedFilterDelivery, selectedSort, selectedSearchInput);
         })
 
 
@@ -85,13 +91,13 @@ $(document).ready(function(){
 })
 
 
-function printRestaurants(categoriesIDs, deliveryInputValue, sortInput) {
+function printRestaurants(categoriesIDs, deliveryInputValue, sortInput, searchInput) {
     let restaurantsRow = document.getElementById("mb-restaurants");
     let print = "";
 
     newRestaurants = filterCategories(categoriesIDs);
     newRestaurants = filterDelivery(deliveryInputValue);
-    //SEARCH FILTER UBACI
+    newRestaurants = filterSearch(searchInput)
     newRestaurants = sortBy(sortInput);
 
     newRestaurants.forEach(restaurant => {
@@ -132,18 +138,28 @@ function sortBy(sortInput) {
                                         return b.recommendations - a.recommendations;
                                     });
                                     return arrSorted;
-        case "1":   
-                                    arrSorted = newRestaurants.sort(function(a,b){
+
+        case "1":                   arrSorted = newRestaurants.sort(function(a,b){
                                         return a.delivery.price - b.delivery.price;
                                     });
                                     return arrSorted;
+
         case "2":                   arrSorted = newRestaurants.sort(function(a,b){
                                         return a.deliveryTime - b.deliveryTime;
                                     });
                                     return arrSorted;
+
         default:                    arrSorted = newRestaurants;
                                     return arrSorted;
     }
+}
+
+
+function filterSearch(searchInput) {
+    if (searchInput == initialSearch || searchInput == null) {
+        return newRestaurants;
+    }
+    return newRestaurants.filter(x => x.name.toLowerCase().includes(searchInput.toLowerCase()));
 }
 
 
@@ -317,4 +333,11 @@ function showClickedRadioSort() {
           $(this).next("label.mb-sort-label").addClass("mb-sort-active");
         }
       });
+}
+
+function getSearchInput() {
+    $("#input-search").keyup(function(){
+        selectedSearchInput = $("#input-search").val();
+        printRestaurants(selectedFiltersCategories, selectedFilterDelivery, selectedSort, selectedSearchInput);
+    });
 }

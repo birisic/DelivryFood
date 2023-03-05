@@ -1000,9 +1000,9 @@ background-color:#ffbf00;
 outline: none;
 padding: 10px 30px;
 border: 1px solid #ffbf00;
-border-radius: 10px;
 font-size: 16px;
 font-weight: bold;
+margin-left: 5px;
 }
 .address-para,.footer-header p,.footer-para p,
 .footer-para p a,.book-here p,.service-list-inner-wthree
