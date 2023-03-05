@@ -21,7 +21,7 @@ let restaurants = JSON.parse(localStorage.getItem("restaurants.json"));
 let newRestaurants = [];
 
 
-//ARRAYS FOR LATER
+//VARIABLES FOR LATER
 let initialCategories = [1,2,3,4,5,6,7,8,9,10,11,12];
 let initialDelivery = 0;
 let initialSearch = "";
@@ -30,6 +30,9 @@ let selectedFiltersCategories = [];
 let selectedFilterDelivery = 0;
 let selectedSearchInput = "";
 let selectedSort = "0";
+let queryStringCategory = "";
+let queryStringCategoryParams = "";
+let categoryID = 0;
 
 
 //LOAD PAGE
@@ -42,7 +45,8 @@ $(document).ready(function(){
     navbarShrinkOnScroll();
     
     //INDEX PAGE
-    if (window.location.pathname == "/delivry/index.html" || window.location.pathname == "/delivry/") {//include repository name
+    //if (window.location.pathname == "/delivry/index.html" || window.location.pathname == "/delivry/") {//include repository name
+    if (window.location.pathname == "/index.html" || window.location.pathname == "/") {
         //OWL CAROUSEL FOOD CATEGORIES
         foodCategoriesOwlCarouselPrint();
         $("#owl-example").owlCarousel();
@@ -54,28 +58,37 @@ $(document).ready(function(){
     
     //RESTAURANTS PAGE
     //if (window.location.pathname == "/delivry/restaurants.html") {
+    if (window.location.pathname == "/restaurants.html") {
+        //GET CATEGORY ID THROUGH URL AND PRINT RESTAURANTS
+        queryStringCategory = window.location.search;
+        queryStringCategoryParams = new URLSearchParams(queryStringCategory);
+        categoryID = parseInt(queryStringCategoryParams.get("categoryID"));
+        selectedFiltersCategories.push(categoryID);
+        console.log(selectedFiltersCategories);
+
+
+        //IF A CATEGORY HAS BEEN CHOSEN ON INDEX
+        if (categoryID) {
+            printRestaurants(selectedFiltersCategories, initialDelivery, initialSort, initialSearch);
+        }
+        else {
+            //PRINT DEFAULT RESTAURANTS
+            printRestaurants(initialCategories, initialDelivery, initialSort, initialSearch);
+        }
+
 
         //CREATE CATEGORY FILTERS
         createCategoryFilters();
         showClickedFilters();
 
         //RADIO FILTERS DELIVERY
-        showClickedRadioFilter()
-
+        showClickedRadioFilter();
 
         //RADIO SORT
         showClickedRadioSort();
 
-        //PRINT DEFAULT OR FILTERED RESTAURANTS
-        printRestaurants(initialCategories, initialDelivery, initialSort, initialSearch);
-
-
         //LISTEN FOR SEARCH
         getSearchInput();
-        // $(document).on("onkeyup", "input#input-search", function(){
-        //     printRestaurants(selectedFiltersCategories, selectedFilterDelivery, selectedSort, selectedSearchInput);
-        // }) 
-
 
 
         //LISTEN FOR CONFIRM FILTERS/SORTS BUTTON
@@ -83,9 +96,8 @@ $(document).ready(function(){
             printRestaurants(selectedFiltersCategories, selectedFilterDelivery, selectedSort, selectedSearchInput);
         })
 
-
         
-    //}
+    }
 
     
 })
@@ -271,11 +283,10 @@ function foodCategoriesOwlCarouselPrint() {
     let print = "";
     //DEEP CLONE FOOD CATEGORIES
     let cloneFoodCategories = JSON.parse(JSON.stringify(foodCategories));
-    //Da li treba kopirati podatke kada radimo ovako sa njima? svakako ne menja nista u JSON-u tj u originalnim podacima
     
     cloneFoodCategories.forEach(category => {
         print += `<div class="card" style="width: 18rem;">
-                    <a href="" class="">
+                    <a href="restaurants.html?categoryID=${category.id}" class="mb-category-anchor">
                     <img src="${BASE_IMG}food-category${category.id}.jpg" class="card-img-top img-fluid" alt="food"/>
                     <div class="card-body">
                         <h6 class="card-subtitle mb-2 text-muted text-center">${category.name}</h6>
@@ -299,6 +310,7 @@ function createCategoryFilters() {
 
 
 function showClickedFilters() {
+
     $(".mb-filter-category-label").click(function() {
         let labelForAttr = this.getAttribute("for");
         //ADD/REMOVE FROM SELECTED CATEGORIES
@@ -338,6 +350,7 @@ function showClickedRadioSort() {
 function getSearchInput() {
     $("#input-search").keyup(function(){
         selectedSearchInput = $("#input-search").val();
-        printRestaurants(selectedFiltersCategories, selectedFilterDelivery, selectedSort, selectedSearchInput);
+        selectedSearchInput == "" || null ? selectedSearchInput = initialSearch : $("#input-search").val();
+        printRestaurants(initialCategories, selectedFilterDelivery, selectedSort, selectedSearchInput);
     });
 }
