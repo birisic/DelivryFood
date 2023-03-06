@@ -55,12 +55,12 @@
            <div class="callbacks_container">
               <ul class="rslides" id="slider4">
                  <li>
-                    <div class="slider-img three-img">
+                    <div class="three-img">
                        <div class="container">
-                          <div class="slider-info ">
-                             <h5 id="mb-restaurant-title">Enjoy the best <span class="mb-span">food</span> from the best<span class="mb-span"> restaurants</span>.</h5>
+                          <div class="slider-info mb-header-spacing">
+                             <h5 id="mb-restaurant-title"></h5>
                              <form class="d-flex pt-3 mx-md-0 mx-auto pb-5" action="" method="get" id="mb-search">
-                                <input class="form-control" type="search" name="inputSearch" id="input-search" placeholder="Search restaurant" aria-label="Search"/>
+                                <input class="form-control mb-5" type="search" name="inputSearch" id="restaurant-input-search" placeholder="Search restaurant" aria-label="Search"/>
                               </form>
                           </div>
                        </div>
@@ -69,11 +69,51 @@
               </ul>
            </div>
            <div class="clearfix"></div>
+        </div> 
+    </div>
+    <section id="mb-restaurant-info" class="container-fluid mb-4">
+        <div class="row d-flex justify-content-center">
+            <div class="col-12 d-flex justify-content-center align-items-center flex-wrap">
+                <div class="mb-restaurant-info-text d-flex justify-content-center align-items-center">
+                    <span id="mb-restaurant-working-time" class="px-3 text-center"></span>
+                    <span id="mb-restaurant-more-info" class="px-3 text-center"><button type="button" class="mb-contact-modal-btn text-warning text-decoration-none" id="mb-modal-btn" data-bs-toggle="modal" data-bs-target="#exampleModal3">
+                        More info
+                      </button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel3" aria-hidden="true">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel3">Information about restaurant</h5>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                              <p>Information about restaurant.</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </span>
+                </div>
+                <div class="mb-restaurant-info-icons d-flex justify-content-center align-items-center pt-md-0 pt-3">
+                    <span id="mb-restaurant-rating" class="px-3 text-center"><i class="fa-solid fa-star text-warning"></i></span>
+                    <span id="mb-restaurant-add-favorites" class="px-3 fs-4 text-center"><i class='fa-solid fa-heart'></i></span>
+                </div>
+                
+            </div>
         </div>
-        
-    </div
+    </section>
+    <section id="mb-restaurant-categories" class="container-fluid mb-5 pt-5 border-top">
+        <div class="row">
+            <div class="col-12">
+                <div id="mb-restaurant-categories-spans">
 
-    <!--GO TO CART-->
+                </div>
+            </div>
+        </div>
+    </section>    
+
+    <!-- GO TO CART -->
     <section class="subscribe-footer">
         <h2 class="text-center text-white pt-5 pb-3">Review your orders</h2>
         <div class="container-fluid ">
@@ -117,7 +157,6 @@
                    </div>
                 </div>
           </div>
-       </div>
        </section>
        <footer>
            <p class="mb-footer-copy text-muted">&copy;2023 Delivry. All Rights Reserved | Design by <a href="http://www.W3Layouts.com" target="_blank" class="text-muted">W3Layouts</a></p>

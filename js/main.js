@@ -24,6 +24,9 @@ if (!localStorage.getItem("navigation.json")) {
 if (!localStorage.getItem("restaurants.json")) {
     ajaxCallback("restaurants.json", saveToLocalStorage);
 }
+if (!localStorage.getItem("food.json")) {
+    ajaxCallback("food.json", saveToLocalStorage);
+}
 
 
 //SAVE DATA TO ARRAYS GLOBALLY
@@ -146,6 +149,9 @@ $(document).ready(function(){
         //VALIDATE ON SUBMIT
         submitBtn.addEventListener("click",formValidationOnSubmit); 
     }
+    
+
+    printRestaurantPage();
 })
 
 
@@ -217,6 +223,46 @@ function regexValidation(re, obj){
         obj.previousElementSibling.classList.remove("d-none");
         obj.previousElementSibling.classList.add("d-inline");
         obj.nextElementSibling.innerHTML = err;
+    }
+}
+
+
+function printRestaurantPage() {
+    let restaurantH1 = document.querySelector("#mb-restaurant-title");
+    let workingHoursSpan = document.querySelector("#mb-restaurant-working-time");
+    let recommendationsSpan = document.querySelector("#mb-restaurant-rating");
+    let categoriesDiv = document.querySelector("#mb-restaurant-categories-spans");
+    let printCategoriesSpans = "";
+
+    for (let i = 0; i < restaurants.length; i++) {
+        if (window.location.pathname == `/restaurant${restaurants[i].id}.html`) {
+            //SET TITLE
+            restaurantH1.textContent = restaurants[i].name;
+
+            //SET WORKING TIME
+            workingHoursSpan.textContent = restaurants[i].workingHours + " Mon-Fri";
+            if (restaurants[i].workingHoursWeekend != restaurants[i].workingHours) {
+                workingHoursSpan.innerHTML += "<br/>" + "(" + restaurants[i].workingHoursWeekend + " Sat-Sun)";
+            }
+
+            //SET RECOMMMENDATIONS
+            recommendationsSpan.innerHTML += "(" + restaurants[i].recommendations + ")";
+
+            //PRINT CATEGORIES
+            for (let restaurantCategoryID of restaurants[i].categoriesID) {
+                for (let foodCategory of foodCategories) {
+                    if (restaurantCategoryID == foodCategory.id) {
+                        printCategoriesSpans += `<span class="mb-filter-category-label text-warning rounded-pill m-2">${foodCategory.name}</span>`
+                    }
+                }
+            }
+            categoriesDiv.innerHTML += printCategoriesSpans;
+
+
+            break;
+        }
+        restaurantH1.textContent="Restaurant title";
+        workingHoursSpan.textContent = "Working hours"
     }
 }
 
