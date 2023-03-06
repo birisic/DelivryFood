@@ -261,7 +261,7 @@ text-align: center;
 /*-- banner --*/ 
 .one-img{  background: url(../images/food-background1-dark_50.png)no-repeat center;}
 .two-img{  background: url(../images/food-background2-dark.jpg)no-repeat center;}
-.three-img{  background: url(../images/b3.jpg)no-repeat center;} 
+.three-img{  background: url(../images/restaurant-bg-img2-dark.png)no-repeat center;} 
 .slider-img{  background-size: cover;
 min-height: 800px;}  
 .rslides {
@@ -1980,6 +1980,10 @@ font-size: 20px;
   font-size: 12px;
   padding: 0px 6px;
   border-radius: 50%;
+}
+
+.mb-footer-copy {
+  font-size: 12px;
 }
 
 @media screen and (max-width: 769px) {

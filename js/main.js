@@ -3,6 +3,7 @@ const BASE_IMG = "images/";
 const BASE_DATA = "data/";
 
 
+//CHECKOUT FORM OBJECTS
 var objName, objLastName, objAddress, objCity, objPhone, objEmail, objOrderDdl, arrOrderRadio, arrOrderCheck;
 var submitBtn = document.getElementById("btn-order");
 //REGEXES
@@ -79,8 +80,6 @@ $(document).ready(function(){
         if (categoryID) {
             selectedFiltersCategories.push(categoryID);
         }
-        //console.log(selectedFiltersCategories);
-
 
         //IF A CATEGORY HAS BEEN CHOSEN ON INDEX
         if (categoryID) {
@@ -109,43 +108,44 @@ $(document).ready(function(){
         //LISTEN FOR CONFIRM FILTERS/SORTS BUTTON
         $(document).on("click","button#btnApply", function(){
             printRestaurants(selectedFiltersCategories, selectedFilterDelivery, selectedSort, selectedSearchInput);
-        })
-
-        
+        })   
     }
 
-    //FORM OBJECTS AND VALIDATION
-    objName = document.querySelector("#user-name");
-    objLastName = document.querySelector("#user-lastname");
-    objAddress = document.querySelector("#user-address");
-    objCity = document.querySelector("#user-city");
-    objPhone = document.querySelector("#user-phone");
-    objEmail = document.querySelector("#user-email");
-    arrOrderRadio = document.getElementsByName("orderer");
-    arrOrderCheck = document.getElementsByName("terms");
+    //CART PAGE
+    if (window.location.pathname == "/delivry/cart.html") {
+        //FORM OBJECTS AND VALIDATION
+        objName = document.querySelector("#user-name");
+        objLastName = document.querySelector("#user-lastname");
+        objAddress = document.querySelector("#user-address");
+        objCity = document.querySelector("#user-city");
+        objPhone = document.querySelector("#user-phone");
+        objEmail = document.querySelector("#user-email");
+        arrOrderRadio = document.getElementsByName("orderer");
+        arrOrderCheck = document.getElementsByName("terms");
 
-   //CHECK INPUT ON BLUR
-    objName.addEventListener("blur",function(){
-        regexValidation(reFullName, objName);
-    });
-    objLastName.addEventListener("blur",function(){
-        regexValidation(reFullName, objLastName);
-    });
-    objAddress.addEventListener("blur",function(){
-        regexValidation(reAddress, objAddress);
-    });
-    objCity.addEventListener("blur",function(){
-        regexValidation(reCity, objCity);
-    });
-    objPhone.addEventListener("blur",function(){
-        regexValidation(rePhone, objPhone);
-    });
-    objEmail.addEventListener("blur",function(){
-        regexValidation(reEmail, objEmail);
-    });
+        //CHECK INPUT ON BLUR
+        objName.addEventListener("blur",function(){
+            regexValidation(reFullName, objName);
+        });
+        objLastName.addEventListener("blur",function(){
+            regexValidation(reFullName, objLastName);
+        });
+        objAddress.addEventListener("blur",function(){
+            regexValidation(reAddress, objAddress);
+        });
+        objCity.addEventListener("blur",function(){
+            regexValidation(reCity, objCity);
+        });
+        objPhone.addEventListener("blur",function(){
+            regexValidation(rePhone, objPhone);
+        });
+        objEmail.addEventListener("blur",function(){
+            regexValidation(reEmail, objEmail);
+        });
 
-    //VALIDATE ON SUBMIT
-    submitBtn.addEventListener("click",formValidationOnSubmit);   
+        //VALIDATE ON SUBMIT
+        submitBtn.addEventListener("click",formValidationOnSubmit); 
+    }
 })
 
 
@@ -236,7 +236,7 @@ function printRestaurants(categoriesIDs, deliveryInputValue, sortInput, searchIn
 
     newRestaurants.forEach(restaurant => {
         print += `<div class="col-lg-4 col-md-6 col-12 mb-5 d-flex justify-content-center align-items-center">
-        <a href="index.html" class="mb-restaurant-a">
+        <a href="restaurant${restaurant.id}.html" class="mb-restaurant-a">
            <div class="card border-0 rounded">
               <img src="${BASE_IMG}${restaurant.image.alt}${restaurant.image.src}" alt="${restaurant.image.alt}" class="card-img mb-restaurant-img"/>
               <div class="card-body p-0 mb-restaurant-card position-absolute rounded">
