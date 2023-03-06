@@ -3,6 +3,16 @@ const BASE_IMG = "images/";
 const BASE_DATA = "data/";
 
 
+var objName, objLastName, objAddress, objCity, objPhone, objEmail, objOrderDdl, arrOrderRadio, arrOrderCheck;
+var submitBtn = document.getElementById("btn-order");
+//REGEXES
+var reFullName = /^([A-ZŠČĆĐŽ][a-zščćđž]{2,14}){1,3}$/;
+var reAddress = /^(([A-ZŠĐČĆŽ][a-zšđžčć]{1,15}(\.)?)|([1-9][0-9]{0,2}(\.)?))[a-zA-Z0-9\s\/\-]+$/;
+var reEmail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+var reCity = /^[A-ZŠČĆĐŽ][a-zščćđž]{2,14}\s[1-9][0-9]{4}$/;
+var rePhone = /^(\+381)?(\s|-)?06(([0-6]|[8-9])\d{6,8}|(77|78)\d{7}){1}$/;
+
+
 //GET JSON DATA AND STORE IT IN LOCALSTORAGE BEFORE FULL PAGE LOADS
 if (!localStorage.getItem("categories-food.json")) {
     ajaxCallback("categories-food.json", saveToLocalStorage);
@@ -16,23 +26,23 @@ if (!localStorage.getItem("restaurants.json")) {
 
 
 //SAVE DATA TO ARRAYS GLOBALLY
-let foodCategories = JSON.parse(localStorage.getItem("categories-food.json"));
-let restaurants = JSON.parse(localStorage.getItem("restaurants.json"));
-let newRestaurants = [];
+var foodCategories = JSON.parse(localStorage.getItem("categories-food.json"));
+var restaurants = JSON.parse(localStorage.getItem("restaurants.json"));
+var newRestaurants = [];
 
 
 //VARIABLES FOR LATER
-let initialCategories = [1,2,3,4,5,6,7,8,9,10,11,12];
-let initialDelivery = 0;
-let initialSearch = "";
-let initialSort = "0";
-let selectedFiltersCategories = [];
-let selectedFilterDelivery = 0;
-let selectedSearchInput = "";
-let selectedSort = "0";
-let queryStringCategory = "";
-let queryStringCategoryParams = "";
-let categoryID = 0;
+var initialCategories = [1,2,3,4,5,6,7,8,9,10,11,12];
+var initialDelivery = 0;
+var initialSearch = "";
+var initialSort = "0";
+var selectedFiltersCategories = [];
+var selectedFilterDelivery = 0;
+var selectedSearchInput = "";
+var selectedSort = "0";
+var queryStringCategory = "";
+var queryStringCategoryParams = "";
+var categoryID = 0;
 
 
 //LOAD PAGE
@@ -43,10 +53,13 @@ $(document).ready(function(){
 
     //NAVBAR SHRINK AND INCREASE OPACITY ON SCROLL
     navbarShrinkOnScroll();
+
+
+    //ADD JS FOR USER FORM
     
     //INDEX PAGE
-    if (window.location.pathname == "/delivry/index.html" || window.location.pathname == "/delivry/") {//include repository name
-    //if (window.location.pathname == "/index.html" || window.location.pathname == "/") {
+    //if (window.location.pathname == "/delivry/index.html" || window.location.pathname == "/delivry/") {//include repository name
+    if (window.location.pathname == "/index.html" || window.location.pathname == "/") {
         //OWL CAROUSEL FOOD CATEGORIES
         foodCategoriesOwlCarouselPrint();
         $("#owl-example").owlCarousel();
@@ -57,14 +70,16 @@ $(document).ready(function(){
     }
     
     //RESTAURANTS PAGE
-    if (window.location.pathname == "/delivry/restaurants.html") {
-    //if (window.location.pathname == "/restaurants.html") {
+    //if (window.location.pathname == "/delivry/restaurants.html") {
+    if (window.location.pathname == "/restaurants.html") {
         //GET CATEGORY ID THROUGH URL AND PRINT RESTAURANTS
         queryStringCategory = window.location.search;
         queryStringCategoryParams = new URLSearchParams(queryStringCategory);
         categoryID = parseInt(queryStringCategoryParams.get("categoryID"));
-        selectedFiltersCategories.push(categoryID);
-        console.log(selectedFiltersCategories);
+        if (categoryID) {
+            selectedFiltersCategories.push(categoryID);
+        }
+        //console.log(selectedFiltersCategories);
 
 
         //IF A CATEGORY HAS BEEN CHOSEN ON INDEX
@@ -99,13 +114,120 @@ $(document).ready(function(){
         
     }
 
-    
+    //FORM OBJECTS AND VALIDATION
+    objName = document.querySelector("#user-name");
+    objLastName = document.querySelector("#user-lastname");
+    objAddress = document.querySelector("#user-address");
+    objCity = document.querySelector("#user-city");
+    objPhone = document.querySelector("#user-phone");
+    objEmail = document.querySelector("#user-email");
+    arrOrderRadio = document.getElementsByName("orderer");
+    arrOrderCheck = document.getElementsByName("terms");
+
+   //CHECK INPUT ON BLUR
+    objName.addEventListener("blur",function(){
+        regexValidation(reFullName, objName);
+    });
+    objLastName.addEventListener("blur",function(){
+        regexValidation(reFullName, objLastName);
+    });
+    objAddress.addEventListener("blur",function(){
+        regexValidation(reAddress, objAddress);
+    });
+    objCity.addEventListener("blur",function(){
+        regexValidation(reCity, objCity);
+    });
+    objPhone.addEventListener("blur",function(){
+        regexValidation(rePhone, objPhone);
+    });
+    objEmail.addEventListener("blur",function(){
+        regexValidation(reEmail, objEmail);
+    });
+
+    //VALIDATE ON SUBMIT
+    submitBtn.addEventListener("click",formValidationOnSubmit);   
 })
+
+
+function formValidationOnSubmit(){
+    //REGEXES
+    regexValidation(reFullName, objName);
+    regexValidation(reFullName, objLastName);
+    regexValidation(reAddress, objAddress);
+    regexValidation(reCity, objCity);
+    regexValidation(rePhone, objPhone);
+    regexValidation(reEmail, objEmail);
+
+
+    //CHECK
+    let chbTerms = document.getElementsByName("terms");
+    try {
+        if (!chbTerms[0].checked) {
+            chbTerms[0].nextElementSibling.nextElementSibling.classList.remove("d-none");
+            chbTerms[0].nextElementSibling.nextElementSibling.classList.add("d-block");
+            throw ("Niste pročitali uslove korišćenja.");
+        }
+        else {
+            chbTerms[0].nextElementSibling.nextElementSibling.classList.add("d-none");
+            chbTerms[0].nextElementSibling.nextElementSibling.classList.remove("d-block");
+            chbTerms[0].nextElementSibling.nextElementSibling.innerHTML = "";
+        }
+    }
+    catch (error) {
+        chbTerms[0].nextElementSibling.nextElementSibling.innerHTML = error;
+    }
+}
+
+
+function regexValidation(re, obj){    
+    try {
+        if (!re.test(obj.value)) {
+            //WRONG INPUT HANDLING
+            obj.nextElementSibling.classList.remove("d-none");
+            obj.nextElementSibling.classList.add("d-block");
+
+            
+            //WHICH ELEMENT
+            if (obj == objName || obj == objLastName) {
+                throw("Mora sadržati bar jedno veliko slovo i maksimum 15 malih.")
+            }
+            else if (obj == objAddress) {
+                throw("Adresa nije u dobrom formatu. Primer: Kralja Petra I 44, Sarajevska 14b...")
+            }
+            else if (obj == objCity) {
+                throw("Grad nije u dobrom formatu. Primer: Zaječar 19000...");
+            }
+            else if (obj == objPhone) {
+                throw("Telefon mora da započne sa 06 ili +381 i da nema preko 8 cifara.");
+            }
+            else if (obj == objEmail) {
+                throw("Email nije u dobrom formatu. Primer: username@gmail.com...");
+            }
+        }
+        else {
+            obj.previousElementSibling.classList.remove("d-inline");
+            obj.previousElementSibling.classList.add("d-none");
+            obj.nextElementSibling.classList.remove("d-block");
+            obj.nextElementSibling.classList.add("d-none");
+            obj.nextElementSibling.innerHTML = "";
+        }
+    }
+    catch (err) {
+        //PRINT MESSAGE
+        obj.previousElementSibling.classList.remove("d-none");
+        obj.previousElementSibling.classList.add("d-inline");
+        obj.nextElementSibling.innerHTML = err;
+    }
+}
 
 
 function printRestaurants(categoriesIDs, deliveryInputValue, sortInput, searchInput) {
     let restaurantsRow = document.getElementById("mb-restaurants");
     let print = "";
+
+    if (categoriesIDs == null) {
+        categoriesIDs = initialCategories;
+    }
 
     newRestaurants = filterCategories(categoriesIDs);
     newRestaurants = filterDelivery(deliveryInputValue);
@@ -245,7 +367,7 @@ function createNavbar() {
     let print = "";
     for (let i = 0; i < linksNames.length; i++) {
         print += `<li class="nav-item  ${linksNames[i]=="Get Started"?" me-5":""}">
-        <a class="nav-link ${linksNames[i]=="Get Started"?" btn-warning rounded pb-1 px-2":""}" href="${links[i]}">${linksNames[i]}</a>
+        <a class="nav-link ${linksNames[i]=="<i class='fa-solid fa-heart'></i>"?"me-5":""}" href="${links[i]}">${linksNames[i]=="<i class='fa-solid fa-cart-shopping'></i>" || linksNames[i] == "<i class='fa-solid fa-heart'></i>"?linksNames[i] + "<span class='mb-show-number btn btn-warning text-white'>0</span>":linksNames[i]}</a>
       </li>`
     }
     navbarUl.innerHTML = print;

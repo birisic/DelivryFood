@@ -1,0 +1,662 @@
+[
+    {
+        "id": 1,
+        "name": "Margarita Pizza",
+        "ingredients": "Pelat, mocarela, bosiljak, maslinovo ulje",
+        "popularTag": true,
+        "image": {
+            "src": "1.jpg",
+            "alt": "food"
+        },
+        "price": {
+            "oldPrice": 920,
+            "newPrice": 740
+        },
+        "categoryID": 1
+    },
+    {
+        "id": 2,
+        "name": "Marinara Pizza",
+        "ingredients": "Pelat, beli luk, inćuni, kapar, origano, maslinovo ulje",
+        "popularTag": false,
+        "image": {
+            "src": "2.jpg",
+            "alt": "food"
+        },
+        "price": {
+            "oldPrice": null,
+            "newPrice": 960
+        },
+        "categoryID": 1
+    },
+    {
+        "id": 3,
+        "name": "Prosciutto Pizza",
+        "ingredients": "Pelat, mocarela, rukola, pršuta, čeri paradajz, maslinovo ulje",
+        "popularTag": true,
+        "image": {
+            "src": "3.jpg",
+            "alt": "food"
+        },
+        "price": {
+            "oldPrice": 1400,
+            "newPrice": 1230
+        },
+        "categoryID": 1
+    },
+    {
+        "id": 4,
+        "name": "Rosa Pizza",
+        "ingredients": "Pecorino, grana padano, crveni luk, pistaći, ruzmarin, maslinovo ulje",
+        "popularTag": false,
+        "image": {
+            "src": "4.jpg",
+            "alt": "food"
+        },
+        "price": {
+            "oldPrice": null,
+            "newPrice": 1180
+        },
+        "categoryID": 1
+    },
+    {
+        "id": 5,
+        "name": "Punjena pljeka u susamu 300g",
+        "ingredients": "Pečenica, kulen, pečurke, kačkavalj",
+        "popularTag": false,
+        "image": {
+            "src": "5.jpg",
+            "alt": "food"
+        },
+        "price": {
+            "oldPrice": null,
+            "newPrice": 516
+        },
+        "categoryID": 2
+    },
+    {
+        "id": 6,
+        "name": "Pileći batak 200g",
+        "ingredients": null,
+        "popularTag": true,
+        "image": {
+            "src": "6.jpg",
+            "alt": "food"
+        },
+        "price": {
+            "oldPrice": 444,
+            "newPrice": 320
+        },
+        "categoryID": 2
+    },
+    {
+        "id": 7,
+        "name": "Punjeno pileće belo 270g",
+        "ingredients": "Šunka, kulen, kačkavalj",
+        "popularTag": true,
+        "image": {
+            "src": "7.jpg",
+            "alt": "food"
+        },
+        "price": {
+            "oldPrice": null,
+            "newPrice": 504
+        },
+        "categoryID": 2
+    },
+    {
+        "id": 8,
+        "name": "Dimljeni vrat 200g",
+        "ingredients": null,
+        "popularTag": false,
+        "image": {
+            "src": "8.jpg",
+            "alt": "food"
+        },
+        "price": {
+            "oldPrice": 666,
+            "newPrice": 553
+        },
+        "categoryID": 2
+    },
+    {
+        "id": 9,
+        "name": "Slavonski kulen",
+        "ingredients": null,
+        "popularTag": false,
+        "image": {
+            "src": "9.jpg",
+            "alt": "food"
+        },
+        "price": {
+            "oldPrice": null,
+            "newPrice": 620
+        },
+        "categoryID": 3
+    },
+    {
+        "id": 10,
+        "name": "Njeguški pršut",
+        "ingredients": null,
+        "popularTag": false,
+        "image": {
+            "src": "10.jpg",
+            "alt": "food"
+        },
+        "price": {
+            "oldPrice": null,
+            "newPrice": 830
+        },
+        "categoryID": 3
+    },
+    {
+        "id": 11,
+        "name": "Rib eye steak",
+        "ingredients": "Od komada mesa odležalog 30 dana u našim frižiderima, za prefinjenu mekoću čistog proteina",
+        "popularTag": true,
+        "image": {
+            "src": "11.jpg",
+            "alt": "food"
+        },
+        "price": {
+            "oldPrice": 900,
+            "newPrice": 720
+        },
+        "categoryID": 3
+    },
+    {
+        "id": 12,
+        "name": "Classic Burger",
+        "ingredients": null,
+        "popularTag": false,
+        "image": {
+            "src": "12.jpg",
+            "alt": "food"
+        },
+        "price": {
+            "oldPrice": null,
+            "newPrice": 1100
+        },
+        "categoryID": 3
+    },
+    {
+        "id": 13,
+        "name": "Classico",
+        "ingredients": "Pesto, paradajz, mocarela, rukola, pršuta, maslinovo ulje",
+        "popularTag": true,
+        "image": {
+            "src": "13.jpg",
+            "alt": "food"
+        },
+        "price": {
+            "oldPrice": 630,
+            "newPrice": 560
+        },
+        "categoryID": 4
+    },
+    {
+        "id": 14,
+        "name": "Nord Sud",
+        "ingredients": "Humus, rikota, dimljeni losos, miks salata, krastavac, dresing (jogurt, limun, maslinovo ulje, so i biber)",
+        "popularTag": false,
+        "image": {
+            "src": "14.jpg",
+            "alt": "food"
+        },
+        "price": {
+            "oldPrice": null,
+            "newPrice": 795
+        },
+        "categoryID": 4
+    },
+    {
+        "id": 15,
+        "name": "Pollo e Zucchine",
+        "ingredients": "Rikota, grilovano pileće belo meso, dinstana tikvica sa mirođijom, grana padano, rukola",
+        "popularTag": false,
+        "image": {
+            "src": "15.jpg",
+            "alt": "food"
+        },
+        "price": {
+            "oldPrice": 669,
+            "newPrice": 590
+        },
+        "categoryID": 4
+    },
+    {
+        "id": 16,
+        "name": "Nero",
+        "ingredients": "Pasta od crnih maslina, salama sa biberom, mocarela, sušeni paradajz, miks salata",
+        "popularTag": false,
+        "image": {
+            "src": "16.jpg",
+            "alt": "food"
+        },
+        "price": {
+            "oldPrice": 669,
+            "newPrice": 570
+        },
+        "categoryID": 4
+    },
+    {
+        "id": 17,
+        "name": "Funghi",
+        "ingredients": "Pečurke, beli luk, pavlaka, parmezan, peršun",
+        "popularTag": true,
+        "image": {
+            "src": "17.jpg",
+            "alt": "food"
+        },
+        "price": {
+            "oldPrice": 670,
+            "newPrice": 538
+        },
+        "categoryID": 5
+    },
+    {
+        "id": 18,
+        "name": "Amatriciana",
+        "ingredients": "Slanina, Napolitana sos, parmezan, peršun",
+        "popularTag": false,
+        "image": {
+            "src": "18.jpg",
+            "alt": "food"
+        },
+        "price": {
+            "oldPrice": 603,
+            "newPrice": 550
+        },
+        "categoryID": 5
+    },
+    {
+        "id": 19,
+        "name": "Pollo e Spinaci",
+        "ingredients": "Dimljena piletina, spanać, pavlaka, beli luk, parmezan",
+        "popularTag": false,
+        "image": {
+            "src": "19.jpg",
+            "alt": "food"
+        },
+        "price": {
+            "oldPrice": null,
+            "newPrice": 630
+        },
+        "categoryID": 5
+    },
+    {
+        "id": 20,
+        "name": "Carbonara",
+        "ingredients": "Slanina, jaje, pavlaka, parmezan, peršun",
+        "popularTag": true,
+        "image": {
+            "src": "20.jpg",
+            "alt": "food"
+        },
+        "price": {
+            "oldPrice": 720,
+            "newPrice": 600
+        },
+        "categoryID": 5
+    },
+    {
+        "id": 21,
+        "name": "Vegetarijana",
+        "ingredients": "Zelena salata, kuskus, crveni luk, paradajz, krastavac, masline, feta sir, balzamiko sos",
+        "popularTag": false,
+        "image": {
+            "src": "21.jpg",
+            "alt": "food"
+        },
+        "price": {
+            "oldPrice": null,
+            "newPrice": 650
+        },
+        "categoryID": 6
+    },
+    {
+        "id": 22,
+        "name": "Mamurluk",
+        "ingredients": "Piletina, zelena salata,  paradajz, šargarepa, kukuruz, suve, šljive, krutoni, feta sir, kikiriki sos",
+        "popularTag": true,
+        "image": {
+            "src": "22.jpg",
+            "alt": "food"
+        },
+        "price": {
+            "oldPrice": 820,
+            "newPrice": 710
+        },
+        "categoryID": 6
+    },
+    {
+        "id": 23,
+        "name": "Julije Cezar",
+        "ingredients": "Zelena salata, parmezan, piletina, paradajz, kukuruz, jaje, krutoni, smokva, cezar sos",
+        "popularTag": true,
+        "image": {
+            "src": "23.jpg",
+            "alt": "food"
+        },
+        "price": {
+            "oldPrice": null,
+            "newPrice": 710
+        },
+        "categoryID": 6
+    },
+    {
+        "id": 24,
+        "name": "Omega 3",
+        "ingredients": "Losos, zelena salata, kornišoni, paradajz, lan, susam, celer, leblebije, balzamiko sos",
+        "popularTag": false,
+        "image": {
+            "src": "24.jpg",
+            "alt": "food"
+        },
+        "price": {
+            "oldPrice": 920,
+            "newPrice": 810
+        },
+        "categoryID": 6
+    },
+    {
+        "id": 25,
+        "name": "Sloppy BGR V",
+        "ingredients": "Cepkano vegan meso kuće, vegan bolonjeze, vegan/čedar, iceberg, BBQ sos, zapečen u bolonjez sosu",
+        "popularTag": false,
+        "image": {
+            "src": "25.jpg",
+            "alt": "food"
+        },
+        "price": {
+            "oldPrice": null,
+            "newPrice": 920
+        },
+        "categoryID": 7
+    },
+    {
+        "id": 26,
+        "name": "Falafel starter V, GF",
+        "ingredients": "Krckavi falafel sa spanaćem i mladim lukom u tahini sosu - 3 kom, humus, krastavac štapići",
+        "popularTag": false,
+        "image": {
+            "src": "26.jpg",
+            "alt": "food"
+        },
+        "price": {
+            "oldPrice": null,
+            "newPrice": 650
+        },
+        "categoryID": 7
+    },
+    {
+        "id": 27,
+        "name": "Supreme lazanja vege",
+        "ingredients": "Kraljevska lazanja sa vege bolonjeze sosom sa biljem, spanaćem, bešamelom, kačkavaljem i parmezanom",
+        "popularTag": true,
+        "image": {
+            "src": "27.jpg",
+            "alt": "food"
+        },
+        "price": {
+            "oldPrice": null,
+            "newPrice": 920
+        },
+        "categoryID": 7
+    },
+    {
+        "id": 28,
+        "name": "Čoko-banana hleb V",
+        "ingredients": "Banana hleb sa kafom i celim lešnicima, čoko i vanila marble, preliv od kafe i tahinija, korica pomorandže",
+        "popularTag": false,
+        "image": {
+            "src": "28.jpg",
+            "alt": "food"
+        },
+        "price": {
+            "oldPrice": 510,
+            "newPrice": 420
+        },
+        "categoryID": 7
+    },
+    {
+        "id": 29,
+        "name": "Chicken katsu bowl",
+        "ingredients": "Tempura piletina, edamame, šargarepa, iceberg, crveni luk, kukuruz, japanski majonez, sweet chili sos",
+        "popularTag": true,
+        "image": {
+            "src": "29.jpg",
+            "alt": "food"
+        },
+        "price": {
+            "oldPrice": 1020,
+            "newPrice": 895
+        },
+        "categoryID": 8
+    },
+    {
+        "id": 30,
+        "name": "Salmon love bowl",
+        "ingredients": "Losos, krem sir, krastavac, avokado, šargarepa, edamame, tobiko",
+        "popularTag": false,
+        "image": {
+            "src": "30.jpg",
+            "alt": "food"
+        },
+        "price": {
+            "oldPrice": null,
+            "newPrice": 1345
+        },
+        "categoryID": 8
+    },
+    {
+        "id": 31,
+        "name": "Salmon love roll",
+        "ingredients": "Losos, krem sir, krastavac, avokado, šargarepa, edamame, tobiko",
+        "popularTag": true,
+        "image": {
+            "src": "31.jpg",
+            "alt": "food"
+        },
+        "price": {
+            "oldPrice": 1330,
+            "newPrice": 1295
+        },
+        "categoryID": 8
+    },
+    {
+        "id": 32,
+        "name": "Tuna Kiss roll",
+        "ingredients": "Tuna, krastavac, mango, prženi luk, mix susama, goma wakame, spicy majonez, teriyaki",
+        "popularTag": true,
+        "image": {
+            "src": "32.jpg",
+            "alt": "food"
+        },
+        "price": {
+            "oldPrice": 1550,
+            "newPrice": 1395
+        },
+        "categoryID": 8
+    },
+    {
+        "id": 33,
+        "name": "Burito",
+        "ingredients": "Piletina",
+        "popularTag": true,
+        "image": {
+            "src": "33.jpg",
+            "alt": "food"
+        },
+        "price": {
+            "oldPrice": null,
+            "newPrice": 560
+        },
+        "categoryID": 9
+    },
+    {
+        "id": 34,
+        "name": "Tortila obrok",
+        "ingredients": "Burito pileće meso, limunada po izboru i churos sa jednim umakom",
+        "popularTag": true,
+        "image": {
+            "src": "34.jpg",
+            "alt": "food"
+        },
+        "price": {
+            "oldPrice": 920,
+            "newPrice": 810
+        },
+        "categoryID": 9
+    },
+    {
+        "id": 35,
+        "name": "Crunchwrap",
+        "ingredients": "Tortilja, naćo sir, meso/vege, čips, pavlaka, paradajz, zelena salata, sir",
+        "popularTag": false,
+        "image": {
+            "src": "35.jpg",
+            "alt": "food"
+        },
+        "price": {
+            "oldPrice": null,
+            "newPrice": 530
+        },
+        "categoryID": 9
+    },
+    {
+        "id": 36,
+        "name": "Načos",
+        "ingredients": "Načos",
+        "popularTag": false,
+        "image": {
+            "src": "36.jpg",
+            "alt": "food"
+        },
+        "price": {
+            "oldPrice": null,
+            "newPrice": 560
+        },
+        "categoryID": 9
+    },
+    {
+        "id": 37,
+        "name": "Pork fried noodles 🌶️",
+        "ingredients": "With chili",
+        "popularTag": false,
+        "image": {
+            "src": "37.jpg",
+            "alt": "food"
+        },
+        "price": {
+            "oldPrice": null,
+            "newPrice": 840
+        },
+        "categoryID": 10
+    },
+    {
+        "id": 38,
+        "name": "Chili fried pork 🌶️🌶️",
+        "ingredients": "Spicy",
+        "popularTag": false,
+        "image": {
+            "src": "38.jpg",
+            "alt": "food"
+        },
+        "price": {
+            "oldPrice": null,
+            "newPrice": 1060
+        },
+        "categoryID": 10
+    },
+    {
+        "id": 39,
+        "name": "Pohovana piletina sa ananasom u slatkom tomato sosu",
+        "ingredients": "Piletina, ananas, paradajz sos",
+        "popularTag": true,
+        "image": {
+            "src": "39.jpg",
+            "alt": "food"
+        },
+        "price": {
+            "oldPrice": 830,
+            "newPrice": 720
+        },
+        "categoryID": 10
+    },
+    {
+        "id": 40,
+        "name": "Piletina sa povrćem u kari sosu",
+        "ingredients": "Piletina, kupus, šargarepa, krastavac",
+        "popularTag": true,
+        "image": {
+            "src": "40.jpg",
+            "alt": "food"
+        },
+        "price": {
+            "oldPrice": 830,
+            "newPrice": 720
+        },
+        "categoryID": 10
+    },
+    {
+        "id": 41,
+        "name": "Gyro by Chicken Sticks",
+        "ingredients": "Pita, pohovani pileći štapići, pomfrit",
+        "popularTag": false,
+        "image": {
+            "src": "41.jpg",
+            "alt": "food"
+        },
+        "price": {
+            "oldPrice": 670,
+            "newPrice": 550
+        },
+        "categoryID": 11
+    },
+    {
+        "id": 42,
+        "name": "Gyro by Paprika",
+        "ingredients": "Pita, meso, pomfrit",
+        "popularTag": true,
+        "image": {
+            "src": "42.jpg",
+            "alt": "food"
+        },
+        "price": {
+            "oldPrice": null,
+            "newPrice": 650
+        },
+        "categoryID": 11
+    },
+    {
+        "id": 43,
+        "name": "Gyro by Honey & Mustard",
+        "ingredients": "Pita, meso, pomfrit, honey & mustard sos",
+        "popularTag": true,
+        "image": {
+            "src": "43.jpg",
+            "alt": "food"
+        },
+        "price": {
+            "oldPrice": 820,
+            "newPrice": 700
+        },
+        "categoryID": 11
+    },
+    {
+        "id": 44,
+        "name": "Gyro by Spicy",
+        "ingredients": "Pita, meso, pomfrit, tirokafteri, sriracha",
+        "popularTag": false,
+        "image": {
+            "src": "44.jpg",
+            "alt": "food"
+        },
+        "price": {
+            "oldPrice": 820,
+            "newPrice": 700
+        },
+        "categoryID": 11
+    }
+]

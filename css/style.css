@@ -1939,6 +1939,48 @@ font-size: 20px;
   font-weight: bold !important;
 }
 
+#mb-form-shopping table {
+  margin: 0 auto !important;
+}
+#mb-form-shopping table tbody tr td {
+  padding: 0px 20px;
+}
+#mb-form-shopping table tbody tr td .mb-shopping-required {
+  color: rgb(255, 0, 0);
+  font-weight: bold;
+  font-size: 18px;
+}
+#mb-form-shopping table tbody tr td label {
+  color: #fff;
+}
+
+.mb-span-danger {
+  max-width: 220px;
+}
+
+.mb-span-danger-large {
+  max-width: 466px;
+}
+
+.mb-contact-modal-btn {
+  text-decoration: underline;
+  color: #fff;
+  background: none;
+  border: none;
+  transition: color 0.1s ease-in;
+}
+.mb-contact-modal-btn:hover {
+  color: #f8c90c;
+}
+#exampleModalLabel2, #exampleModal2 .modal-dialog .modal-content .modal-body p{
+  color: #000;
+}
+
+.mb-show-number {
+  font-size: 12px;
+  padding: 0px 6px;
+  border-radius: 50%;
+}
 
 @media screen and (max-width: 769px) {
   #mb-search {
