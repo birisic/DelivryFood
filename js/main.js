@@ -51,6 +51,9 @@ var categoryID = 0;
 
 
 //FOR FOOD
+var restaurantH1 = document.querySelector("#mb-restaurant-title");
+var workingHoursSpan = document.querySelector("#mb-restaurant-working-time");
+var recommendationsSpan = document.querySelector("#mb-restaurant-rating");
 var filteredFood = [];
 var arrFoodIDs = [];
 
@@ -159,125 +162,73 @@ $(document).ready(function(){
     }
 
 
-    //VARIABLES FOR EACH RESTAURANT AND FOOD
-    let restaurantH1 = document.querySelector("#mb-restaurant-title");
-    let workingHoursSpan = document.querySelector("#mb-restaurant-working-time");
-    let recommendationsSpan = document.querySelector("#mb-restaurant-rating");
-    selectedFiltersCategories = []; //valjda
-
     //RESTAURANT PAGE
     for (let i = 0; i < restaurants.length; i++) {
-        if (window.location.pathname == `/restaurant${restaurants[i].id}.html`) {
-            //SET TITLE
-            restaurantH1.textContent = restaurants[i].name;
+        createRestaurantPage(restaurants[i]);
 
-            //SET WORKING TIME
-            workingHoursSpan.textContent = restaurants[i].workingHours + " Mon-Fri";
-            if (restaurants[i].workingHoursWeekend != restaurants[i].workingHours) {
-                workingHoursSpan.innerHTML += "<br/>" + "(" + restaurants[i].workingHoursWeekend + " Sat-Sun)";
-            }
-
-            //SET RECOMMENDATIONS (RATING)
-            recommendationsSpan.innerHTML += "(" + restaurants[i].recommendations + ")";
-            
-            //PRINT SORT OPTIONS
-            printRestaurantSortOptions();
-
-            //PRINT CATEGORIES
-            printCategoriesRestaurant(restaurants[i]);
-            showClickedFilters();
-
-            filterFood(restaurants[i]);
-            console.log(filteredFood);
-
-            printRestaurantFood(selectedFiltersCategories);
-
-            //PRINT RESTAURANT PAGE
-            //printRestaurantPage(selectedFiltersCategories);
-            break;
-        }
-        restaurantH1.textContent="Restaurant title";
-        workingHoursSpan.textContent = "Working hours"
+        break;
     }
 })
 
+function createRestaurantPage(restaurant){
+    if (window.location.pathname == `/restaurant${restaurant.id}.html`) {
+        //SET TITLE
+        restaurantH1.textContent = restaurant.name;
 
-function formValidationOnSubmit(){
-    //REGEXES
-    regexValidation(reFullName, objName);
-    regexValidation(reFullName, objLastName);
-    regexValidation(reAddress, objAddress);
-    regexValidation(reCity, objCity);
-    regexValidation(rePhone, objPhone);
-    regexValidation(reEmail, objEmail);
-
-
-    //CHECK
-    let chbTerms = document.getElementsByName("terms");
-    try {
-        if (!chbTerms[0].checked) {
-            chbTerms[0].nextElementSibling.nextElementSibling.classList.remove("d-none");
-            chbTerms[0].nextElementSibling.nextElementSibling.classList.add("d-block");
-            throw ("Niste pročitali uslove korišćenja.");
+        //SET WORKING TIME
+        workingHoursSpan.textContent = restaurant.workingHours + " Mon-Fri";
+        if (restaurant.workingHoursWeekend != restaurant.workingHours) {
+            workingHoursSpan.innerHTML += "<br/>" + "(" + restaurant.workingHoursWeekend + " Sat-Sun)";
         }
-        else {
-            chbTerms[0].nextElementSibling.nextElementSibling.classList.add("d-none");
-            chbTerms[0].nextElementSibling.nextElementSibling.classList.remove("d-block");
-            chbTerms[0].nextElementSibling.nextElementSibling.innerHTML = "";
-        }
+
+        //SET RECOMMENDATIONS (RATING)
+        recommendationsSpan.innerHTML += "(" + restaurant.recommendations + ")";
+        
+        //PRINT SORT OPTIONS
+        printRestaurantSortOptions();
+
+        //PRINT CATEGORIES
+        printCategoriesRestaurant(restaurant);
+        showClickedFilters();
+        console.log(selectedFiltersCategories);// NE RADI
+        //filterFood(restaurant);
+
+        // $(document).on("change", "")
+        filterAndPrintFood(restaurant,selectedFiltersCategories);
+
+        //PRINT RESTAURANT PAGE
+        //printRestaurantPage(selectedFiltersCategories);
     }
-    catch (error) {
-        chbTerms[0].nextElementSibling.nextElementSibling.innerHTML = error;
+    else {
+        restaurantH1.textContent="Restaurant title";
+        workingHoursSpan.textContent = "Working hours";
+    }
+    
+}
+
+
+function foodFilterCategories(arr) {
+    //console.log(arr);
+    if (arr.length) {
+        return filteredFood.filter(x => x.categoryID == arr.includes(x.categoryID));
+        //return filteredFood.filter(x => x.categoryID.find(id => arr.includes(id)));
+        //return filteredFood.filter(x => x.categoryID.some(id => arr.includes(id)));
+    }
+    else {
+        return filteredFood.filter(x => x.categoryID == arrFoodIDs.includes(x.categoryID));
+        //return filteredFood.filter(x => x.categoryID.find(id => arrFoodIDs.includes(id)));
+        //return filteredFood.filter(x => x.categoryID.some(id => arrFoodIDs.includes(id)));
     }
 }
 
 
-function regexValidation(re, obj){    
-    try {
-        if (!re.test(obj.value)) {
-            //WRONG INPUT HANDLING
-            obj.nextElementSibling.classList.remove("d-none");
-            obj.nextElementSibling.classList.add("d-block");
-
-            
-            //WHICH ELEMENT
-            if (obj == objName || obj == objLastName) {
-                throw("Mora sadržati bar jedno veliko slovo i maksimum 15 malih.")
-            }
-            else if (obj == objAddress) {
-                throw("Adresa nije u dobrom formatu. Primer: Kralja Petra I 44, Sarajevska 14b...")
-            }
-            else if (obj == objCity) {
-                throw("Grad nije u dobrom formatu. Primer: Zaječar 19000...");
-            }
-            else if (obj == objPhone) {
-                throw("Telefon mora da započne sa 06 ili +381 i da nema preko 8 cifara.");
-            }
-            else if (obj == objEmail) {
-                throw("Email nije u dobrom formatu. Primer: username@gmail.com...");
-            }
-        }
-        else {
-            obj.previousElementSibling.classList.remove("d-inline");
-            obj.previousElementSibling.classList.add("d-none");
-            obj.nextElementSibling.classList.remove("d-block");
-            obj.nextElementSibling.classList.add("d-none");
-            obj.nextElementSibling.innerHTML = "";
-        }
-    }
-    catch (err) {
-        //PRINT MESSAGE
-        obj.previousElementSibling.classList.remove("d-none");
-        obj.previousElementSibling.classList.add("d-inline");
-        obj.nextElementSibling.innerHTML = err;
-    }
-}
-
-
-function printRestaurantFood(arrCategoriesIDs){
+function printRestaurantFood(selectedFiltersCategories){
     let foodSectionRow = document.querySelector("#mb-restaurant-food-row");
     let foodIngredients = "";
     let printFood = "";
+
+    //console.log(selectedFiltersCategories + "kate");
+    filteredFood = foodFilterCategories(selectedFiltersCategories)
 
     for (let objFilteredFood of filteredFood) {
         if (objFilteredFood.ingredients != null && objFilteredFood.ingredients.length) {
@@ -351,26 +302,19 @@ function printRestaurantFood(arrCategoriesIDs){
 }
 
 
-function printRestaurantSortOptions() {
-    let sortSelect = document.querySelector("#mb-restaurant-sorts-select");
-    let sortsNames = ['Name asc.','Name desc.','Price asc.','Price desc.'];
-    let print = "";
-
-    for (let i = 0; i < sortsNames.length; i++) {
-        print += `<option value="${i}">${sortsNames[i]}</option>`      
-    }
-    sortSelect.innerHTML = print;
-}
-
-
-function filterFood(restaurant) {
+function filterAndPrintFood(restaurant, selectedFiltersCategories) {
     for (let restaurantCategoryID of restaurant.categoriesID) {
         for (let foodCategory of foodCategories) {
-            filteredFood = food.filter(x => x.categoryID == foodCategory.id);
+            if (restaurantCategoryID == foodCategory.id) {
+                filteredFood = food.filter(x => x.categoryID == foodCategory.id);
 
-            // for (let objFood of filteredFood) {
-            //     arrFoodIDs.push(objFood.id);
-            // }
+
+
+                printRestaurantFood(selectedFiltersCategories);
+                // for (let objFood of filteredFood) {
+                //     arrFoodIDs.push(objFood.id);
+                // }
+            }
         }
     }
 }
@@ -393,12 +337,24 @@ function printCategoriesRestaurant(restaurant) {
 }
 
 
-function printRestaurantPage(arrFilterCategories) {
-    let newFilteredFood = [];
+function printRestaurantSortOptions() {
+    let sortSelect = document.querySelector("#mb-restaurant-sorts-select");
+    let sortsNames = ['Name asc.','Name desc.','Price asc.','Price desc.'];
+    let print = "";
+
+    for (let i = 0; i < sortsNames.length; i++) {
+        print += `<option value="${i}">${sortsNames[i]}</option>`      
+    }
+    sortSelect.innerHTML = print;
+}
+
+
+//function printRestaurantPage(arrFilterCategories) {
+    //let newFilteredFood = [];
      
 
 
-    for (let i = 0; i < restaurants.length; i++) {
+    //for (let i = 0; i < restaurants.length; i++) {
         // if (window.location.pathname == `/restaurant${restaurants[i].id}.html`) {// /delivry/restaurantID.html
         //     //SET TITLE
         //     restaurantH1.textContent = restaurants[i].name;
@@ -425,11 +381,11 @@ function printRestaurantPage(arrFilterCategories) {
             //             for (let objFood of filteredFood) {
             //                 arrFoodIDs.push(objFood.id);
             //             }
-                        console.log(arrFoodIDs);
+                        //console.log(arrFoodIDs);
 
                         //FILTER FOOD BY SELECTED CATEGORIES
-                        newFilteredFood = foodFilterCategories(arrFilterCategories);
-                        console.log(newFilteredFood);
+                        //newFilteredFood = foodFilterCategories(arrFilterCategories);
+                        //console.log(newFilteredFood);
                         
                         //PRINT FOOD
                     //     for (let objFilteredFood of filteredFood) {
@@ -500,8 +456,8 @@ function printRestaurantPage(arrFilterCategories) {
                         
                         
                     // }
-                }
-            }
+                //}
+            //}
             //foodSectionRow.innerHTML += printFood;
 
 
@@ -519,23 +475,92 @@ function printRestaurantPage(arrFilterCategories) {
         // workingHoursSpan.textContent = "Working hours"
     //}
 
-    function foodFilterCategories(arr) {
-        if (arr.length) {
-            return filteredFood.filter(x => x.categoryID == arr.includes(x.categoryID));
-            //return filteredFood.filter(x => x.categoryID.find(id => arr.includes(id)));
-            //return filteredFood.filter(x => x.categoryID.some(id => arr.includes(id)));
-        }
-        else {
-            console.log(filteredFood);
-            return filteredFood.filter(x => x.categoryID == arrFoodIDs.includes(x.categoryID));
-            //return filteredFood.filter(x => x.categoryID.find(id => arrFoodIDs.includes(id)));
-            //return filteredFood.filter(x => x.categoryID.some(id => arrFoodIDs.includes(id)));
-        }
-    }
+    // function foodFilterCategories(arr) {
+    //     if (arr.length) {
+    //         return filteredFood.filter(x => x.categoryID == arr.includes(x.categoryID));
+    //         //return filteredFood.filter(x => x.categoryID.find(id => arr.includes(id)));
+    //         //return filteredFood.filter(x => x.categoryID.some(id => arr.includes(id)));
+    //     }
+    //     else {
+    //         console.log(filteredFood);
+    //         return filteredFood.filter(x => x.categoryID == arrFoodIDs.includes(x.categoryID));
+    //         //return filteredFood.filter(x => x.categoryID.find(id => arrFoodIDs.includes(id)));
+    //         //return filteredFood.filter(x => x.categoryID.some(id => arrFoodIDs.includes(id)));
+    //     }
+    // }
 //}
 
 
+function formValidationOnSubmit(){
+    //REGEXES
+    regexValidation(reFullName, objName);
+    regexValidation(reFullName, objLastName);
+    regexValidation(reAddress, objAddress);
+    regexValidation(reCity, objCity);
+    regexValidation(rePhone, objPhone);
+    regexValidation(reEmail, objEmail);
 
+
+    //CHECK
+    let chbTerms = document.getElementsByName("terms");
+    try {
+        if (!chbTerms[0].checked) {
+            chbTerms[0].nextElementSibling.nextElementSibling.classList.remove("d-none");
+            chbTerms[0].nextElementSibling.nextElementSibling.classList.add("d-block");
+            throw ("Niste pročitali uslove korišćenja.");
+        }
+        else {
+            chbTerms[0].nextElementSibling.nextElementSibling.classList.add("d-none");
+            chbTerms[0].nextElementSibling.nextElementSibling.classList.remove("d-block");
+            chbTerms[0].nextElementSibling.nextElementSibling.innerHTML = "";
+        }
+    }
+    catch (error) {
+        chbTerms[0].nextElementSibling.nextElementSibling.innerHTML = error;
+    }
+}
+
+
+function regexValidation(re, obj){    
+    try {
+        if (!re.test(obj.value)) {
+            //WRONG INPUT HANDLING
+            obj.nextElementSibling.classList.remove("d-none");
+            obj.nextElementSibling.classList.add("d-block");
+
+            
+            //WHICH ELEMENT
+            if (obj == objName || obj == objLastName) {
+                throw("Mora sadržati bar jedno veliko slovo i maksimum 15 malih.")
+            }
+            else if (obj == objAddress) {
+                throw("Adresa nije u dobrom formatu. Primer: Kralja Petra I 44, Sarajevska 14b...")
+            }
+            else if (obj == objCity) {
+                throw("Grad nije u dobrom formatu. Primer: Zaječar 19000...");
+            }
+            else if (obj == objPhone) {
+                throw("Telefon mora da započne sa 06 ili +381 i da nema preko 8 cifara.");
+            }
+            else if (obj == objEmail) {
+                throw("Email nije u dobrom formatu. Primer: username@gmail.com...");
+            }
+        }
+        else {
+            obj.previousElementSibling.classList.remove("d-inline");
+            obj.previousElementSibling.classList.add("d-none");
+            obj.nextElementSibling.classList.remove("d-block");
+            obj.nextElementSibling.classList.add("d-none");
+            obj.nextElementSibling.innerHTML = "";
+        }
+    }
+    catch (err) {
+        //PRINT MESSAGE
+        obj.previousElementSibling.classList.remove("d-none");
+        obj.previousElementSibling.classList.add("d-inline");
+        obj.nextElementSibling.innerHTML = err;
+    }
+}
 
 
 function printRestaurants(categoriesIDs, deliveryInputValue, sortInput, searchInput) {
