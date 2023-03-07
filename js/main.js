@@ -32,6 +32,7 @@ if (!localStorage.getItem("food.json")) {
 //SAVE DATA TO ARRAYS GLOBALLY
 var foodCategories = JSON.parse(localStorage.getItem("categories-food.json"));
 var restaurants = JSON.parse(localStorage.getItem("restaurants.json"));
+var food = JSON.parse(localStorage.getItem("food.json"));
 var newRestaurants = [];
 
 
@@ -47,6 +48,11 @@ var selectedSort = "0";
 var queryStringCategory = "";
 var queryStringCategoryParams = "";
 var categoryID = 0;
+
+
+//FOR FOOD
+var filteredFood = [];
+var arrFoodIDs = [];
 
 
 //LOAD PAGE
@@ -151,9 +157,48 @@ $(document).ready(function(){
         //VALIDATE ON SUBMIT
         submitBtn.addEventListener("click",formValidationOnSubmit); 
     }
-    
 
-    printRestaurantPage();
+
+    //VARIABLES FOR EACH RESTAURANT AND FOOD
+    let restaurantH1 = document.querySelector("#mb-restaurant-title");
+    let workingHoursSpan = document.querySelector("#mb-restaurant-working-time");
+    let recommendationsSpan = document.querySelector("#mb-restaurant-rating");
+    selectedFiltersCategories = []; //valjda
+
+    //RESTAURANT PAGE
+    for (let i = 0; i < restaurants.length; i++) {
+        if (window.location.pathname == `/restaurant${restaurants[i].id}.html`) {
+            //SET TITLE
+            restaurantH1.textContent = restaurants[i].name;
+
+            //SET WORKING TIME
+            workingHoursSpan.textContent = restaurants[i].workingHours + " Mon-Fri";
+            if (restaurants[i].workingHoursWeekend != restaurants[i].workingHours) {
+                workingHoursSpan.innerHTML += "<br/>" + "(" + restaurants[i].workingHoursWeekend + " Sat-Sun)";
+            }
+
+            //SET RECOMMENDATIONS (RATING)
+            recommendationsSpan.innerHTML += "(" + restaurants[i].recommendations + ")";
+            
+            //PRINT SORT OPTIONS
+            printRestaurantSortOptions();
+
+            //PRINT CATEGORIES
+            printCategoriesRestaurant(restaurants[i]);
+            showClickedFilters();
+
+            filterFood(restaurants[i]);
+            console.log(filteredFood);
+
+            printRestaurantFood(selectedFiltersCategories);
+
+            //PRINT RESTAURANT PAGE
+            //printRestaurantPage(selectedFiltersCategories);
+            break;
+        }
+        restaurantH1.textContent="Restaurant title";
+        workingHoursSpan.textContent = "Working hours"
+    }
 })
 
 
@@ -229,6 +274,83 @@ function regexValidation(re, obj){
 }
 
 
+function printRestaurantFood(arrCategoriesIDs){
+    let foodSectionRow = document.querySelector("#mb-restaurant-food-row");
+    let foodIngredients = "";
+    let printFood = "";
+
+    for (let objFilteredFood of filteredFood) {
+        if (objFilteredFood.ingredients != null && objFilteredFood.ingredients.length) {
+            foodIngredients = objFilteredFood.ingredients;
+        }
+        
+        printFood += `<div class="col-lg-5 col-md-11 col-12 mx-md-2 px-md-3 my-3 border rounded mb-food-col">
+        <a href="#" class="mb-food-a" data-bs-toggle="modal" data-bs-target="#exampleModal${objFilteredFood.id}">
+            <div class="mb-food container-fluid p-0">
+                <div class="row justify-content-between align-items-start">
+                    <div class="col-6 p-2">
+                        <div class="mb-food-text">
+                            <div class="mb-food-info">
+                                <h6 class="text-dark text-truncate">${objFilteredFood.name}</h6>
+                                <p class="text-muted">${foodIngredients.length > 50?foodIngredients.slice(0,50)+"&hellip;":foodIngredients}${objFilteredFood.ingredients == null?"":""}</p>
+                            </div>
+                            <div class="mb-food-price-tag">
+                                <span class="text-warning">${objFilteredFood.price.newPrice} RSD</span>
+                                <s class="text-dark">${objFilteredFood.price.oldPrice!=null?objFilteredFood.price.oldPrice + " RSD":""}</s>
+                                <span class="btn-warning text-white rounded">${objFilteredFood.popularTag?"<span class='p-2 text-capitalize'>popular</span>":""}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 p-2">
+                        <div class="mb-food-img">
+                            <img class="img-fluid rounded" src="${BASE_IMG}${objFilteredFood.image.alt}${objFilteredFood.image.src}" alt="${objFilteredFood.image.alt}"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+        </div>
+        <!-- Modal -->
+            <div class="modal fade" id="exampleModal${objFilteredFood.id}" tabindex="-1" aria-labelledby="exampleModalLabel${objFilteredFood.id}" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-food-img">
+                        <img class="img-fluid rounded" src="${BASE_IMG}${objFilteredFood.image.alt}${objFilteredFood.image.src}" alt="${objFilteredFood.image.alt}"/>
+                    </div>
+                    <div class="mb-food-text pt-4">
+                                <div class="mb-food-info">
+                                    <h4 class="text-dark">${objFilteredFood.name}</h4>
+                                    <p class="py-2">${objFilteredFood.ingredients!=null?objFilteredFood.ingredients:""}</p>
+                                </div>
+                                <div class="mb-food-price-tag">
+                                    <span class="text-warning">${objFilteredFood.price.newPrice} RSD</span>
+                                    <s class="text-dark">${objFilteredFood.price.oldPrice!=null?objFilteredFood.price.oldPrice + " RSD":""}</s>
+                                    <span class="btn-warning text-white rounded">${objFilteredFood.popularTag?"<span class='p-2 text-capitalize'>popular</span>":""}</span>
+                                </div>
+                            </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-white ms-0 me-auto border rounded" data-bs-dismiss="modal">Close</button>
+                    <form action="">
+                            <input type="number" class="form-control w-50 me-0 ms-auto" name="foodAmountInput" id="mb-food-amount-input" placeholder="Ammount"/>
+                    </form>
+                    <button type="button" class="btn btn-warning text-white">Add to cart</button>
+                </div>
+                </div>
+            </div>
+            </div>`
+            foodIngredients = "";
+        
+        
+    }
+    foodSectionRow.innerHTML += printFood;
+}
+
+
 function printRestaurantSortOptions() {
     let sortSelect = document.querySelector("#mb-restaurant-sorts-select");
     let sortsNames = ['Name asc.','Name desc.','Price asc.','Price desc.'];
@@ -241,68 +363,179 @@ function printRestaurantSortOptions() {
 }
 
 
-function showClickedFilters() {
+function filterFood(restaurant) {
+    for (let restaurantCategoryID of restaurant.categoriesID) {
+        for (let foodCategory of foodCategories) {
+            filteredFood = food.filter(x => x.categoryID == foodCategory.id);
 
-    $(".mb-filter-category-label").click(function() {
-        let labelForAttr = this.getAttribute("for");
-        //ADD/REMOVE FROM SELECTED CATEGORIES
-        if (!selectedFiltersCategories.includes(parseInt(this.previousElementSibling.id))) {
-            selectedFiltersCategories.push(parseInt(this.previousElementSibling.id));
+            // for (let objFood of filteredFood) {
+            //     arrFoodIDs.push(objFood.id);
+            // }
         }
-        else {
-            let currentCategory = selectedFiltersCategories.indexOf(parseInt(this.previousElementSibling.id));
-            selectedFiltersCategories.splice(currentCategory,1);
-        }
-        $(`label[for='${labelForAttr}']`).toggleClass("mb-filter-active");
-    });
-}
-
-
-function printRestaurantPage() {
-    let restaurantH1 = document.querySelector("#mb-restaurant-title");
-    let workingHoursSpan = document.querySelector("#mb-restaurant-working-time");
-    let recommendationsSpan = document.querySelector("#mb-restaurant-rating");
-    let categoriesDiv = document.querySelector("#mb-restaurant-categories-spans");
-    let printCategoriesFilters = "";
-     //`<input type="radio" name="restaurantPageCategoryFilter" value="0" id="mb-restaurant-category-filter-0" class="mb-width-0"/><label for="mb-restaurant-category-filter-0" class="mb-filter-category-label mb-filter-active text-warning rounded-pill m-2">All</label>`;
-
-    for (let i = 0; i < restaurants.length; i++) {
-        if (window.location.pathname == `/restaurant${restaurants[i].id}.html`) {
-            //SET TITLE
-            restaurantH1.textContent = restaurants[i].name;
-
-            //SET WORKING TIME
-            workingHoursSpan.textContent = restaurants[i].workingHours + " Mon-Fri";
-            if (restaurants[i].workingHoursWeekend != restaurants[i].workingHours) {
-                workingHoursSpan.innerHTML += "<br/>" + "(" + restaurants[i].workingHoursWeekend + " Sat-Sun)";
-            }
-
-            //SET RECOMMMENDATIONS (RATING)
-            recommendationsSpan.innerHTML += "(" + restaurants[i].recommendations + ")";
-
-            //PRINT CATEGORIES
-            for (let restaurantCategoryID of restaurants[i].categoriesID) {
-                for (let foodCategory of foodCategories) {
-                    if (restaurantCategoryID == foodCategory.id) {
-                        printCategoriesFilters += `<input type="checkbox" name="restaurantPageCategoryFilter" id="mb-restaurant-category-filter-${foodCategory.id}" value="${foodCategory.id}" class="mb-width-0"/><label for="mb-restaurant-category-filter-${foodCategory.id}" class="mb-filter-category-label text-warning rounded-pill m-2">${foodCategory.name}</label>`;
-                    }
-                }
-            }
-            categoriesDiv.innerHTML += printCategoriesFilters;
-
-            //SHOW SELECTED CATEGORY
-            showClickedFilters()
-
-
-            //ADD SORT OPTIONS TO SELECT
-            printRestaurantSortOptions();
-
-            break;
-        }
-        restaurantH1.textContent="Restaurant title";
-        workingHoursSpan.textContent = "Working hours"
     }
 }
+
+
+function printCategoriesRestaurant(restaurant) {
+    let categoriesDiv = document.querySelector("#mb-restaurant-categories-spans");
+    let printCategoriesFilters = "";
+
+    for (let restaurantCategoryID of restaurant.categoriesID) {
+        for (let foodCategory of foodCategories) {
+            //PRINT CATEGORIES
+            if (restaurantCategoryID == foodCategory.id) {
+                printCategoriesFilters += `<input type="checkbox" name="restaurantPageCategoryFilter" id="${foodCategory.id}" value="${foodCategory.id}" class="mb-width-0"/><label for="${foodCategory.id}" class="mb-filter-category-label text-warning rounded-pill m-2">${foodCategory.name}</label>`;
+                break;
+            }
+        }
+    }
+    categoriesDiv.innerHTML += printCategoriesFilters;
+}
+
+
+function printRestaurantPage(arrFilterCategories) {
+    let newFilteredFood = [];
+     
+
+
+    for (let i = 0; i < restaurants.length; i++) {
+        // if (window.location.pathname == `/restaurant${restaurants[i].id}.html`) {// /delivry/restaurantID.html
+        //     //SET TITLE
+        //     restaurantH1.textContent = restaurants[i].name;
+
+        //     //SET WORKING TIME
+        //     workingHoursSpan.textContent = restaurants[i].workingHours + " Mon-Fri";
+        //     if (restaurants[i].workingHoursWeekend != restaurants[i].workingHours) {
+        //         workingHoursSpan.innerHTML += "<br/>" + "(" + restaurants[i].workingHoursWeekend + " Sat-Sun)";
+        //     }
+
+        //     //SET RECOMMMENDATIONS (RATING)
+        //     recommendationsSpan.innerHTML += "(" + restaurants[i].recommendations + ")";
+
+            //PRINT CATEGORIES FILTERS AND FOOD
+            // for (let restaurantCategoryID of restaurants[i].categoriesID) {
+            //     for (let foodCategory of foodCategories) {
+            //         //PRINT CATEGORIES
+            //         if (restaurantCategoryID == foodCategory.id) {
+            //             printCategoriesFilters += `<input type="checkbox" name="restaurantPageCategoryFilter" id="mb-restaurant-category-filter-${foodCategory.id}" value="${foodCategory.id}" class="mb-width-0"/><label for="mb-restaurant-category-filter-${foodCategory.id}" class="mb-filter-category-label text-warning rounded-pill m-2">${foodCategory.name}</label>`;
+                        
+            //             //GET FILTERED FOOD FOR ALL OF RESTAURANT'S CATEGORIES
+            //             filteredFood = food.filter(x => x.categoryID == foodCategory.id);
+
+            //             for (let objFood of filteredFood) {
+            //                 arrFoodIDs.push(objFood.id);
+            //             }
+                        console.log(arrFoodIDs);
+
+                        //FILTER FOOD BY SELECTED CATEGORIES
+                        newFilteredFood = foodFilterCategories(arrFilterCategories);
+                        console.log(newFilteredFood);
+                        
+                        //PRINT FOOD
+                    //     for (let objFilteredFood of filteredFood) {
+                    //         if (objFilteredFood.ingredients != null && objFilteredFood.ingredients.length) {
+                    //             foodIngredients = objFilteredFood.ingredients;
+                    //         }
+                            
+                    //         printFood += `<div class="col-lg-5 col-md-11 col-12 mx-md-2 px-md-3 my-3 border rounded mb-food-col">
+                    //         <a href="#" class="mb-food-a" data-bs-toggle="modal" data-bs-target="#exampleModal${objFilteredFood.id}">
+                    //             <div class="mb-food container-fluid p-0">
+                    //                 <div class="row justify-content-between align-items-start">
+                    //                     <div class="col-6 p-2">
+                    //                         <div class="mb-food-text">
+                    //                             <div class="mb-food-info">
+                    //                                 <h6 class="text-dark text-truncate">${objFilteredFood.name}</h6>
+                    //                                 <p class="text-muted">${foodIngredients.length > 50?foodIngredients.slice(0,50)+"&hellip;":foodIngredients}${objFilteredFood.ingredients == null?"":""}</p>
+                    //                             </div>
+                    //                             <div class="mb-food-price-tag">
+                    //                                 <span class="text-warning">${objFilteredFood.price.newPrice} RSD</span>
+                    //                                 <s class="text-dark">${objFilteredFood.price.oldPrice!=null?objFilteredFood.price.oldPrice + " RSD":""}</s>
+                    //                                 <span class="btn-warning text-white rounded">${objFilteredFood.popularTag?"<span class='p-2 text-capitalize'>popular</span>":""}</span>
+                    //                             </div>
+                    //                         </div>
+                    //                     </div>
+                    //                     <div class="col-6 p-2">
+                    //                         <div class="mb-food-img">
+                    //                             <img class="img-fluid rounded" src="${BASE_IMG}${objFilteredFood.image.alt}${objFilteredFood.image.src}" alt="${objFilteredFood.image.alt}"/>
+                    //                         </div>
+                    //                     </div>
+                    //                 </div>
+                    //             </div>
+                    //         </a>
+                    //     </div>
+                    //     <!-- Modal -->
+                    //         <div class="modal fade" id="exampleModal${objFilteredFood.id}" tabindex="-1" aria-labelledby="exampleModalLabel${objFilteredFood.id}" aria-hidden="true">
+                    //         <div class="modal-dialog">
+                    //             <div class="modal-content">
+                    //             <div class="modal-header">
+                    //                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    //             </div>
+                    //             <div class="modal-body">
+                    //                 <div class="mb-food-img">
+                    //                     <img class="img-fluid rounded" src="${BASE_IMG}${objFilteredFood.image.alt}${objFilteredFood.image.src}" alt="${objFilteredFood.image.alt}"/>
+                    //                 </div>
+                    //                 <div class="mb-food-text pt-4">
+                    //                             <div class="mb-food-info">
+                    //                                 <h4 class="text-dark">${objFilteredFood.name}</h4>
+                    //                                 <p class="py-2">${objFilteredFood.ingredients!=null?objFilteredFood.ingredients:""}</p>
+                    //                             </div>
+                    //                             <div class="mb-food-price-tag">
+                    //                                 <span class="text-warning">${objFilteredFood.price.newPrice} RSD</span>
+                    //                                 <s class="text-dark">${objFilteredFood.price.oldPrice!=null?objFilteredFood.price.oldPrice + " RSD":""}</s>
+                    //                                 <span class="btn-warning text-white rounded">${objFilteredFood.popularTag?"<span class='p-2 text-capitalize'>popular</span>":""}</span>
+                    //                             </div>
+                    //                         </div>
+                    //             </div>
+                    //             <div class="modal-footer">
+                    //                 <button type="button" class="btn btn-white ms-0 me-auto border rounded" data-bs-dismiss="modal">Close</button>
+                    //                 <form action="">
+                    //                         <input type="number" class="form-control w-50 me-0 ms-auto" name="foodAmountInput" id="mb-food-amount-input" placeholder="Ammount"/>
+                    //                 </form>
+                    //                 <button type="button" class="btn btn-warning text-white">Add to cart</button>
+                    //             </div>
+                    //             </div>
+                    //         </div>
+                    //         </div>`
+                    //         foodIngredients = "";
+                        
+                        
+                    // }
+                }
+            }
+            //foodSectionRow.innerHTML += printFood;
+
+
+            //SHOW SELECTED CATEGORY
+            //showClickedFilters()
+
+            //ADD SORT OPTIONS TO SELECT
+            //printRestaurantSortOptions();
+
+            
+
+            //break;
+        //}
+        // restaurantH1.textContent="Restaurant title";
+        // workingHoursSpan.textContent = "Working hours"
+    //}
+
+    function foodFilterCategories(arr) {
+        if (arr.length) {
+            return filteredFood.filter(x => x.categoryID == arr.includes(x.categoryID));
+            //return filteredFood.filter(x => x.categoryID.find(id => arr.includes(id)));
+            //return filteredFood.filter(x => x.categoryID.some(id => arr.includes(id)));
+        }
+        else {
+            console.log(filteredFood);
+            return filteredFood.filter(x => x.categoryID == arrFoodIDs.includes(x.categoryID));
+            //return filteredFood.filter(x => x.categoryID.find(id => arrFoodIDs.includes(id)));
+            //return filteredFood.filter(x => x.categoryID.some(id => arrFoodIDs.includes(id)));
+        }
+    }
+//}
+
+
+
 
 
 function printRestaurants(categoriesIDs, deliveryInputValue, sortInput, searchInput) {

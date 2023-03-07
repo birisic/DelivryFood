@@ -1990,6 +1990,18 @@ font-size: 20px;
   padding-top: 150px;
 }
 
+.mb-food-col {
+  transition: transform 0.2s ease-in-out;
+}
+
+.mb-food-col:hover {
+  transform: scale(1.03);
+}
+
+#mb-range {
+  width: 50%;
+}
+
 @media screen and (max-width: 769px) {
   #mb-search {
     width: 70%;
