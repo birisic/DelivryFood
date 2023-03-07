@@ -73,6 +73,7 @@ $(document).ready(function(){
         readMoreOrLess();
     }
     
+
     //RESTAURANTS PAGE
     //if (window.location.pathname == "/delivry/restaurants.html") {
     if (window.location.pathname == "/restaurants.html") {
@@ -113,6 +114,7 @@ $(document).ready(function(){
             printRestaurants(selectedFiltersCategories, selectedFilterDelivery, selectedSort, selectedSearchInput);
         })   
     }
+
 
     //CART PAGE
     if (window.location.pathname == "/delivry/cart.html") {
@@ -227,12 +229,42 @@ function regexValidation(re, obj){
 }
 
 
+function printRestaurantSortOptions() {
+    let sortSelect = document.querySelector("#mb-restaurant-sorts-select");
+    let sortsNames = ['Name asc.','Name desc.','Price asc.','Price desc.'];
+    let print = "";
+
+    for (let i = 0; i < sortsNames.length; i++) {
+        print += `<option value="${i}">${sortsNames[i]}</option>`      
+    }
+    sortSelect.innerHTML = print;
+}
+
+
+function showClickedFilters() {
+
+    $(".mb-filter-category-label").click(function() {
+        let labelForAttr = this.getAttribute("for");
+        //ADD/REMOVE FROM SELECTED CATEGORIES
+        if (!selectedFiltersCategories.includes(parseInt(this.previousElementSibling.id))) {
+            selectedFiltersCategories.push(parseInt(this.previousElementSibling.id));
+        }
+        else {
+            let currentCategory = selectedFiltersCategories.indexOf(parseInt(this.previousElementSibling.id));
+            selectedFiltersCategories.splice(currentCategory,1);
+        }
+        $(`label[for='${labelForAttr}']`).toggleClass("mb-filter-active");
+    });
+}
+
+
 function printRestaurantPage() {
     let restaurantH1 = document.querySelector("#mb-restaurant-title");
     let workingHoursSpan = document.querySelector("#mb-restaurant-working-time");
     let recommendationsSpan = document.querySelector("#mb-restaurant-rating");
     let categoriesDiv = document.querySelector("#mb-restaurant-categories-spans");
-    let printCategoriesSpans = "";
+    let printCategoriesFilters = "";
+     //`<input type="radio" name="restaurantPageCategoryFilter" value="0" id="mb-restaurant-category-filter-0" class="mb-width-0"/><label for="mb-restaurant-category-filter-0" class="mb-filter-category-label mb-filter-active text-warning rounded-pill m-2">All</label>`;
 
     for (let i = 0; i < restaurants.length; i++) {
         if (window.location.pathname == `/restaurant${restaurants[i].id}.html`) {
@@ -245,19 +277,25 @@ function printRestaurantPage() {
                 workingHoursSpan.innerHTML += "<br/>" + "(" + restaurants[i].workingHoursWeekend + " Sat-Sun)";
             }
 
-            //SET RECOMMMENDATIONS
+            //SET RECOMMMENDATIONS (RATING)
             recommendationsSpan.innerHTML += "(" + restaurants[i].recommendations + ")";
 
             //PRINT CATEGORIES
             for (let restaurantCategoryID of restaurants[i].categoriesID) {
                 for (let foodCategory of foodCategories) {
                     if (restaurantCategoryID == foodCategory.id) {
-                        printCategoriesSpans += `<span class="mb-filter-category-label text-warning rounded-pill m-2">${foodCategory.name}</span>`
+                        printCategoriesFilters += `<input type="checkbox" name="restaurantPageCategoryFilter" id="mb-restaurant-category-filter-${foodCategory.id}" value="${foodCategory.id}" class="mb-width-0"/><label for="mb-restaurant-category-filter-${foodCategory.id}" class="mb-filter-category-label text-warning rounded-pill m-2">${foodCategory.name}</label>`;
                     }
                 }
             }
-            categoriesDiv.innerHTML += printCategoriesSpans;
+            categoriesDiv.innerHTML += printCategoriesFilters;
 
+            //SHOW SELECTED CATEGORY
+            showClickedFilters()
+
+
+            //ADD SORT OPTIONS TO SELECT
+            printRestaurantSortOptions();
 
             break;
         }
