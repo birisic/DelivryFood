@@ -56,6 +56,7 @@ var workingHoursSpan = document.querySelector("#mb-restaurant-working-time");
 var recommendationsSpan = document.querySelector("#mb-restaurant-rating");
 var filteredFood = [];
 var arrFood = [];
+var inputRangeValue = 1500;
 
 
 //LOAD PAGE
@@ -163,9 +164,7 @@ $(document).ready(function(){
 
     //RESTAURANT PAGE
     for (let i = 0; i < restaurants.length; i++) {
-        createRestaurantPage(restaurants[i]);
-
-        break;
+        createRestaurantPage(restaurants[i]);        
     }
 })
 
@@ -189,6 +188,7 @@ function createRestaurantPage(restaurant){
         //PRINT CATEGORIES
         printCategoriesRestaurant(restaurant);
 
+        //CHECK IF ANY CATEGORY IS SELECTED
         $(".mb-filter-category-label").click(function() {
             let labelForAttr = this.getAttribute("for");
             //ADD/REMOVE FROM SELECTED CATEGORIES
@@ -200,35 +200,87 @@ function createRestaurantPage(restaurant){
                 selectedFiltersCategories.splice(currentCategory,1);
             }
             $(`label[for='${labelForAttr}']`).toggleClass("mb-filter-active");
-
-            filterAndPrintFood(restaurant,selectedFiltersCategories);
+            filteredFood = [];
+            filterAndPrintFood(restaurant, selectedFiltersCategories, inputRangeValue, selectedSearchInput, selectedSort);
         });
 
-        //showClickedFilters();
-        //filterFood(restaurant);
+        //INPUT RANGE FILTER
+        $("#mb-range").on("change", function() {
+            inputRangeValue = parseInt($("#mb-range").val());
+            filterAndPrintFood(restaurant, selectedFiltersCategories, inputRangeValue, selectedSearchInput, sortInput);
+        });
+
+        //INPUT SEARCH
+        $("#restaurant-input-search").keyup(function(){
+            selectedSearchInput = $("#restaurant-input-search").val();
+            selectedSearchInput == "" || null ? selectedSearchInput = initialSearch : $("#restaurant-input-search").val();
+            filterAndPrintFood(restaurant, selectedFiltersCategories, inputRangeValue, selectedSearchInput, selectedSort);
+        });
+
+        //DROPDOWN SELECT SORT
+        $("#mb-restaurant-sorts-select").on("change", function() {
+            sortInput = $(this).val();
+            filterAndPrintFood(restaurant, selectedFiltersCategories, inputRangeValue, selectedSearchInput, sortInput);
+        });
         
-        // $(document).on("change", "")
-        filterAndPrintFood(restaurant,selectedFiltersCategories);
-        console.log(arrFood);
-        //PRINT RESTAURANT PAGE
-        //printRestaurantPage(selectedFiltersCategories);
+        //PRINT DEFAULT FOOD
+        filterAndPrintFood(restaurant, selectedFiltersCategories, inputRangeValue, selectedSearchInput, selectedSort);
     }
-    // else {
-    //     restaurantH1.textContent="Restaurant title";
-    //     workingHoursSpan.textContent = "Working hours";
-    // }
-    
+}
+
+
+function foodSortBy(sortInput) {
+    let arrSorted = [];
+
+    switch(sortInput){
+       
+        case "0":                   arrSorted = arrFood.sort(function(a,b){
+                                        return b.name.localeCompare(a.name, 'en', { sensitivity: 'base' });
+                                    });
+                                    return arrSorted;
+
+        case "1":                   arrSorted = arrFood.sort(function(a,b){
+                                        return a.name.localeCompare(b.name, 'en', { sensitivity: 'base' });
+                                    });
+                                    return arrSorted;
+
+        case "2":                   arrSorted = arrFood.sort(function(a,b){
+                                        return a.price.newPrice - b.price.newPrice;
+                                    });
+                                    return arrSorted;
+
+        case "3":                   arrSorted = arrFood.sort(function(a,b){
+                                        return b.price.newPrice - a.price.newPrice;
+                                    });
+                                    return arrSorted;
+
+        default:                    arrSorted = arrFood;
+                                    return arrSorted;
+    }
+}
+
+
+function foodFilterSearch(selectedSearchInput) {
+    if (selectedSearchInput == initialSearch || selectedSearchInput == null) {
+        return arrFood;
+    }
+    return arrFood.filter(x => x.name.toLowerCase().includes(selectedSearchInput.toLowerCase().trim()));
+}
+
+
+function foodFilterRange(inputRangeValue) {
+    return arrFood.filter(x => x.price.newPrice <= inputRangeValue);
 }
 
 
 function foodFilterCategories(arr) {
         if (arr.length) {
-            return filteredFood.filter(x => arr.includes(x.categoryID));
+            return arrFood.filter(x => arr.includes(x.categoryID));
             //return filteredFood.filter(x => x.categoryID.find(id => arr.includes(id)));
             //return filteredFood.filter(x => x.categoryID.some(id => arr.includes(id)));
         }
         else {
-            return filteredFood;
+            return arrFood;
             //.filter(x => x.categoryID == arrFoodIDs.includes(x.categoryID));
             //return filteredFood.filter(x => x.categoryID.find(id => arrFoodIDs.includes(id)));
             //return filteredFood.filter(x => x.categoryID.some(id => arrFoodIDs.includes(id)));
@@ -236,15 +288,19 @@ function foodFilterCategories(arr) {
 }
 
 
-function printRestaurantFood(selectedFiltersCategories){
+function printRestaurantFood(selectedFiltersCategories, inputRangeValue, selectedSearchInput, sortInput){
+
     let foodSectionRow = document.querySelector("#mb-restaurant-food-row");
     let foodIngredients = "";
     let printFood = "";
 
-    //console.log(selectedFiltersCategories);
-    filteredFood = foodFilterCategories(selectedFiltersCategories)
-    console.log(filteredFood);
-    for (let objFilteredFood of filteredFood) {
+    //FILTER AND SORT
+    arrFood = foodFilterCategories(selectedFiltersCategories);
+    arrFood = foodFilterRange(inputRangeValue);
+    arrFood = foodFilterSearch(selectedSearchInput);
+    arrFood = foodSortBy(sortInput);
+
+    for (let objFilteredFood of arrFood) {
         if (objFilteredFood.ingredients != null && objFilteredFood.ingredients.length) {
             foodIngredients = objFilteredFood.ingredients;
         }
@@ -315,26 +371,23 @@ function printRestaurantFood(selectedFiltersCategories){
     printFood = "";
 }
 
-let arrFilteredFood = [];
-//NASTAVI OVDE!!
-function filterAndPrintFood(restaurant, selectedFiltersCategories) {
-    let filtered = [];
+
+function filterAndPrintFood(restaurant, selectedFiltersCategories, inputRangeValue, selectedSearchInput, sortInput) {
     for (let restaurantCategoryID of restaurant.categoriesID) {
         for (let foodCategory of foodCategories) {
-            if (restaurantCategoryID == foodCategory.id) {
+            if (restaurantCategoryID == foodCategory.id) {// && filteredFood.length != restaurant.categoriesID.length
                 filteredFood = food.filter(x => x.categoryID == foodCategory.id);
-                //printRestaurantFood(selectedFiltersCategories);
+
                 for (let objFood of filteredFood) {
-                     arrFood.push(objFood);
-                }
-                //arrFilteredFood = filteredFood.concat(filtered);
-                //console.log(filteredFood);
+                    if (!arrFood.includes(objFood)) {
+                        arrFood.push(objFood);//add food globally
+                    }
+                }                
+
+                printRestaurantFood(selectedFiltersCategories, inputRangeValue, selectedSearchInput, sortInput);
             }
         }
-        //break;
     }
-    //return arrFilteredFood;
-
 }
 
 function printCategoriesRestaurant(restaurant) {
@@ -652,7 +705,7 @@ function filterSearch(searchInput) {
     if (searchInput == initialSearch || searchInput == null) {
         return newRestaurants;
     }
-    return newRestaurants.filter(x => x.name.toLowerCase().includes(searchInput.toLowerCase()));
+    return newRestaurants.filter(x => x.name.toLowerCase().includes(searchInput.toLowerCase().trim()));
 }
 
 
@@ -835,3 +888,5 @@ function getSearchInput() {
         printRestaurants(initialCategories, selectedFilterDelivery, selectedSort, selectedSearchInput);
     });
 }
+
+
