@@ -55,7 +55,7 @@ var popularRestaurants = document.querySelector("#mb-popular-restaurants-row");
 var restaurantH1 = document.querySelector("#mb-restaurant-title");
 var workingHoursSpan = document.querySelector("#mb-restaurant-working-time");
 var recommendationsSpan = document.querySelector("#mb-restaurant-rating");
-var moreInfoModalTitle = document.querySelector("#exampleModalLabel3");
+var moreInfoModalTitle = document.querySelector("#exampleModalLabelInfo");
 var moreInfoWorkingHours = document.querySelector("#moreInfoWorkingHours");
 var moreInfoAddress = document.querySelector("#moreInfoAddress");
 var moreInfoDeliveryTime = document.querySelector("#moreInfoDeliveryTime");
@@ -68,6 +68,14 @@ var inputRangeValue = 1500;
 
 //VARIABLES FOR CART
 var restaurantName = "";
+var arrOrders = [];
+var arrOrder = [];
+var arrFoodIdOrder = [];
+
+
+//SAVE ARRAY OF ORDERS IN LOCALSTORAGE 
+localStorage.setItem("Orders", arrOrders);
+
 
 
 //LOAD PAGE
@@ -290,12 +298,16 @@ function createRestaurantPage(restaurant){
 
 
         //LISTEN FOR ADD TO CART CLICKS
-        $(".mb-btn-add-to-cart").click(function(){
-            //restaurantName = restaurant.name;
+        // $(".mb-btn-add-to-cart").click(function(){
+        //     // arrOrder.push(restaurant.id);
+        //     // arrOrder.push()
+        //     console.log($(this).data("id"));
 
-        })
-    }
+        // })
+         
+    } 
 }
+
 
 
 function foodSortBy(sortInput) {
@@ -352,7 +364,7 @@ function foodFilterCategories(arr) {
 }
 
 
-function printRestaurantFood(selectedFiltersCategories, inputRangeValue, selectedSearchInput, sortInput){
+function printRestaurantFood(restaurant, selectedFiltersCategories, inputRangeValue, selectedSearchInput, sortInput){
 
     let foodSectionRow = document.querySelector("#mb-restaurant-food-row");
     let foodIngredients = "";
@@ -423,7 +435,7 @@ function printRestaurantFood(selectedFiltersCategories, inputRangeValue, selecte
                     <form action="">
                             <input type="number" class="form-control w-50 me-0 ms-auto" name="foodAmountInput" id="mb-food-amount-input" placeholder="Ammount"/>
                     </form>
-                    <button type="button" data-bs-dismiss="modal" class="btn btn-warning text-white mb-btn-add-to-cart">Add to cart</button>
+                    <input type="button" data-id="${objFilteredFood.id}" data-bs-dismiss="modal" class="btn btn-warning text-white mb-btn-add-to-cart" value="Add to cart" name="btnAddToCart"/>
                 </div>
                 </div>
             </div>
@@ -433,6 +445,44 @@ function printRestaurantFood(selectedFiltersCategories, inputRangeValue, selecte
     }
     foodSectionRow.innerHTML = printFood;
     printFood = "";
+
+    //LISTEN FOR ADD TO CART CLICKS
+    $(".mb-btn-add-to-cart").on("click", function(){
+        // if (arrOrder) {
+        //     arrOrder = JSON.parse(arrOrder);
+        // }
+        let hasID = false;
+        let hasFoodID = false;
+        for (let member of arrOrder) {
+            if (member == restaurant.id) {
+                hasID = true;
+                break;
+            }
+        }
+        if (!hasID) {
+            arrOrder.push(restaurant.id);
+        }
+
+        for (let foodID of arrFoodIdOrder) {
+            if (foodID == $(this).data("id")) {
+                hasFoodID = true;
+                break;
+            }
+        }
+        if (!hasFoodID) {
+            arrFoodIdOrder.push($(this).data("id"));
+        }
+
+        arrOrder.splice(0,1);
+        arrOrder.push(arrFoodIdOrder);
+        //arrOrder = JSON.stringify(arrOrder); //RADI
+        // arrOrders.splice(1,1);
+        // arrOrders.push(arrOrder);
+        // console.log(arrOrders);
+        //localStorage.setItem(`Restaurant${restaurant.id}-order`,arrOrder); //RADI
+        //arrOrder = JSON.parse(arrOrder); //RADI
+        // console.log(arrOrder);
+    })
 }
 
 
@@ -447,7 +497,7 @@ function filterAndPrintFood(restaurant, selectedFiltersCategories, inputRangeVal
                         arrFood.push(objFood);//add food globally
                     }
                 }                
-                printRestaurantFood(selectedFiltersCategories, inputRangeValue, selectedSearchInput, sortInput);
+                printRestaurantFood(restaurant, selectedFiltersCategories, inputRangeValue, selectedSearchInput, sortInput);
             }
         }
     }
