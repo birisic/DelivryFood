@@ -66,6 +66,10 @@ var arrFood = [];
 var inputRangeValue = 1500;
 
 
+//VARIABLES FOR CART
+var restaurantName = "";
+
+
 //LOAD PAGE
 $(document).ready(function(){
     //console.log(window.location.pathname);
@@ -160,8 +164,9 @@ $(document).ready(function(){
     }
 
 
-    //CART PAGE
-    if (window.location.pathname == "/delivry/cart.html") {
+    //CHECKOUT PAGE
+    //if (window.location.pathname == "/delivry/checkout.html") {
+    if (window.location.pathname == "/checkout.html") {
         //FORM OBJECTS AND VALIDATION
         objName = document.querySelector("#user-name");
         objLastName = document.querySelector("#user-lastname");
@@ -200,6 +205,13 @@ $(document).ready(function(){
     //RESTAURANT PAGE
     for (let i = 0; i < restaurants.length; i++) {
         createRestaurantPage(restaurants[i]);        
+    }
+
+
+    //CART PAGE
+    if (window.location.pathname == "/cart.html") {// /delivry/cart.html
+        let restaurantH5 = document.querySelector("#mb-order-restaurant-name")
+        console.log(restaurantName); 
     }
 })
 
@@ -275,6 +287,13 @@ function createRestaurantPage(restaurant){
 
         //PRINT DEFAULT FOOD
         filterAndPrintFood(restaurant, selectedFiltersCategories, inputRangeValue, selectedSearchInput, selectedSort);
+
+
+        //LISTEN FOR ADD TO CART CLICKS
+        $(".mb-btn-add-to-cart").click(function(){
+            //restaurantName = restaurant.name;
+
+        })
     }
 }
 
@@ -404,7 +423,7 @@ function printRestaurantFood(selectedFiltersCategories, inputRangeValue, selecte
                     <form action="">
                             <input type="number" class="form-control w-50 me-0 ms-auto" name="foodAmountInput" id="mb-food-amount-input" placeholder="Ammount"/>
                     </form>
-                    <button type="button" class="btn btn-warning text-white">Add to cart</button>
+                    <button type="button" data-bs-dismiss="modal" class="btn btn-warning text-white mb-btn-add-to-cart">Add to cart</button>
                 </div>
                 </div>
             </div>
