@@ -2005,6 +2005,9 @@ font-size: 20px;
 #mb-table-container {
   overflow-x: auto;
 }
+.mb-padding-top {
+  padding-top: 150px;
+}
 
 @media screen and (max-width: 769px) {
   #mb-search {
