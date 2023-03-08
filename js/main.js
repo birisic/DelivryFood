@@ -48,6 +48,7 @@ var selectedSort = "0";
 var queryStringCategory = "";
 var queryStringCategoryParams = "";
 var categoryID = 0;
+var popularRestaurants = document.querySelector("#mb-popular-restaurants-row");
 
 
 //VARIABLES FOR FOOD
@@ -87,6 +88,34 @@ $(document).ready(function(){
 
         //READ MORE/LESS ABOUT SECTION
         readMoreOrLess();
+
+        //PRINT POPULAR RESTAURANTS
+        let arrRestaurantsSorted = restaurants.sort(function(a,b){
+            return b.recommendations - a.recommendations;
+        });
+        for (let i = 0; i < 3; i++) {
+            popularRestaurants.innerHTML += `<div class="col-lg-4 col-md-6 col-12 mb-5 d-flex justify-content-center align-items-center">
+            <a href="restaurant${arrRestaurantsSorted[i].id}.html" class="mb-restaurant-a">
+               <div class="card border-0 rounded">
+                  <img src="${BASE_IMG}${arrRestaurantsSorted[i].image.alt}${arrRestaurantsSorted[i].image.src}" alt="${arrRestaurantsSorted[i].image.alt}" class="card-img mb-restaurant-img"/>
+                  <div class="card-body p-0 mb-restaurant-card position-absolute rounded">
+                     <span class="mb-restaurant-delivery rounded-bottom">${arrRestaurantsSorted[i].deliveryTime}min <i class="fa-regular fa-clock"></i></span>
+                        <div class="row w-100 m-0 mb-restaurant-bottom d-flex justify-content-between align-items-end">
+                           <div class="mb-restaurant-title col-md-7 col-6">
+                              <span class="mb-restaurant-tag text-white fw-bold pb-0 ps-1">${arrRestaurantsSorted[i].tag}</span>
+                              <p class="mb-restaurant-text card-text text-white pb-3 ps-1 pb-xl-3 fw-bold">${arrRestaurantsSorted[i].name}</p>
+                           </div>
+                           <div class="mb-restaurant-spans col-md-5 col-6 d-flex justify-content-end align-items-center py-3 px-1">
+                              <span class="bg-warning p-1 rounded"><i class="fa-solid fa-bicycle"></i>${arrRestaurantsSorted[i].delivery.price==0?arrRestaurantsSorted[i].delivery.type.toUpperCase():arrRestaurantsSorted[i].delivery.price+"RSD"}</span>
+                              <span class="text-capitalize"><i class="fa-solid fa-star"></i>(${arrRestaurantsSorted[i].recommendations})</span>
+                           </div>
+                        </div>
+                     
+                  </div>
+               </div>
+            </a>
+         </div>`            
+        }
     }
     
 
