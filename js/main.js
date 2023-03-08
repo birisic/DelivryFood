@@ -55,7 +55,7 @@ var restaurantH1 = document.querySelector("#mb-restaurant-title");
 var workingHoursSpan = document.querySelector("#mb-restaurant-working-time");
 var recommendationsSpan = document.querySelector("#mb-restaurant-rating");
 var filteredFood = [];
-var arrFoodIDs = [];
+var arrFood = [];
 
 
 //LOAD PAGE
@@ -107,7 +107,6 @@ $(document).ready(function(){
         //CREATE CATEGORY FILTERS
         createCategoryFilters();
         showClickedFilters();
-
         //RADIO FILTERS DELIVERY
         showClickedRadioFilter();
 
@@ -189,36 +188,51 @@ function createRestaurantPage(restaurant){
 
         //PRINT CATEGORIES
         printCategoriesRestaurant(restaurant);
-        showClickedFilters();
-        console.log(selectedFiltersCategories);// NE RADI
-        //filterFood(restaurant);
 
+        $(".mb-filter-category-label").click(function() {
+            let labelForAttr = this.getAttribute("for");
+            //ADD/REMOVE FROM SELECTED CATEGORIES
+            if (!selectedFiltersCategories.includes(parseInt(this.previousElementSibling.id))) {
+                selectedFiltersCategories.push(parseInt(this.previousElementSibling.id));
+            }
+            else {
+                let currentCategory = selectedFiltersCategories.indexOf(parseInt(this.previousElementSibling.id));
+                selectedFiltersCategories.splice(currentCategory,1);
+            }
+            $(`label[for='${labelForAttr}']`).toggleClass("mb-filter-active");
+
+            filterAndPrintFood(restaurant,selectedFiltersCategories);
+        });
+
+        //showClickedFilters();
+        //filterFood(restaurant);
+        
         // $(document).on("change", "")
         filterAndPrintFood(restaurant,selectedFiltersCategories);
-
+        console.log(arrFood);
         //PRINT RESTAURANT PAGE
         //printRestaurantPage(selectedFiltersCategories);
     }
-    else {
-        restaurantH1.textContent="Restaurant title";
-        workingHoursSpan.textContent = "Working hours";
-    }
+    // else {
+    //     restaurantH1.textContent="Restaurant title";
+    //     workingHoursSpan.textContent = "Working hours";
+    // }
     
 }
 
 
 function foodFilterCategories(arr) {
-    //console.log(arr);
-    if (arr.length) {
-        return filteredFood.filter(x => x.categoryID == arr.includes(x.categoryID));
-        //return filteredFood.filter(x => x.categoryID.find(id => arr.includes(id)));
-        //return filteredFood.filter(x => x.categoryID.some(id => arr.includes(id)));
-    }
-    else {
-        return filteredFood.filter(x => x.categoryID == arrFoodIDs.includes(x.categoryID));
-        //return filteredFood.filter(x => x.categoryID.find(id => arrFoodIDs.includes(id)));
-        //return filteredFood.filter(x => x.categoryID.some(id => arrFoodIDs.includes(id)));
-    }
+        if (arr.length) {
+            return filteredFood.filter(x => arr.includes(x.categoryID));
+            //return filteredFood.filter(x => x.categoryID.find(id => arr.includes(id)));
+            //return filteredFood.filter(x => x.categoryID.some(id => arr.includes(id)));
+        }
+        else {
+            return filteredFood;
+            //.filter(x => x.categoryID == arrFoodIDs.includes(x.categoryID));
+            //return filteredFood.filter(x => x.categoryID.find(id => arrFoodIDs.includes(id)));
+            //return filteredFood.filter(x => x.categoryID.some(id => arrFoodIDs.includes(id)));
+        }
 }
 
 
@@ -227,9 +241,9 @@ function printRestaurantFood(selectedFiltersCategories){
     let foodIngredients = "";
     let printFood = "";
 
-    //console.log(selectedFiltersCategories + "kate");
+    //console.log(selectedFiltersCategories);
     filteredFood = foodFilterCategories(selectedFiltersCategories)
-
+    console.log(filteredFood);
     for (let objFilteredFood of filteredFood) {
         if (objFilteredFood.ingredients != null && objFilteredFood.ingredients.length) {
             foodIngredients = objFilteredFood.ingredients;
@@ -296,29 +310,32 @@ function printRestaurantFood(selectedFiltersCategories){
             </div>`
             foodIngredients = "";
         
-        
     }
-    foodSectionRow.innerHTML += printFood;
+    foodSectionRow.innerHTML = printFood;
+    printFood = "";
 }
 
-
+let arrFilteredFood = [];
+//NASTAVI OVDE!!
 function filterAndPrintFood(restaurant, selectedFiltersCategories) {
+    let filtered = [];
     for (let restaurantCategoryID of restaurant.categoriesID) {
         for (let foodCategory of foodCategories) {
             if (restaurantCategoryID == foodCategory.id) {
                 filteredFood = food.filter(x => x.categoryID == foodCategory.id);
-
-
-
-                printRestaurantFood(selectedFiltersCategories);
-                // for (let objFood of filteredFood) {
-                //     arrFoodIDs.push(objFood.id);
-                // }
+                //printRestaurantFood(selectedFiltersCategories);
+                for (let objFood of filteredFood) {
+                     arrFood.push(objFood);
+                }
+                //arrFilteredFood = filteredFood.concat(filtered);
+                //console.log(filteredFood);
             }
         }
+        //break;
     }
-}
+    //return arrFilteredFood;
 
+}
 
 function printCategoriesRestaurant(restaurant) {
     let categoriesDiv = document.querySelector("#mb-restaurant-categories-spans");
