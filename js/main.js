@@ -50,10 +50,16 @@ var queryStringCategoryParams = "";
 var categoryID = 0;
 
 
-//FOR FOOD
+//VARIABLES FOR FOOD
 var restaurantH1 = document.querySelector("#mb-restaurant-title");
 var workingHoursSpan = document.querySelector("#mb-restaurant-working-time");
 var recommendationsSpan = document.querySelector("#mb-restaurant-rating");
+var moreInfoModalTitle = document.querySelector("#exampleModalLabel3");
+var moreInfoWorkingHours = document.querySelector("#moreInfoWorkingHours");
+var moreInfoAddress = document.querySelector("#moreInfoAddress");
+var moreInfoDeliveryTime = document.querySelector("#moreInfoDeliveryTime");
+var moreInfoMinimalDeliveryPrice = document.querySelector("#moreInfoMinimalDeliveryPrice");
+var moreInfoPhone = document.querySelector("#moreInfoPhone");
 var filteredFood = [];
 var arrFood = [];
 var inputRangeValue = 1500;
@@ -172,12 +178,27 @@ function createRestaurantPage(restaurant){
     if (window.location.pathname == `/restaurant${restaurant.id}.html`) {
         //SET TITLE
         restaurantH1.textContent = restaurant.name;
-
+        moreInfoModalTitle.textContent = restaurant.name;
+        
         //SET WORKING TIME
         workingHoursSpan.textContent = restaurant.workingHours + " Mon-Fri";
+        moreInfoWorkingHours.textContent = restaurant.workingHours + " Mon-Fri";
         if (restaurant.workingHoursWeekend != restaurant.workingHours) {
             workingHoursSpan.innerHTML += "<br/>" + "(" + restaurant.workingHoursWeekend + " Sat-Sun)";
+            moreInfoWorkingHours.innerHTML += "<br/>" + "(" + restaurant.workingHoursWeekend + " Sat-Sun)";
         }
+
+        //SET ADDRESS
+        moreInfoAddress.innerHTML = "<br/>Address: " + restaurant.address[0].street + ", " + restaurant.address[0].city.name;
+
+        //SET AVERAGE DELIVERY TIME
+        moreInfoDeliveryTime.innerHTML = "<br/>Average delivery time: " + restaurant.deliveryTime + "min";
+
+        //SET MINIMAL DELIVERY PRICE
+        moreInfoMinimalDeliveryPrice.innerHTML = "<br/>Minimal delivery price: " + restaurant.minimalOrderPrice.price + "RSD";
+
+        //SET PHONE NUMBER
+        moreInfoEmail.innerHTML = "<br/>Email: " + restaurant.email;
 
         //SET RECOMMENDATIONS (RATING)
         recommendationsSpan.innerHTML += "(" + restaurant.recommendations + ")";
@@ -207,7 +228,7 @@ function createRestaurantPage(restaurant){
         //INPUT RANGE FILTER
         $("#mb-range").on("change", function() {
             inputRangeValue = parseInt($("#mb-range").val());
-            filterAndPrintFood(restaurant, selectedFiltersCategories, inputRangeValue, selectedSearchInput, sortInput);
+            filterAndPrintFood(restaurant, selectedFiltersCategories, inputRangeValue, selectedSearchInput, selectedSort);
         });
 
         //INPUT SEARCH
@@ -219,8 +240,8 @@ function createRestaurantPage(restaurant){
 
         //DROPDOWN SELECT SORT
         $("#mb-restaurant-sorts-select").on("change", function() {
-            sortInput = $(this).val();
-            filterAndPrintFood(restaurant, selectedFiltersCategories, inputRangeValue, selectedSearchInput, sortInput);
+            selectedSort = $(this).val();
+            filterAndPrintFood(restaurant, selectedFiltersCategories, inputRangeValue, selectedSearchInput, selectedSort);
         });
 
         //PRINT DEFAULT FOOD
