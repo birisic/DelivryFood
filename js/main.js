@@ -91,8 +91,8 @@ $(document).ready(function(){
     //ADD JS FOR USER FORM
     
     //INDEX PAGE
-    //if (window.location.pathname == "/delivry/index.html" || window.location.pathname == "/delivry/") {//include repository name
-    if (window.location.pathname == "/index.html" || window.location.pathname == "/") {
+    if (window.location.pathname == "/delivry/index.html" || window.location.pathname == "/delivry/") {//include repository name
+    //if (window.location.pathname == "/index.html" || window.location.pathname == "/") {
         //OWL CAROUSEL FOOD CATEGORIES
         foodCategoriesOwlCarouselPrint();
         $("#owl-example").owlCarousel();
@@ -132,8 +132,8 @@ $(document).ready(function(){
     
 
     //RESTAURANTS PAGE
-    //if (window.location.pathname == "/delivry/restaurants.html") {
-    if (window.location.pathname == "/restaurants.html") {
+    if (window.location.pathname == "/delivry/restaurants.html") {
+    //if (window.location.pathname == "/restaurants.html") {
         //GET CATEGORY ID THROUGH URL AND PRINT RESTAURANTS
         queryStringCategory = window.location.search;
         queryStringCategoryParams = new URLSearchParams(queryStringCategory);
@@ -173,8 +173,8 @@ $(document).ready(function(){
 
 
     //CHECKOUT PAGE
-    //if (window.location.pathname == "/delivry/checkout.html") {
-    if (window.location.pathname == "/checkout.html") {
+    if (window.location.pathname == "/delivry/checkout.html") {
+    //if (window.location.pathname == "/checkout.html") {
         //FORM OBJECTS AND VALIDATION
         objName = document.querySelector("#user-name");
         objLastName = document.querySelector("#user-lastname");
@@ -217,14 +217,16 @@ $(document).ready(function(){
 
 
     //CART PAGE
-    if (window.location.pathname == "/cart.html") {// /delivry/cart.html
+    if (window.location.pathname == "/delivry/cart.html") {
+    //if (window.location.pathname == "/cart.html") {// /delivry/cart.html
         let restaurantH5 = document.querySelector("#mb-order-restaurant-name")
         console.log(restaurantName); 
     }
 })
 
 function createRestaurantPage(restaurant){
-    if (window.location.pathname == `/restaurant${restaurant.id}.html`) {
+    if (window.location.pathname == `/delivry/restaurant${restaurant.id}.html`) {
+    //if (window.location.pathname == `/restaurant${restaurant.id}.html`) {
         //SET TITLE
         restaurantH1.textContent = restaurant.name;
         moreInfoModalTitle.textContent = restaurant.name;
@@ -295,16 +297,6 @@ function createRestaurantPage(restaurant){
 
         //PRINT DEFAULT FOOD
         filterAndPrintFood(restaurant, selectedFiltersCategories, inputRangeValue, selectedSearchInput, selectedSort);
-
-
-        //LISTEN FOR ADD TO CART CLICKS
-        // $(".mb-btn-add-to-cart").click(function(){
-        //     // arrOrder.push(restaurant.id);
-        //     // arrOrder.push()
-        //     console.log($(this).data("id"));
-
-        // })
-         
     } 
 }
 
