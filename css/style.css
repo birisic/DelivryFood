@@ -436,57 +436,7 @@ right: 0;
 .callbacks_nav.next {
 background-size:40px;
 }
-/*#slider3-pager a {
-display: inline-block;
-}
-#slider3-pager img {
-float: left;
-}
-#slider3-pager .rslides_here a {
-background: transparent;
-box-shadow: 0 0 0 2px #666;
-}
-#slider3-pager a {
-padding: 0;
-}*/
-/*--pager--*/
-/*.callbacks_tabs {
-list-style: none;
-position: absolute;
-padding: 0;
-bottom: 228px;
-right: 41%;
-margin: 0;
-z-index: 9;
-display: block;
-text-align: center;
-}
-.callbacks_tabs li {
-display: inline-block;
-margin: 0px 2px 0px;
-}
-.callbacks_tabs a {
-visibility: hidden;
-}
-.callbacks_tabs a:after {
-content: "\f111";
-font-size: 0;
-font-family: FontAwesome;
-visibility: visible;
-display: block;
-width: 21px;
-height: 21px;
-display: inline-block;
-background:#d24055;
-border: none;
-border-radius: 50%;
-}
-.callbacks_here a:after {
-background: #fff;
-border: 4px solid #d24055;
-}*/
-/*-- //banner --*/
-/*--about --*/
+
 .jst-wthree-text h2,.shopping-degine h4,.about-inner-mid h4 {
 font-size:37px;
 line-height: 67px;
