@@ -547,7 +547,7 @@ function printRestaurantFood(restaurant, selectedFiltersCategories, inputRangeVa
             arrOrder.push({
                 "foodID": $(this).data("id"),
                 "name": $(this).parent().parent().prev().children(".mb-food-text").children(".mb-food-info").children("h4").text(),
-                "quantity": $(this).prev().val()==""?1:parseInt($(this).prev().val()),
+                "quantity": $(this).prev().val()=="" || parseInt($(this).prev().val()) < 1 ? 1:parseInt($(this).prev().val()),
                 "price": parseInt($(this).parent().parent().prev().children(".mb-food-text").children(".mb-food-price-tag").children(".mb-current-price").text()),
                 "image": {
                     "src": $(this).parent().parent().prev().children(".mb-food-img").children("img").attr("src"),
