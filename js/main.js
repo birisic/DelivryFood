@@ -280,13 +280,20 @@ function printCart() {
     //EMPTY CART MESSAGE
     if ($("#mb-cart-table tbody").children().length == 0) {
         $("#mb-cart-table").remove();
+
         $("#mb-order-message").removeClass("d-none");
         $("#mb-order-message").addClass("d-block");
-        $("#mb-order-message").text("Your cart is empty.")
+        $("#mb-order-message").text("Your cart is empty.");
+
+        $("#mb-receipt-header").removeClass("d-block");
+        $("#mb-receipt-header").addClass("d-none");
     }
     else {
         $("#mb-order-message").removeClass("d-block");
         $("#mb-order-message").addClass("d-none");
+
+        $("#mb-receipt-header").removeClass("d-none");
+        $("#mb-receipt-header").addClass("d-block");
     }
 
 
@@ -819,7 +826,7 @@ function createNavbar() {
     let print = "";
     for (let i = 0; i < linksNames.length; i++) {
         print += `<li class="nav-item  ${linksNames[i]=="Get Started"?" me-5":""}">
-        <a class="nav-link ${linksNames[i]=="<i class='fa-solid fa-heart'></i>"?"me-5":""}" href="${links[i]}">${linksNames[i]=="<i class='fa-solid fa-cart-shopping'></i>" || linksNames[i] == "<i class='fa-solid fa-heart'></i>"?linksNames[i] + "<span class='mb-show-number btn btn-warning text-white'>0</span>":linksNames[i]}</a>
+        <a class="nav-link ${linksNames[i]=="<i class='fa-solid fa-cart-shopping'></i>"?"me-5":""}" href="${links[i]}">${linksNames[i]=="<i class='fa-solid fa-cart-shopping'></i>" || linksNames[i] == "<i class='fa-solid fa-heart'></i>"?linksNames[i] + "<span class='mb-show-number btn btn-warning text-white'>0</span>":linksNames[i]}</a>
       </li>`
     }
     navbarUl.innerHTML = print;

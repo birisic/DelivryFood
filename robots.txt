@@ -1,0 +1,9 @@
+User-agent: *
+Disallow: /css/
+Disallow: /data/
+Disallow: /images/
+Disallow: /js/
+Disallow: /owl-carousel/
+Disallow: /reserve code/
+Disallow: /webfonts/
+Disallow: /documentation.pdf/

@@ -14,9 +14,5 @@
     {
         "text": "<i class='fa-solid fa-cart-shopping'></i>",
         "link": "cart.html"
-    },
-    {
-        "text": "<i class='fa-solid fa-heart'></i>",
-        "link": "favorites.html"
     }
 ]
