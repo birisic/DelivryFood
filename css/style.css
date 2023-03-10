@@ -1959,6 +1959,11 @@ font-size: 20px;
   padding-top: 150px;
 }
 
+#mb-cart-table thead tr th, #mb-cart-table tbody tr td {
+  text-align: start;
+  vertical-align: middle;
+}
+
 @media screen and (max-width: 769px) {
   #mb-search {
     width: 70%;

@@ -1,0 +1,62 @@
+//var restaurantName = "";
+//var arrOrders = [];
+//var arrOrder = [];        
+
+
+let hasRestaurantID = false;
+
+        //IF I ADD RESTAURANTS TOO
+        for (let member of arrOrder) {
+            if (member == restaurant.id) {
+                hasRestaurantID = true;
+                break;
+            }
+        }
+        if (!hasRestaurantID) {
+            arrOrder.push(restaurant.id);
+        } 
+
+	//CHANGE ONLY FOOD IN ORDER
+        arrOrder.splice(0,1);
+        arrOrder.push(arrFoodIdOrder);
+	
+	//SAVE JSON TO LOCALSTORAGE AND READ IT BACK
+        arrOrder = JSON.stringify(arrOrder); //RADI
+        arrOrders.splice(1,1);
+        arrOrders.push(arrOrder);
+        console.log(arrOrders);
+        localStorage.setItem(`Restaurant${restaurant.id}-order`,arrOrder); //RADI
+        arrOrder = JSON.parse(arrOrder); //RADI
+        console.log(arrOrder);
+
+
+
+
+
+//NEWER CODE
+
+
+//ADD TO LS
+
+        // if (arrFoodIdOrder.length > 0) {
+        //     objOrder = JSON.parse(localStorage.getItem("order"));
+        //     arrFoodIdOrder = objOrder.foodIDs;
+        //     foodQuantity = objOrder.quantity;
+        // }
+        
+        // for (let foodID of arrFoodIdOrder) {
+        //     if (foodID == $(this).data("id")) {
+        //         hasFoodID = true;
+        //         break;
+        //     }
+        // }
+
+        // if (!hasFoodID) {
+        //     arrFoodIdOrder.push($(this).data("id"));
+        //     foodQuantity = $(this).prev().val();
+        // }
+
+        // console.log(foodQuantity);
+        // //ADD TO LS
+        // objOrder = JSON.stringify(objOrder);
+        // localStorage.setItem("order",objOrder);

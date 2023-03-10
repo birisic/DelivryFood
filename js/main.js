@@ -67,14 +67,31 @@ var inputRangeValue = 1500;
 
 
 //VARIABLES FOR CART
-var restaurantName = "";
-var arrOrders = [];
-var arrOrder = [];
 var arrFoodIdOrder = [];
+var foodIDOrder = 0;
+var foodQuantityOrder = 0;
+var foodImgPath = "";
+var foodImgAlt = "";
+var foodPrice = 0;
+var foodName = "";
+var objFoodOrder = {
+    "foodID": foodIDOrder,
+    "name": foodName,
+    "quantity": foodQuantityOrder,
+    "price": foodPrice,
+    "image": {
+        "src": foodImgPath,
+        "alt": foodImgAlt
+    }
+};
+let receipt = 0;
+let cartTableBody = document.querySelector("#mb-cart-table tbody");
+var arrOrder = [];
 
 
 //SAVE ARRAY OF ORDERS IN LOCALSTORAGE 
-localStorage.setItem("Orders", arrOrders);
+//localStorage.setItem("Orders", arrOrders);
+
 
 
 
@@ -88,11 +105,13 @@ $(document).ready(function(){
     navbarShrinkOnScroll();
 
 
-    //ADD JS FOR USER FORM
+    //CHANGE CART NUMBER
+    JSON.parse(localStorage.getItem("Order")) != null ? arrOrder = JSON.parse(localStorage.getItem("Order")) : arrOrder = [];
+    $(".mb-show-number").first().text(arrOrder.length);
     
     //INDEX PAGE
-    if (window.location.pathname == "/delivry/index.html" || window.location.pathname == "/delivry/") {//include repository name
-    //if (window.location.pathname == "/index.html" || window.location.pathname == "/") {
+    //if (window.location.pathname == "/delivry/index.html" || window.location.pathname == "/delivry/") {//include repository name
+    if (window.location.pathname == "/index.html" || window.location.pathname == "/") {
         //OWL CAROUSEL FOOD CATEGORIES
         foodCategoriesOwlCarouselPrint();
         $("#owl-example").owlCarousel();
@@ -132,8 +151,8 @@ $(document).ready(function(){
     
 
     //RESTAURANTS PAGE
-    if (window.location.pathname == "/delivry/restaurants.html") {
-    //if (window.location.pathname == "/restaurants.html") {
+    //if (window.location.pathname == "/delivry/restaurants.html") {
+    if (window.location.pathname == "/restaurants.html") {
         //GET CATEGORY ID THROUGH URL AND PRINT RESTAURANTS
         queryStringCategory = window.location.search;
         queryStringCategoryParams = new URLSearchParams(queryStringCategory);
@@ -173,8 +192,8 @@ $(document).ready(function(){
 
 
     //CHECKOUT PAGE
-    if (window.location.pathname == "/delivry/checkout.html") {
-    //if (window.location.pathname == "/checkout.html") {
+    //if (window.location.pathname == "/delivry/checkout.html") {
+    if (window.location.pathname == "/checkout.html") {
         //FORM OBJECTS AND VALIDATION
         objName = document.querySelector("#user-name");
         objLastName = document.querySelector("#user-lastname");
@@ -217,16 +236,81 @@ $(document).ready(function(){
 
 
     //CART PAGE
-    if (window.location.pathname == "/delivry/cart.html") {
-    //if (window.location.pathname == "/cart.html") {// /delivry/cart.html
-        let restaurantH5 = document.querySelector("#mb-order-restaurant-name")
-        console.log(restaurantName); 
+    //if (window.location.pathname == "/delivry/cart.html") {
+    if (window.location.pathname == "/cart.html") {// /delivry/cart.html
+        printCart();
     }
 })
 
+
+function printCart() {
+    JSON.parse(localStorage.getItem("Order")) != null ? arrOrder = JSON.parse(localStorage.getItem("Order")) : arrOrder = [];
+
+    arrOrder.forEach(foodElement => {
+        let elementImg = `<img class="rounded" height="120" src='${foodElement.image.src}' alt='${foodElement.image.alt}'/>`;
+        let elementName = `${foodElement.name}`;
+        let elementQuantity = `${foodElement.quantity}`;
+        let elementPrice = `${foodElement.price}`;
+        let elementRemoveBtn = `<button type='button' class='btn btn-danger mb-order-remove-item' data-id="${foodElement.foodID}">Remove</button>`
+        let tableRow = `<tr>
+                            <td>
+                                ${elementImg}
+                            </td>
+                            <td>
+                                ${elementName}
+                            </td>
+                            <td>
+                                ${elementQuantity}
+                            </td>
+                            <td>
+                                ${elementPrice} RSD
+                            </td>
+                            <td class="fw-bold">
+                                ${elementPrice * elementQuantity} RSD
+                            </td>
+                            <td class="text-center">
+                                ${elementRemoveBtn}
+                            </td>
+                        </tr>`
+        $("#mb-cart-table tbody").append(tableRow);
+        receipt += elementPrice * elementQuantity;
+        $("#mb-order-recepit").text(receipt);
+    });
+
+    //EMPTY CART MESSAGE
+    if ($("#mb-cart-table tbody").children().length == 0) {
+        $("#mb-cart-table").remove();
+        $("#mb-order-message").removeClass("d-none");
+        $("#mb-order-message").addClass("d-block");
+        $("#mb-order-message").text("Your cart is empty.")
+    }
+    else {
+        $("#mb-order-message").removeClass("d-block");
+        $("#mb-order-message").addClass("d-none");
+    }
+
+
+    //REMOVE ITEM ON CLICK
+    $(".mb-order-remove-item").click(function() {
+        $("#mb-cart-table tbody").empty();
+        let filteredItems = arrOrder.filter(x => x.foodID != $(this).data("id"));
+
+        if (filteredItems.length == 0) localStorage.clear;//AKO JE SAMO TAJ ITEM
+
+        localStorage.setItem("Order",JSON.stringify(filteredItems));
+
+        
+        receipt = 0;
+        $("#mb-order-recepit").text(receipt);
+        $(".mb-show-number").first().text(filteredItems.length);
+        printCart();
+    });
+}
+
+
 function createRestaurantPage(restaurant){
-    if (window.location.pathname == `/delivry/restaurant${restaurant.id}.html`) {
-    //if (window.location.pathname == `/restaurant${restaurant.id}.html`) {
+    //if (window.location.pathname == `/delivry/restaurant${restaurant.id}.html`) {
+    if (window.location.pathname == `/restaurant${restaurant.id}.html`) {
         //SET TITLE
         restaurantH1.textContent = restaurant.name;
         moreInfoModalTitle.textContent = restaurant.name;
@@ -299,7 +383,6 @@ function createRestaurantPage(restaurant){
         filterAndPrintFood(restaurant, selectedFiltersCategories, inputRangeValue, selectedSearchInput, selectedSort);
     } 
 }
-
 
 
 function foodSortBy(sortInput) {
@@ -416,7 +499,7 @@ function printRestaurantFood(restaurant, selectedFiltersCategories, inputRangeVa
                                     <p class="py-2">${objFilteredFood.ingredients!=null?objFilteredFood.ingredients:""}</p>
                                 </div>
                                 <div class="mb-food-price-tag">
-                                    <span class="text-warning">${objFilteredFood.price.newPrice} RSD</span>
+                                    <span class="text-warning mb-current-price">${objFilteredFood.price.newPrice}</span><span class="text-warning"> RSD</span>
                                     <s class="text-dark">${objFilteredFood.price.oldPrice!=null?objFilteredFood.price.oldPrice + " RSD":""}</s>
                                     <span class="btn-warning text-white rounded">${objFilteredFood.popularTag?"<span class='p-2 text-capitalize'>popular</span>":""}</span>
                                 </div>
@@ -424,10 +507,10 @@ function printRestaurantFood(restaurant, selectedFiltersCategories, inputRangeVa
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-white ms-0 me-auto border rounded" data-bs-dismiss="modal">Close</button>
-                    <form action="">
-                            <input type="number" class="form-control w-50 me-0 ms-auto" name="foodAmountInput" id="mb-food-amount-input" placeholder="Ammount"/>
+                    <form action="" class="d-flex justify-content-center">
+                            <input type="number" class="form-control w-50 me-1 ms-auto mb-food-amount-input" name="foodAmountInput" placeholder="Ammount"/>
+                            <input type="button" data-id="${objFilteredFood.id}" data-bs-dismiss="modal" class="btn btn-warning text-white mb-btn-add-to-cart" value="Add to cart" name="btnAddToCart"/>
                     </form>
-                    <input type="button" data-id="${objFilteredFood.id}" data-bs-dismiss="modal" class="btn btn-warning text-white mb-btn-add-to-cart" value="Add to cart" name="btnAddToCart"/>
                 </div>
                 </div>
             </div>
@@ -440,40 +523,33 @@ function printRestaurantFood(restaurant, selectedFiltersCategories, inputRangeVa
 
     //LISTEN FOR ADD TO CART CLICKS
     $(".mb-btn-add-to-cart").on("click", function(){
-        // if (arrOrder) {
-        //     arrOrder = JSON.parse(arrOrder);
-        // }
-        let hasID = false;
         let hasFoodID = false;
-        for (let member of arrOrder) {
-            if (member == restaurant.id) {
-                hasID = true;
-                break;
+        
+        //GET FROM LS
+        if (arrOrder.length > 0) {
+            for (let objFoodFromOrder of arrOrder) {
+                if (objFoodFromOrder.foodID == $(this).data("id")) {
+                    hasFoodID = true;
+                    break;
+                }
             }
-        }
-        if (!hasID) {
-            arrOrder.push(restaurant.id);
         }
 
-        for (let foodID of arrFoodIdOrder) {
-            if (foodID == $(this).data("id")) {
-                hasFoodID = true;
-                break;
-            }
-        }
+        //IF THE ORDER DOESN'T ALREADY CONTAIN THE SELECTED FOOD
         if (!hasFoodID) {
-            arrFoodIdOrder.push($(this).data("id"));
+            arrOrder.push({
+                "foodID": $(this).data("id"),
+                "name": $(this).parent().parent().prev().children(".mb-food-text").children(".mb-food-info").children("h4").text(),
+                "quantity": $(this).prev().val()==""?1:parseInt($(this).prev().val()),
+                "price": parseInt($(this).parent().parent().prev().children(".mb-food-text").children(".mb-food-price-tag").children(".mb-current-price").text()),
+                "image": {
+                    "src": $(this).parent().parent().prev().children(".mb-food-img").children("img").attr("src"),
+                    "alt": $(this).parent().parent().prev().children(".mb-food-img").children("img").attr("alt")
+                }
+            });
+            localStorage.setItem("Order",JSON.stringify(arrOrder));
         }
-
-        arrOrder.splice(0,1);
-        arrOrder.push(arrFoodIdOrder);
-        //arrOrder = JSON.stringify(arrOrder); //RADI
-        // arrOrders.splice(1,1);
-        // arrOrders.push(arrOrder);
-        // console.log(arrOrders);
-        //localStorage.setItem(`Restaurant${restaurant.id}-order`,arrOrder); //RADI
-        //arrOrder = JSON.parse(arrOrder); //RADI
-        // console.log(arrOrder);
+        $(".mb-show-number").first().text(arrOrder.length);
     })
 }
 
@@ -699,9 +775,10 @@ function ajaxCallback(file,callback) {
         url: BASE_DATA + file,
         method: "get",
         dataType: "json",
+        timeout: 0,
         success: function(result){
             console.log(file, " saved");
-            setTimeout(callback(file, result), 0);
+            callback(file, result);//setTimeout(
         },
         error: function(xhr, status, exception){
             console.log(xhr, status, message);
