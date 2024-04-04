@@ -1964,6 +1964,10 @@ font-size: 20px;
   vertical-align: middle;
 }
 
+.mb-table-login {
+  width: 80%;
+}
+
 @media screen and (max-width: 769px) {
   #mb-search {
     width: 70%;
@@ -1979,6 +1983,9 @@ font-size: 20px;
   }
   .mb-restaurant-spans span, .mb-restaurant-spans span i{
     font-size: 2.1vh !important;
+  }
+  .mb-table-login {
+    width: 100%;
   }
 }
 

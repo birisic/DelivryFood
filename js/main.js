@@ -6,12 +6,16 @@ const BASE_DATA = "data/";
 //CHECKOUT FORM OBJECTS
 var objName, objLastName, objAddress, objCity, objPhone, objEmail, objOrderDdl, arrOrderRadio, arrOrderCheck;
 var submitBtn = document.getElementById("btn-order");
+
+var objPass, objConfirmPass;
+
 //REGEXES
 var reFullName = /^([A-ZŠČĆĐŽ][a-zščćđž]{2,14}){1,3}$/;
 var reAddress = /^(([A-ZŠĐČĆŽ][a-zšđžčć]{1,15}(\.)?)|([1-9][0-9]{0,2}(\.)?))[a-zA-Z0-9\s\/\-]+$/;
 var reEmail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 var reCity = /^[A-ZŠČĆĐŽ][a-zščćđž]{2,14}\s[1-9][0-9]{4}$/;
 var rePhone = /^(\+381)?(\s|-)?06(([0-6]|[8-9])\d{6,8}|(77|78)\d{7}){1}$/;
+var rePass = /^[A-Za-z\d]{8,20}$/;
 
 
 //GET JSON DATA AND STORE IT IN LOCALSTORAGE BEFORE FULL PAGE LOADS
@@ -99,7 +103,7 @@ var arrOrder = [];
 $(document).ready(function(){
     //console.log(window.location.pathname);
     //CREATE NAVBAR
-    createNavbar();
+    //createNavbar();
 
     //NAVBAR SHRINK AND INCREASE OPACITY ON SCROLL
     navbarShrinkOnScroll();
@@ -110,8 +114,8 @@ $(document).ready(function(){
     $(".mb-show-number").first().text(arrOrder.length);
     
     //INDEX PAGE
-    if (window.location.pathname == "/delivry/index.html" || window.location.pathname == "/delivry/") {//include repository name
-    //if (window.location.pathname == "/index.html" || window.location.pathname == "/") {
+    if (window.location.pathname == "/delivry_2/index.php" || window.location.pathname == "/delivry_2/") {//include repository name
+    //if (window.location.pathname == "/index.php" || window.location.pathname == "/") {
         //OWL CAROUSEL FOOD CATEGORIES
         foodCategoriesOwlCarouselPrint();
         $("#owl-example").owlCarousel();
@@ -126,7 +130,7 @@ $(document).ready(function(){
         });
         for (let i = 0; i < 3; i++) {
             popularRestaurants.innerHTML += `<div class="col-lg-4 col-md-6 col-12 mb-5 d-flex justify-content-center align-items-center">
-            <a href="restaurant${arrRestaurantsSorted[i].id}.html" class="mb-restaurant-a">
+            <a href="restaurant${arrRestaurantsSorted[i].id}.php" class="mb-restaurant-a">
                <div class="card border-0 rounded">
                   <img src="${BASE_IMG}${arrRestaurantsSorted[i].image.alt}${arrRestaurantsSorted[i].image.src}" alt="${arrRestaurantsSorted[i].image.alt}" class="card-img mb-restaurant-img"/>
                   <div class="card-body p-0 mb-restaurant-card position-absolute rounded">
@@ -151,8 +155,8 @@ $(document).ready(function(){
     
 
     //RESTAURANTS PAGE
-    if (window.location.pathname == "/delivry/restaurants.html") {
-    //if (window.location.pathname == "/restaurants.html") {
+    if (window.location.pathname == "/delivry_2/restaurants.php") {
+    //if (window.location.pathname == "/restaurants.php") {
         //GET CATEGORY ID THROUGH URL AND PRINT RESTAURANTS
         queryStringCategory = window.location.search;
         queryStringCategoryParams = new URLSearchParams(queryStringCategory);
@@ -192,8 +196,8 @@ $(document).ready(function(){
 
 
     //CHECKOUT PAGE
-    if (window.location.pathname == "/delivry/checkout.html") {
-    //if (window.location.pathname == "/checkout.html") {
+    if (window.location.pathname == "/delivry_2/checkout.php") {
+    //if (window.location.pathname == "/checkout.php") {
         //FORM OBJECTS AND VALIDATION
         objName = document.querySelector("#user-name");
         objLastName = document.querySelector("#user-lastname");
@@ -229,6 +233,45 @@ $(document).ready(function(){
     }
 
 
+    //REGISTER PAGE
+    if (window.location.pathname == "/delivry_2/form-register.php") {
+
+        //let submitRegister = document.getElementById("btn-register");
+        objName = document.querySelector("#user-name");
+        objLastName = document.querySelector("#user-lastname");
+        objEmail = document.querySelector("#user-email");
+        objPass = document.querySelector("#user-password");
+        objConfirmPass = document.querySelector("#user-confirm-password");
+
+        objName.addEventListener("blur",function(){
+            regexValidation(reFullName, objName);
+        });
+        objLastName.addEventListener("blur",function(){
+            regexValidation(reFullName, objLastName);
+        });
+        objEmail.addEventListener("blur",function(){
+            regexValidation(reEmail, objEmail);
+        });
+        objPass.addEventListener("blur",function(){
+            regexValidation(rePass, objPass);
+        });
+
+        //submitRegister.addEventListener("submit",formValidationOnSubmit);
+        //submitRegister.addEventListener("click",formValidationOnSubmit); 
+    }
+    //LOGIN PAGE
+    if (window.location.pathname == "/delivry_2/form-login.php") {
+        objEmail = document.querySelector("#user-email");
+        objPass = document.querySelector("#user-password");
+        objEmail.addEventListener("blur",function(){
+            regexValidation(reEmail, objEmail);
+        });
+        objPass.addEventListener("blur",function(){
+            regexValidation(rePass, objPass);
+        });
+    }
+
+
     //RESTAURANT PAGE
     for (let i = 0; i < restaurants.length; i++) {
         createRestaurantPage(restaurants[i]);        
@@ -236,8 +279,8 @@ $(document).ready(function(){
 
 
     //CART PAGE
-    if (window.location.pathname == "/delivry/cart.html") {
-    //if (window.location.pathname == "/cart.html") {// /delivry/cart.html
+    if (window.location.pathname == "/delivry_2/cart.php") {
+    //if (window.location.pathname == "/cart.php") {// /delivry_2/cart.php
         printCart();
     }
 })
@@ -316,8 +359,8 @@ function printCart() {
 
 
 function createRestaurantPage(restaurant){
-    if (window.location.pathname == `/delivry/restaurant${restaurant.id}.html`) {
-    //if (window.location.pathname == `/restaurant${restaurant.id}.html`) {
+    if (window.location.pathname == `/delivry_2/restaurant${restaurant.id}.php`) {
+    //if (window.location.pathname == `/restaurant${restaurant.id}.php`) {
         //SET TITLE
         restaurantH1.textContent = restaurant.name;
         moreInfoModalTitle.textContent = restaurant.name;
@@ -608,36 +651,73 @@ function printRestaurantSortOptions() {
 
 
 function formValidationOnSubmit(){
+    // let arrErrors = [];
+    let arrErrors = 0;
     //REGEXES
-    regexValidation(reFullName, objName);
-    regexValidation(reFullName, objLastName);
-    regexValidation(reAddress, objAddress);
-    regexValidation(reCity, objCity);
-    regexValidation(rePhone, objPhone);
-    regexValidation(reEmail, objEmail);
+    // arrErrors.push(regexValidation(reEmail, objEmail));
+    // arrErrors.push(regexValidation(reFullName, objName));
+    // arrErrors.push(regexValidation(reFullName, objLastName));
+    arrErrors += regexValidation(reFullName, objName);
+    arrErrors += regexValidation(reFullName, objLastName);
+    arrErrors += regexValidation(reEmail, objEmail);
+    arrErrors += regexValidation(rePass, objPass);
 
+    if (window.location.pathname == "/delivry_2/form-reg.php") {
 
-    //CHECK
-    let chbTerms = document.getElementsByName("terms");
-    try {
-        if (!chbTerms[0].checked) {
-            chbTerms[0].nextElementSibling.nextElementSibling.classList.remove("d-none");
-            chbTerms[0].nextElementSibling.nextElementSibling.classList.add("d-block");
-            throw ("Niste pročitali uslove korišćenja.");
+    }
+
+    
+    if (window.location.pathname == "/delivry_2/checkout.php") {
+        // arrErrors.push(regexValidation(reAddress, objAddress));
+        // arrErrors.push(regexValidation(reCity, objCity));
+        // arrErrors.push(regexValidation(rePhone, objPhone));
+        arrErrors += regexValidation(reAddress, objAddress);
+        arrErrors += regexValidation(reCity, objCity);
+        arrErrors += regexValidation(rePhone, objPhone);
+        //CHECK
+        let chbTerms = document.getElementsByName("terms");
+        try {
+            if (!chbTerms[0].checked) {
+                chbTerms[0].nextElementSibling.nextElementSibling.classList.remove("d-none");
+                chbTerms[0].nextElementSibling.nextElementSibling.classList.add("d-block");
+                throw ("Niste pročitali uslove korišćenja.");
+            }
+            else {
+                chbTerms[0].nextElementSibling.nextElementSibling.classList.add("d-none");
+                chbTerms[0].nextElementSibling.nextElementSibling.classList.remove("d-block");
+                chbTerms[0].nextElementSibling.nextElementSibling.innerHTML = "";
+            }
         }
-        else {
-            chbTerms[0].nextElementSibling.nextElementSibling.classList.add("d-none");
-            chbTerms[0].nextElementSibling.nextElementSibling.classList.remove("d-block");
-            chbTerms[0].nextElementSibling.nextElementSibling.innerHTML = "";
+        catch (error) {
+            chbTerms[0].nextElementSibling.nextElementSibling.innerHTML = error;
         }
     }
-    catch (error) {
-        chbTerms[0].nextElementSibling.nextElementSibling.innerHTML = error;
+
+    if (objConfirmPass.value != objPass.value) {
+        objConfirmPass.nextElementSibling.classList.remove("d-none");
+        objConfirmPass.nextElementSibling.classList.add("d-block");
+
+        objConfirmPass.previousElementSibling.classList.remove("d-none");
+        objConfirmPass.previousElementSibling.classList.add("d-inline");
+        objConfirmPass.nextElementSibling.innerHTML = "Lozinka nije ista!";
     }
+    else {
+        objConfirmPass.previousElementSibling.classList.remove("d-inline");
+        objConfirmPass.previousElementSibling.classList.add("d-none");
+        objConfirmPass.nextElementSibling.classList.remove("d-block");
+        objConfirmPass.nextElementSibling.classList.add("d-none");
+        objConfirmPass.nextElementSibling.innerHTML = "";
+    }
+
+    if (arrErrors) {
+        return false;
+    }
+    return true;
+    
 }
 
 
-function regexValidation(re, obj){    
+function regexValidation(re, obj){
     try {
         if (!re.test(obj.value)) {
             //WRONG INPUT HANDLING
@@ -661,6 +741,9 @@ function regexValidation(re, obj){
             else if (obj == objEmail) {
                 throw("Email nije u dobrom formatu. Primer: username@gmail.com...");
             }
+            else if (obj == objPass) {
+                throw("Lozinka mora sadržati 8-20 karaktera i to samo slova i brojeve.");
+            }
         }
         else {
             obj.previousElementSibling.classList.remove("d-inline");
@@ -668,6 +751,7 @@ function regexValidation(re, obj){
             obj.nextElementSibling.classList.remove("d-block");
             obj.nextElementSibling.classList.add("d-none");
             obj.nextElementSibling.innerHTML = "";
+            return 0;
         }
     }
     catch (err) {
@@ -675,6 +759,7 @@ function regexValidation(re, obj){
         obj.previousElementSibling.classList.remove("d-none");
         obj.previousElementSibling.classList.add("d-inline");
         obj.nextElementSibling.innerHTML = err;
+        return 1;
     }
 }
 
@@ -694,7 +779,7 @@ function printRestaurants(categoriesIDs, deliveryInputValue, sortInput, searchIn
 
     newRestaurants.forEach(restaurant => {
         print += `<div class="col-lg-4 col-md-6 col-12 mb-5 d-flex justify-content-center align-items-center">
-        <a href="restaurant${restaurant.id}.html" class="mb-restaurant-a">
+        <a href="restaurant${restaurant.id}.php" class="mb-restaurant-a">
            <div class="card border-0 rounded">
               <img src="${BASE_IMG}${restaurant.image.alt}${restaurant.image.src}" alt="${restaurant.image.alt}" class="card-img mb-restaurant-img"/>
               <div class="card-body p-0 mb-restaurant-card position-absolute rounded">
@@ -811,26 +896,26 @@ function ajaxCallback(file,callback) {
 }
 
 
-function createNavbar() {
-    let navbarUl = document.getElementById("mb-navbar-ul");
-    let navLinks = JSON.parse(localStorage.getItem("navigation.json"));
-    let links = [];
-    let linksNames = [];
-    for (let navLink of navLinks) {
-        links.push(navLink["link"]);
-        linksNames.push(navLink["text"]);
-    }
-    //let links = ["index.html","restaurants.html","author.html","get-started.html"];
-    //let linksNames = ["Home","Restaurants","Author","Get Started"];
+// function createNavbar() {
+//     let navbarUl = document.getElementById("mb-navbar-ul");
+//     let navLinks = JSON.parse(localStorage.getItem("navigation.json"));
+//     let links = [];
+//     let linksNames = [];
+//     for (let navLink of navLinks) {
+//         links.push(navLink["link"]);
+//         linksNames.push(navLink["text"]);
+//     }
+//     //let links = ["index.php","restaurants.php","author.php","get-started.html"];
+//     //let linksNames = ["Home","Restaurants","Author","Get Started"];
 
-    let print = "";
-    for (let i = 0; i < linksNames.length; i++) {
-        print += `<li class="nav-item  ${linksNames[i]=="Get Started"?" me-5":""}">
-        <a class="nav-link ${linksNames[i]=="<i class='fa-solid fa-cart-shopping'></i>"?"me-5":""}" href="${links[i]}">${linksNames[i]=="<i class='fa-solid fa-cart-shopping'></i>" || linksNames[i] == "<i class='fa-solid fa-heart'></i>"?linksNames[i] + "<span class='mb-show-number btn btn-warning text-white'>0</span>":linksNames[i]}</a>
-      </li>`
-    }
-    navbarUl.innerHTML = print;
-}
+//     let print = "";
+//     for (let i = 0; i < linksNames.length; i++) {
+//         print += `<li class="nav-item  ${linksNames[i]=="Get Started"?" me-5":""}">
+//         <a class="nav-link ${linksNames[i]=="<i class='fa-solid fa-cart-shopping'></i>"?"me-5":""}" href="${links[i]}">${linksNames[i]=="<i class='fa-solid fa-cart-shopping'></i>" || linksNames[i] == "<i class='fa-solid fa-heart'></i>"?linksNames[i] + "<span class='mb-show-number btn btn-warning text-white'>0</span>":linksNames[i]}</a>
+//       </li>`
+//     }
+//     navbarUl.innerHTML = print;
+// }
 
 
 function navbarShrinkOnScroll() {
@@ -867,7 +952,7 @@ function foodCategoriesOwlCarouselPrint() {
     
     cloneFoodCategories.forEach(category => {
         print += `<div class="card" style="width: 18rem;">
-                    <a href="restaurants.html?categoryID=${category.id}" class="mb-category-anchor">
+                    <a href="restaurants.php?categoryID=${category.id}" class="mb-category-anchor">
                     <img src="${BASE_IMG}food-category${category.id}.jpg" class="card-img-top img-fluid" alt="food"/>
                     <div class="card-body">
                         <h6 class="card-subtitle mb-2 text-muted text-center">${category.name}</h6>

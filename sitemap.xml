@@ -5,104 +5,123 @@
       xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 <url>
-  <loc>https://kanibalkorps.github.io/delivry/index.html</loc>
-  <lastmod>2023-03-08T22:18:12+00:00</lastmod>
+  <loc>https://delivry-food.000webhostapp.com/delivry/index.php</loc>
+  <lastmod>2023-03-16T21:54:16+00:00</lastmod>
+  <changefreq>daily</changefreq>
   <priority>1.00</priority>
 </url>
 <url>
-  <loc>https://kanibalkorps.github.io/delivry/restaurants.html</loc>
-  <lastmod>2023-03-08T22:18:12+00:00</lastmod>
+  <loc>https://delivry-food.000webhostapp.com/delivry/restaurants.php</loc>
+  <lastmod>2023-03-16T21:54:16+00:00</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.95</priority>
 </url>
 <url>
-  <loc>https://kanibalkorps.github.io/delivry/restaurants.html</loc>
-  <lastmod>2023-03-08T22:18:12+00:00</lastmod>
+  <loc>https://delivry-food.000webhostapp.com/delivry/admin-panel.php</loc>
+  <lastmod>2023-03-16T21:54:16+00:00</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.90</priority>
 </url>
 <url>
-  <loc>https://kanibalkorps.github.io/delivry/restaurant1.html</loc>
-  <lastmod>2023-03-08T22:18:12+00:00</lastmod>
+  <loc>https://delivry-food.000webhostapp.com/delivry/restaurant1.php</loc>
+  <lastmod>2023-03-16T21:54:16+00:00</lastmod>
   <changefreq>weekly</changefreq>
-  <priority>0.85</priority>
-</url>
-<url>
-  <loc>https://kanibalkorps.github.io/delivry/restaurant2.html</loc>
-  <lastmod>2023-03-08T22:18:12+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.85</priority>
-</url>
-<url>
-  <loc>https://kanibalkorps.github.io/delivry/restaurant3.html</loc>
-  <lastmod>2023-03-08T22:18:12+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.85</priority>
-</url>
-<url>
-  <loc>https://kanibalkorps.github.io/delivry/restaurant4.html</loc>
-  <lastmod>2023-03-08T22:18:12+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.85</priority>
-</url>
-<url>
-  <loc>https://kanibalkorps.github.io/delivry/restaurant5.html</loc>
-  <lastmod>2023-03-08T22:18:12+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.85</priority>
-</url>
-<url>
-  <loc>https://kanibalkorps.github.io/delivry/restaurant6.html</loc>
-  <lastmod>2023-03-08T22:18:12+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.85</priority>
-</url>
-<url>
-  <loc>https://kanibalkorps.github.io/delivry/restaurant7.html</loc>
-  <lastmod>2023-03-08T22:18:12+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.85</priority>
-</url>
-<url>
-  <loc>https://kanibalkorps.github.io/delivry/restaurant8.html</loc>
-  <lastmod>2023-03-08T22:18:12+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.85</priority>
-</url>
-<url>
-  <loc>https://kanibalkorps.github.io/delivry/restaurant9.html</loc>
-  <lastmod>2023-03-08T22:18:12+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.85</priority>
-</url>
-<url>
-  <loc>https://kanibalkorps.github.io/delivry/restaurant10.html</loc>
-  <lastmod>2023-03-08T22:18:12+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.85</priority>
-</url>
-<url>
-  <loc>https://kanibalkorps.github.io/delivry/restaurant11.html</loc>
-  <lastmod>2023-03-08T22:18:12+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.85</priority>
-</url>
-<url>
-  <loc>https://kanibalkorps.github.io/delivry/restaurant12.html</loc>
-  <lastmod>2023-03-08T22:18:12+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.85</priority>
-</url>
-<url>
-  <loc>https://kanibalkorps.github.io/delivry/cart.html</loc>
-  <lastmod>2023-03-08T22:18:12+00:00</lastmod>
-  <changefreq>monthly</changefreq>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://kanibalkorps.github.io/delivry/checkout.html</loc>
-  <lastmod>2023-03-08T22:18:12+00:00</lastmod>
+  <loc>https://delivry-food.000webhostapp.com/delivry/restaurant2.php</loc>
+  <lastmod>2023-03-16T21:54:16+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://delivry-food.000webhostapp.com/delivry/restaurant3.php</loc>
+  <lastmod>2023-03-16T21:54:16+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://delivry-food.000webhostapp.com/delivry/restaurant4.php</loc>
+  <lastmod>2023-03-16T21:54:16+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://delivry-food.000webhostapp.com/delivry/restaurant5.php</loc>
+  <lastmod>2023-03-16T21:54:16+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://delivry-food.000webhostapp.com/delivry/restaurant6.php</loc>
+  <lastmod>2023-03-16T21:54:16+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://delivry-food.000webhostapp.com/delivry/restaurant7.php</loc>
+  <lastmod>2023-03-16T21:54:16+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://delivry-food.000webhostapp.com/delivry/restaurant8.php</loc>
+  <lastmod>2023-03-16T21:54:16+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://delivry-food.000webhostapp.com/delivry/restaurant9.php</loc>
+  <lastmod>2023-03-16T21:54:16+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://delivry-food.000webhostapp.com/delivry/restaurant10.php</loc>
+  <lastmod>2023-03-16T21:54:16+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://delivry-food.000webhostapp.com/delivry/restaurant11.php</loc>
+  <lastmod>2023-03-16T21:54:16+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://delivry-food.000webhostapp.com/delivry/restaurant12.php</loc>
+  <lastmod>2023-03-16T21:54:16+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://delivry-food.000webhostapp.com/delivry/author.php</loc>
+  <lastmod>2023-03-16T21:54:16+00:00</lastmod>
   <changefreq>monthly</changefreq>
-  <priority>0.75</priority>
+  <priority>0.65</priority>
+</url>
+<url>
+  <loc>https://delivry-food.000webhostapp.com/delivry/form-register.php</loc>
+  <lastmod>2023-03-16T21:54:16+00:00</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.70</priority>
+</url>
+<url>
+  <loc>https://delivry-food.000webhostapp.com/delivry/cart.php</loc>
+  <lastmod>2023-03-16T21:54:16+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.85</priority>
+</url>
+<url>
+  <loc>https://delivry-food.000webhostapp.com/delivry/form-login.php</loc>
+  <lastmod>2023-03-16T21:54:16+00:00</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.70</priority>
+</url>
+<url>
+  <loc>https://delivry-food.000webhostapp.com/delivry/checkout.php</loc>
+  <lastmod>2023-03-16T21:54:16+00:00</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.64</priority>
 </url>
 </urlset>

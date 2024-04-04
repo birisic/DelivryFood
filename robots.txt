@@ -7,3 +7,5 @@ Disallow: /owl-carousel/
 Disallow: /reserve code/
 Disallow: /webfonts/
 Disallow: /documentation.pdf/
+Disallow: /config/
+Disallow: /logic/

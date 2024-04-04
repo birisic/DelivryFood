@@ -1,3 +1,39 @@
+<?php
+    session_start();
+    include_once("logic/utility.php");
+    if (isset($_SESSION['user'])) {
+        redirectPage("user-profile.php");
+    }
+
+    include_once("config/connection.php");
+    include_once("logic/functions.php");
+    if (isset($_POST['btnLogin'])) {
+        $email = $_POST['userEmail'];
+        $password = $_POST['userPass'];
+
+        //CHECK INPUTS
+        $errors = loginInputsCheck($email, $password);
+
+        if (count($errors) == 0) {
+
+            $loggedUser = logIn($email, $password);
+
+            if ($loggedUser) {
+                $_SESSION['user'] = $loggedUser;
+                if ($loggedUser->role == "buyer") {
+                    redirectPage("user-profile.php");
+                }
+                else {
+                    //ADMIN
+                    redirectPage("admin-panel.php");
+                }
+            }
+            else {
+                $_SESSION['error-login'] = "Error while logging in.";
+            }
+        }
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -35,21 +71,11 @@
         <title>Delivry - Order Best Restaurants!</title>
      </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-           <div class="header-bar ms-lg-5 ms-2">
-              <h1><a href="index.php">Delivry</a></h1>
-           </div>
-          <button class="navbar-toggler me-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto" id="mb-navbar-ul">
-              
-            </ul>
-          </div>
-        </div>
-    </nav>
+   <?php
+      if ($connection) {
+         include_once("includes/navbar.php");
+      }
+   ?>
     <div class="header-main" id="home">
         <div class="slider">
            <div class="callbacks_container">
@@ -58,10 +84,8 @@
                     <div class="three-img">
                        <div class="container">
                           <div class="slider-info mb-header-spacing">
-                             <h5 id="mb-restaurant-title"></h5>
-                             <form class="d-flex pt-3 mx-md-0 mx-auto pb-5" action="" method="get" id="mb-search">
-                                <input class="form-control mb-5" type="search" name="inputSearch" id="input-search" placeholder="Search restaurant" aria-label="Search"/>
-                              </form>
+                             <h5 id="mb-restaurant-title">Log in</h5>
+                             
                           </div>
                        </div>
                     </div>
@@ -70,58 +94,74 @@
            </div>
            <div class="clearfix"></div>
         </div>
-        
-    </div
+      </div>
 
-    <!--GO TO CART-->
-    <section class="subscribe-footer">
-        <h2 class="text-center text-white pt-5 pb-3">Review your orders</h2>
-        <div class="container-fluid ">
-           <div class="row">
-              <div class="col-12 d-flex justify-content-center align-items-center">
-                 <a href="cart.php" class="btn btn-warning mt-5 mb-5 fs-3 text-white">Go to your cart</a>
-              </div>
-           </div>
+      <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-11 mx-auto">
+            
+            <!--    logic/login.php-->
+            <form action="<?php $_SERVER['PHP_SELF'];?>" method="POST" onsubmit="return formValidationOnSubmit()" id="mb-form-shopping" name="form-shopping">
+                       <table class="mb-table-login" align="center">
+                           <tbody >
+                               <tr>
+                                   <td colspan="2">
+                                       <div class="mb-3">
+                                           <label for="user-email" class="form-label text-dark">Email</label>
+                                           <span class="<?= isset($errors["emailError"])?"d-inline-block":"d-none";?> mb-shopping-required px-1">*</span>
+                                           <input type="email" class="form-control" name="userEmail" id="user-email" placeholder="peraperic@gmail.com" value="<?=isset($_POST['userEmail'])?$email:""?>"/>
+                                           <span class="<?= isset($errors["emailError"])?"d-block":"d-none";?> mb-span-danger-large text-danger">
+                                                <?= isset($errors["emailError"])?$errors['emailError']:"";?>
+                                            </span>
+                                       </div>
+                                   </td>
+                               </tr>
+                               <tr>
+                                   <td colspan="2">
+                                       <div class="mb-3">
+                                           <label for="user-password" class="form-label text-dark">Password</label>
+                                           <span class="<?= isset($errors["passwordError"])?"d-inline-block":"d-none";?> mb-shopping-required px-1">*</span>
+                                           <input type="password" class="form-control" name="userPass" id="user-password"/>
+                                           <span class="<?= isset($errors["passwordError"])?"d-block":"d-none";?> mb-span-danger-large text-danger">
+                                                <?= isset($errors["passwordError"])?$errors['passwordError']:"";?>
+                                            </span>
+                                       </div>
+                                   </td>
+                               </tr>
+                               <tr>
+                                   <td colspan="2">
+                                       <div class="mb-3 text-center">
+                                           <input type="submit" value="Log in" id="btn-login" name="btnLogin" class="btn btn-warning text-white"/>
+                                       </div>
+                                   </td>
+                               </tr>
+                           </tbody>
+                       </table>
+                   </form>
+                   <div class="mb-error-msg w-75 mx-auto">
+                        <?php
+                            if (isset($_SESSION['error-login'])):
+                        ?>
+                            <p class="alert alert-danger text-center"><?=$_SESSION['error-login'];?></p>
+                        <?php 
+                            session_destroy();
+                            endif;
+                        ?>
+
+                    </div>
+                    <div class="mb-log-link mb-5">
+                        <p class="text-center">Don't have an account? <a class="text-warning fw-bold" href="form-register.php">Register</a></p>
+                    </div>
+                    
+            </div>
         </div>
-       </section>
-       <section class="buttom-footer py-lg-4 py-md-3 py-sm-3 py-3">
-       <div class="container pt-lg-5 pt-md-5 pt-sm-4 pt-4">
-          <div class="row footer-agile-grids ">
-                   <div class="col-lg-3 col-md-6 col-12 footer-header pl-0">
-                      <h4><a href="index.php" class="text-warning fw-bold">Delivry</a></h4>
-                      <p>Enjoy your every meal.</p>
-                   </div>
-                   <div class="col-lg-3 col-md-6 col-12 footer-para">
-                       <h4 class="pb-lg-3 pb-3 text-warning fw-bold">Contact Us</h4>
-                      <p>Belgrade, Serbia<br>Cetinjska 3</p>
-                      <p>+381 062318723</p>
-                      <p><a href="mailto:birisicmartin02@gmail.com" class="text-warning">birisicmartin02&#64;gmail&#46;com</a></p>
-                   </div>
-                   <div class="col-lg-3 col-12 my-lg-0 my-3 wthree-left-right">
-                      <h4 class="pb-lg-3 pb-3">About Us</h4>
-                      <div class="address-para">
-                         <p>We are a dedicated team of professionals who believe in making the delivery process of food simple, fast, and reliable.</p>
-                      </div>
-                   </div>
-                   <div class="col-lg-3 col-12 wthree-left-right ">
-                      <h4 class="pb-lg-3 pb-3">Follow us</h4>
-                      <div class="icons">
-                         <ul>
-                            <li><a href="https://www.facebook.com" target="_blank"><i class="fa-brands fa-square-facebook"></i></a></li>
-                            <li><a href="mailto:birisicmartin02@gmail.com" target="_blank"><i class="fa-regular fa-envelope"></i></a></li>
-                            <li><a href="https://www.instagram.com" target="_blank"><i class="fa-brands fa-instagram"></i></a></li>
-                            <li><a href="sitemap.xml" target="_blank"><i class="fa-solid fa-sitemap"></i></a></li>
-                            <li><a href="documentation.pdf" target="_blank"><i class="fa-solid fa-book"></i></a></li>
-                         </ul>
-                      </div>
-                   </div>
-                </div>
-          </div>
-       </div>
-       </section>
-       <footer>
-           <p class="mb-footer-copy text-muted">&copy;2023 Delivry. All Rights Reserved | Design by <a href="http://www.W3Layouts.com" target="_blank" class="text-muted">W3Layouts</a></p>
-       </footer>
+      </div>
+
+
+    <?php 
+      include_once("includes/footer.php");
+      $connection = null;
+    ?>
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
@@ -139,8 +179,8 @@
        activate: function(event) { // Callback function if tab is switched
        var $tab = $(this);
        var $info = $('#tabInfo');
-       var $name = $('span', $info);
-       $name.text($tab.text());
+       var $userName = $('span', $info);
+       $userName.text($tab.text());
        $info.show();
        }
        });

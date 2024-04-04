@@ -1,3 +1,9 @@
+<?php
+   session_start();
+   include_once("logic/utility.php");
+   include_once("config/connection.php");
+   include_once("logic/functions.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -35,21 +41,11 @@
         <title>Delivry - Order Best Restaurants!</title>
      </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-           <div class="header-bar ms-lg-5 ms-2">
-              <h1><a href="index.php">Delivry</a></h1>
-           </div>
-          <button class="navbar-toggler me-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto" id="mb-navbar-ul">
-              
-            </ul>
-          </div>
-        </div>
-    </nav>
+   <?php
+      if ($connection) {
+         include_once("includes/navbar.php");
+      }
+   ?>
     <div class="header-main" id="home">
         <div class="slider">
            <div class="callbacks_container">
@@ -58,10 +54,8 @@
                     <div class="three-img">
                        <div class="container">
                           <div class="slider-info mb-header-spacing">
-                             <h5 id="mb-restaurant-title"></h5>
-                             <form class="d-flex pt-3 mx-md-0 mx-auto pb-5" action="" method="get" id="mb-search">
-                                <input class="form-control mb-5" type="search" name="inputSearch" id="input-search" placeholder="Search restaurant" aria-label="Search"/>
-                              </form>
+                             <h5 id="mb-restaurant-title">Author</h5>
+                             
                           </div>
                        </div>
                     </div>
@@ -71,57 +65,30 @@
            <div class="clearfix"></div>
         </div>
         
-    </div
+      </div>
 
-    <!--GO TO CART-->
-    <section class="subscribe-footer">
-        <h2 class="text-center text-white pt-5 pb-3">Review your orders</h2>
-        <div class="container-fluid ">
-           <div class="row">
-              <div class="col-12 d-flex justify-content-center align-items-center">
-                 <a href="cart.php" class="btn btn-warning mt-5 mb-5 fs-3 text-white">Go to your cart</a>
-              </div>
-           </div>
-        </div>
-       </section>
-       <section class="buttom-footer py-lg-4 py-md-3 py-sm-3 py-3">
-       <div class="container pt-lg-5 pt-md-5 pt-sm-4 pt-4">
-          <div class="row footer-agile-grids ">
-                   <div class="col-lg-3 col-md-6 col-12 footer-header pl-0">
-                      <h4><a href="index.php" class="text-warning fw-bold">Delivry</a></h4>
-                      <p>Enjoy your every meal.</p>
-                   </div>
-                   <div class="col-lg-3 col-md-6 col-12 footer-para">
-                       <h4 class="pb-lg-3 pb-3 text-warning fw-bold">Contact Us</h4>
-                      <p>Belgrade, Serbia<br>Cetinjska 3</p>
-                      <p>+381 062318723</p>
-                      <p><a href="mailto:birisicmartin02@gmail.com" class="text-warning">birisicmartin02&#64;gmail&#46;com</a></p>
-                   </div>
-                   <div class="col-lg-3 col-12 my-lg-0 my-3 wthree-left-right">
-                      <h4 class="pb-lg-3 pb-3">About Us</h4>
-                      <div class="address-para">
-                         <p>We are a dedicated team of professionals who believe in making the delivery process of food simple, fast, and reliable.</p>
-                      </div>
-                   </div>
-                   <div class="col-lg-3 col-12 wthree-left-right ">
-                      <h4 class="pb-lg-3 pb-3">Follow us</h4>
-                      <div class="icons">
-                         <ul>
-                            <li><a href="https://www.facebook.com" target="_blank"><i class="fa-brands fa-square-facebook"></i></a></li>
-                            <li><a href="mailto:birisicmartin02@gmail.com" target="_blank"><i class="fa-regular fa-envelope"></i></a></li>
-                            <li><a href="https://www.instagram.com" target="_blank"><i class="fa-brands fa-instagram"></i></a></li>
-                            <li><a href="sitemap.xml" target="_blank"><i class="fa-solid fa-sitemap"></i></a></li>
-                            <li><a href="documentation.pdf" target="_blank"><i class="fa-solid fa-book"></i></a></li>
-                         </ul>
-                      </div>
-                   </div>
-                </div>
-          </div>
-       </div>
-       </section>
-       <footer>
-           <p class="mb-footer-copy text-muted">&copy;2023 Delivry. All Rights Reserved | Design by <a href="http://www.W3Layouts.com" target="_blank" class="text-muted">W3Layouts</a></p>
-       </footer>
+      <section class="container mb-5">
+         <div class="row justify-content-center align-items-center flex-wrap">
+            <div class="col-xl-5 col-md-6 col-12 d-flex justify-content-center">
+               <div id="mb-author" class="w-75 d-flex justify-content-center align-items-center">
+                  <img src="images/2-cropped.jpg" class="img-fluid" alt="author ima ge"/>
+               </div>
+            </div>
+            <div class="col-xl-4 col-md-5 col-12 d-flex justify-content-center align-items-center flex-wrap">
+               <div id="mb-author-text">
+                  <h2 class="py-2">Martin Birišić</h2>
+                  <h3 class="py-2">Internet tehnologije</h3>
+                  <h3 class="py-2">Web programiranje PHP 1</h3>
+                  <h3 class="py-2">22/21</h3>
+               </div>
+            </div>
+         </div>
+      </section>
+
+    <?php 
+      include_once("includes/footer.php");
+      $connection = null;
+    ?>
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>

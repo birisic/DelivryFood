@@ -1,3 +1,9 @@
+<?php
+    session_start();
+    include_once("logic/utility.php");
+    include_once("config/connection.php");
+    include_once("logic/functions.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -35,21 +41,11 @@
         <title>Delivry - Your Cart</title>
      </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-           <div class="header-bar ms-lg-5 ms-2">
-              <h1><a href="index.html">Delivry</a></h1>
-           </div>
-          <button class="navbar-toggler me-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto" id="mb-navbar-ul">
-              
-            </ul>
-          </div>
-        </div>
-    </nav>
+    <?php
+      if ($connection) {
+         include_once("includes/navbar.php");
+      }
+   ?>
 
 
     <!--subscribe-->
@@ -172,7 +168,7 @@
         <div class="container pt-lg-5 pt-md-5 pt-sm-4 pt-4">
            <div class="row footer-agile-grids ">
                     <div class="col-lg-3 col-md-6 col-12 footer-header pl-0">
-                       <h4><a href="index.html" class="text-warning fw-bold">Delivry</a></h4>
+                       <h4><a href="index.php" class="text-warning fw-bold">Delivry</a></h4>
                        <p>Enjoy your every meal.</p>
                     </div>
                     <div class="col-lg-3 col-md-6 col-12 footer-para">

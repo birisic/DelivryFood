@@ -1,18 +1,22 @@
 [
     {
         "text": "Home",
-        "link": "index.html"
+        "link": "index.php"
     },
     {
         "text": "Restaurants",
-        "link": "restaurants.html"
+        "link": "restaurants.php"
     },
     {
         "text": "Author",
-        "link": "author.html"
+        "link": "author.php"
+    },
+    {
+        "text": "<i class='fa-solid fa-user'></i>",
+        "link": "registration.php"
     },
     {
         "text": "<i class='fa-solid fa-cart-shopping'></i>",
-        "link": "cart.html"
+        "link": "cart.php"
     }
 ]

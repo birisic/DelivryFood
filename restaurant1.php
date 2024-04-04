@@ -1,3 +1,9 @@
+<?php
+   session_start();
+   include_once("logic/utility.php");
+   include_once("config/connection.php");
+   include_once("logic/functions.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -32,24 +38,14 @@
   
         <!-- main css -->
         <link href="css/style.css" rel="stylesheet" type="text/css"/>
-        <title>Delivry - Your Cart</title>
+        <title>Delivry - Order Best Restaurants!</title>
      </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-           <div class="header-bar ms-lg-5 ms-2">
-              <h1><a href="index.html">Delivry</a></h1>
-           </div>
-          <button class="navbar-toggler me-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto" id="mb-navbar-ul">
-              
-            </ul>
-          </div>
-        </div>
-    </nav>
+    <?php
+      if ($connection) {
+         include_once("includes/navbar.php");
+      }
+    ?>
     <div class="header-main" id="home">
         <div class="slider">
            <div class="callbacks_container">
@@ -58,7 +54,10 @@
                     <div class="three-img">
                        <div class="container">
                           <div class="slider-info mb-header-spacing">
-                             <h5 class="pb-5" id="mb-order-restaurant-name">Your order</h5>
+                             <h5 id="mb-restaurant-title"></h5>
+                             <form class="d-flex pt-3 mx-md-0 mx-auto pb-5" action="" method="get" id="mb-search">
+                                <input class="form-control mb-5" type="search" name="inputSearch" id="restaurant-input-search" placeholder="Search restaurant" aria-label="Search"/>
+                              </form>
                           </div>
                        </div>
                     </div>
@@ -69,97 +68,90 @@
         </div> 
     </div>
 
-    <!-- TABLE -->
-    
-    <h2 id="mb-order-message" class="d-none text-center">Your items</h2>
-
-    <div class="table-responsive-lg mx-5">
-        <table class="table table-bordered table-striped table-hover border rounded" id="mb-cart-table">
-            <thead>
-                <tr>
-                    <th class="col">
-                        
-                    </th>
-                    <th class="col">
-                        Food
-                    </th>
-                    <th class="col">
-                        Ammount
-                    </th>
-                    <th class="col">
-                        Unit price
-                    </th>
-                    <th class="col">
-                        Total price
-                    </th>
-                    <th class="col">
-                        Remove
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-
-            </tbody>
-        </table>
-    </div>
-
-    <section class="container my-5">
-        <div class="row">
-            <div class="col-lg-4 col-md-6 col-9 ms-auto me-0 pe-md-3 pe-5">
-                <h3 class="border p-2 text-center" id="mb-receipt-header">Receipt: <span id="mb-order-recepit" class="text-warning fw-bold">0</span> RSD</h3>
+    <!-- INFO ABOUT RESTAURANT -->
+    <section id="mb-restaurant-info" class="container-fluid mb-4">
+        <div class="row d-flex justify-content-center">
+            <div class="col-12 d-flex justify-content-center align-items-center flex-wrap">
+                <div class="mb-restaurant-info-text d-flex justify-content-center align-items-center">
+                    <span id="mb-restaurant-working-time" class="px-3 text-center"></span>
+                    <span id="mb-restaurant-more-info" class="px-3 text-center"><button type="button" class="mb-contact-modal-btn text-warning text-decoration-none" id="mb-modal-btn" data-bs-toggle="modal" data-bs-target="#exampleModalInfo">
+                        More info
+                      </button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabelInfo" aria-hidden="true">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabelInfo">Information about restaurant</h5>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                              <span id="moreInfoWorkingHours"></span>
+                              <span id="moreInfoAddress"></span>
+                              <span id="moreInfoDeliveryTime"></span>
+                              <span id="moreInfoMinimalDeliveryPrice"></span>
+                              <span id="moreInfoEmail"></span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </span>
+                </div>
+                <div class="mb-restaurant-info-icons d-flex justify-content-center align-items-center pt-md-0 pt-3">
+                    <span id="mb-restaurant-rating" class="px-3 text-center"><i class="fa-solid fa-star text-warning"></i></span>
+                    <span id="mb-restaurant-add-favorites" class="px-3 fs-4 text-center"><i class='fa-solid fa-heart'></i></span>
+                </div>
+                
             </div>
         </div>
     </section>
 
-    <!--subscribe-->
-    <section class="subscribe-footer">
-        <h2 class="text-center text-white pt-5 pb-3">Proceed to checkout</h2>
-        <div class="container-fluid ">
-           <div class="row">
-              <div class="col-12 d-flex justify-content-center align-items-center">
-                 <a href="checkout.html" class="btn btn-warning mt-5 mb-5 fs-3 text-white">Checkout</a>
-              </div>
-           </div>
+    <!-- FILTERS AND SORTS -->
+    <section id="mb-restaurant-filters-sorts" class="container-fluid mb-5 pt-3 border-top">
+        <div class="row d-flex justify-content-center align-items-center">
+            <div class="col-md-4">
+                <div id="mb-restaurant-categories-title">
+                    <h5 class="text-center">Filter by category</h5>
+                </div>
+                <form id="mb-restaurant-categories-spans" class="d-flex justify-content-center align-items-center flex-wrap mt-2">
+
+                </form>
+            </div>
+            <div class="col-md-4 mt-md-0 mt-4">
+                <form action="">
+                    <div class="">
+                        <div class="mb-range-text d-flex justify-content-center align-items-center">
+                           <label for="mb-range" class="fs-5">Max price: </label>
+                            <output class="fs-5" id="mb-range-output"> 1500 RSD</output> 
+                        </div>
+                        <input id="mb-range" class="form-range d-block mx-auto" type="range" value="1500" min="500" max="1500" step="100" oninput="this.previousElementSibling.lastElementChild.value = this.value + ' RSD'">
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-4 mt-md-0 mt-4">
+                <div id="mb-restaurant-sorts-title">
+                    <h5 class="text-center">Sort by:</h5>
+                </div>
+                <div id="mb-restaurant-sorts-dropdown" class="d-flex justify-content-center align-items-center flex-wrap mt-2">
+                    <select name="restaurantSortsSelect" id="mb-restaurant-sorts-select" class="form-select w-50">
+
+                    </select>
+                </div>
+            </div>
         </div>
-       </section>
-       <section class="buttom-footer py-lg-4 py-md-3 py-sm-3 py-3">
-        <div class="container pt-lg-5 pt-md-5 pt-sm-4 pt-4">
-           <div class="row footer-agile-grids ">
-                    <div class="col-lg-3 col-md-6 col-12 footer-header pl-0">
-                       <h4><a href="index.html" class="text-warning fw-bold">Delivry</a></h4>
-                       <p>Enjoy your every meal.</p>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-12 footer-para">
-                        <h4 class="pb-lg-3 pb-3 text-warning fw-bold">Contact Us</h4>
-                       <p>Belgrade, Serbia<br>Cetinjska 3</p>
-                       <p>+381 062318723</p>
-                       <p><a href="mailto:birisicmartin02@gmail.com" class="text-warning">birisicmartin02&#64;gmail&#46;com</a></p>
-                    </div>
-                    <div class="col-lg-3 col-12 my-lg-0 my-3 wthree-left-right">
-                       <h4 class="pb-lg-3 pb-3">About Us</h4>
-                       <div class="address-para">
-                          <p>We are a dedicated team of professionals who believe in making the delivery process of food simple, fast, and reliable.</p>
-                       </div>
-                    </div>
-                    <div class="col-lg-3 col-12 wthree-left-right ">
-                       <h4 class="pb-lg-3 pb-3">Follow us</h4>
-                       <div class="icons">
-                          <ul>
-                             <li><a href="https://www.facebook.com" target="_blank"><i class="fa-brands fa-square-facebook"></i></a></li>
-                             <li><a href="mailto:birisicmartin02@gmail.com" target="_blank"><i class="fa-regular fa-envelope"></i></a></li>
-                             <li><a href="https://www.instagram.com" target="_blank"><i class="fa-brands fa-instagram"></i></a></li>
-                             <li><a href="sitemap.xml" target="_blank"><i class="fa-solid fa-sitemap"></i></a></li>
-                             <li><a href="documentation.pdf" target="_blank"><i class="fa-solid fa-book"></i></a></li>
-                          </ul>
-                       </div>
-                    </div>
-                 </div>
-           </div>
+    </section>   
+
+     <!-- FOOD PRINTING  -->
+    <section id="mb-restaurant-food" class="container-fluid">
+        <div class="row justify-content-around align-items-center" id="mb-restaurant-food-row">
+            
         </div>
-        </section>
-        <footer>
-            <p class="mb-footer-copy text-muted">&copy;2023 Delivry. All Rights Reserved | Design by <a href="http://www.W3Layouts.com" target="_blank" class="text-muted">W3Layouts</a></p>
-        </footer>
+    </section>
+
+    <?php
+         include_once("includes/footer.php");
+         $connection = null;
+        ?>
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
